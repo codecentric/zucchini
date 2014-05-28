@@ -1,7 +1,7 @@
-CCUnit
-======
+Zucchini
+========
 
-CCUnit is a BDD-style testing library that integrates well with JUnit and other testing frameworks.
+Zucchini is a BDD-style testing library that integrates well with JUnit and other testing frameworks.
 
 ## Installation
 
@@ -14,7 +14,7 @@ You can use the BDD-style fluent interfaces alone:
 ```xml
 <dependency>
 	<groupId>de.codecentric</groupId>
-	<artifactId>ccunit-bdd</artifactId>
+	<artifactId>zucchini-bdd</artifactId>
 	<version>1.0.0</version>
 </dependency>
 ```
@@ -24,7 +24,7 @@ or with Selenium support:
 ```xml
 <dependency>
 	<groupId>de.codecentric</groupId>
-	<artifactId>ccunit-web</artifactId>
+	<artifactId>zucchini-web</artifactId>
 	<version>1.0.0</version>
 </dependency>
 ```
@@ -39,7 +39,7 @@ You can easily add this library to your classpath. Make sure you add the followi
 
 ## Examples
 
-See the ccunit-examples project.
+See the zucchini-examples project.
 
 ## Contributing
 
