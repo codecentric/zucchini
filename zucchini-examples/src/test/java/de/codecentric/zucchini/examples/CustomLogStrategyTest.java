@@ -17,31 +17,28 @@
 package de.codecentric.zucchini.examples;
 
 import de.codecentric.zucchini.bdd.ExecutorHolder;
-import de.codecentric.zucchini.web.WebDriverExecutor;
-import de.codecentric.zucchini.web.provider.ChromeDriverProvider;
+import de.codecentric.zucchini.bdd.SimpleExecutor;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.By;
 
 import static de.codecentric.zucchini.bdd.dsl.TestContext.given;
-import static de.codecentric.zucchini.web.conditions.WebConditions.submit;
-import static de.codecentric.zucchini.web.conditions.WebConditions.type;
-import static de.codecentric.zucchini.web.facts.WebFacts.onPage;
-import static de.codecentric.zucchini.web.results.WebResults.see;
 
-public class CodecentricTest {
+public class CustomLogStrategyTest {
 	@Before
 	public void setUp() {
-		ExecutorHolder.setExecutor(new WebDriverExecutor(new ChromeDriverProvider()));
+		SimpleExecutor executor = new SimpleExecutor();
+		executor.setLogStrategy(statement -> System.out.println(statement.getClass().getSimpleName()));
+		ExecutorHolder.setExecutor(executor);
 	}
 
 	@Test
-	public void testSearchOnCodecentricWebsite() {
-		By searchInputField = By.name("s");
-		given(onPage(CodecentricPage.class))
-				.when(type("codecentric").into(searchInputField))
-				.andWhen(submit(searchInputField))
-				.then(see("codecentric"))
-				.end();
+	public void testCustomLogStrategy() {
+		given(() -> {
+			// Intentionally left blank.
+		}).when(() -> {
+			// Intentionally left blank.
+		}).then(() -> {
+			// Intentionally left blank.
+		}).end();
 	}
 }

@@ -18,4 +18,6 @@ package de.codecentric.zucchini.bdd.dsl;
 
 public interface RepeatingCausationContext extends FirstConditionalContext {
 	RepeatingCausationContext andGiven(Fact fact);
+
+	RepeatingCausationContext andGiven(String factName);
 }

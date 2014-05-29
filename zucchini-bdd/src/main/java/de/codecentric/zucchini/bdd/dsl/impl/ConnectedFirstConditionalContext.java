@@ -16,10 +16,11 @@
 
 package de.codecentric.zucchini.bdd.dsl.impl;
 
-import de.codecentric.zucchini.bdd.dsl.Step;
 import de.codecentric.zucchini.bdd.dsl.Fact;
 import de.codecentric.zucchini.bdd.dsl.FirstConditionalContext;
 import de.codecentric.zucchini.bdd.dsl.RepeatingConditionalContext;
+import de.codecentric.zucchini.bdd.dsl.Step;
+import de.codecentric.zucchini.bdd.resolver.StatementResolverHolder;
 
 import java.util.List;
 
@@ -33,6 +34,11 @@ public class ConnectedFirstConditionalContext implements FirstConditionalContext
 	@Override
 	public RepeatingConditionalContext when(Step step) {
 		return new ConnectedRepeatingConditionalContext(facts, step);
+	}
+
+	@Override
+	public RepeatingConditionalContext when(String stepName) {
+		return when(StatementResolverHolder.getStatementResolver().resolveStatement(stepName, Step.class));
 	}
 
 	List<Fact> getFacts() {

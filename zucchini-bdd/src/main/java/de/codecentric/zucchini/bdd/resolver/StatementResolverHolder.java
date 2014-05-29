@@ -14,8 +14,25 @@
  * limitations under the License.
  */
 
-package de.codecentric.zucchini.bdd.dsl;
+package de.codecentric.zucchini.bdd.resolver;
 
-public interface Step extends Statement {
-	void go();
+public class StatementResolverHolder {
+
+	private static final ThreadLocal<StatementResolver> factResolver = new ThreadLocal<StatementResolver>();
+
+	static {
+		setFactResolver(new SimpleStatementResolver());
+	}
+
+	public static StatementResolver getStatementResolver() {
+		return factResolver.get();
+	}
+
+	public static void setFactResolver(StatementResolver statementResolver) {
+		if (statementResolver == null) {
+			throw new NullPointerException("The statement resolver must not be null.");
+		}
+		StatementResolverHolder.factResolver.set(statementResolver);
+	}
+
 }

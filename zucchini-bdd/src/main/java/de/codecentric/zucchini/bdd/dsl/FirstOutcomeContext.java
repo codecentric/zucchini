@@ -18,4 +18,6 @@ package de.codecentric.zucchini.bdd.dsl;
 
 public interface FirstOutcomeContext {
 	RepeatingOutcomeContext then(Result result);
+
+	RepeatingOutcomeContext then(String resultName);
 }

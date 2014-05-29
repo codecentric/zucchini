@@ -14,18 +14,12 @@
  * limitations under the License.
  */
 
-package de.codecentric.zucchini.bdd.dsl.impl;
+package de.codecentric.zucchini.bdd.resolver;
 
-import de.codecentric.zucchini.bdd.dsl.Fact;
-import de.codecentric.zucchini.bdd.dsl.FirstCausationContext;
-import de.codecentric.zucchini.bdd.dsl.RepeatingCausationContext;
+import de.codecentric.zucchini.bdd.dsl.Statement;
 
-import static de.codecentric.zucchini.bdd.dsl.impl.util.ArrayConverter.createMutableList;
+public interface StatementResolver {
+	void addStatement(String statementName, Statement statement, Class<? extends Statement> type);
 
-public class ConnectedFirstCausationContext implements FirstCausationContext {
-
-	@Override
-	public RepeatingCausationContext given(Fact fact) {
-		return new ConnectedRepeatingCausationContext(createMutableList(fact));
-	}
+	<T extends Statement> T resolveStatement(String statementName, Class<T> type);
 }

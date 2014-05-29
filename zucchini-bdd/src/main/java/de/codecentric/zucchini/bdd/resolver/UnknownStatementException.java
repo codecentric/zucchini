@@ -14,8 +14,10 @@
  * limitations under the License.
  */
 
-package de.codecentric.zucchini.bdd.dsl;
+package de.codecentric.zucchini.bdd.resolver;
 
-public interface Step extends Statement {
-	void go();
+public class UnknownStatementException extends RuntimeException {
+	public UnknownStatementException(String message) {
+		super(message);
+	}
 }

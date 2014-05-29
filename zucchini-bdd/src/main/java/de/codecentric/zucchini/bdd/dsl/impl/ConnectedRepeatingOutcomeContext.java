@@ -16,10 +16,11 @@
 
 package de.codecentric.zucchini.bdd.dsl.impl;
 
-import de.codecentric.zucchini.bdd.dsl.Step;
 import de.codecentric.zucchini.bdd.dsl.Fact;
 import de.codecentric.zucchini.bdd.dsl.RepeatingOutcomeContext;
 import de.codecentric.zucchini.bdd.dsl.Result;
+import de.codecentric.zucchini.bdd.dsl.Step;
+import de.codecentric.zucchini.bdd.resolver.StatementResolverHolder;
 
 import java.util.List;
 
@@ -35,5 +36,10 @@ public class ConnectedRepeatingOutcomeContext extends ConnectedTermination imple
 	public RepeatingOutcomeContext andThen(Result result) {
 		results.add(result);
 		return this;
+	}
+
+	@Override
+	public RepeatingOutcomeContext andThen(String resultName) {
+		return andThen(StatementResolverHolder.getStatementResolver().resolveStatement(resultName, Result.class));
 	}
 }

@@ -20,7 +20,7 @@ import de.codecentric.zucchini.bdd.dsl.Step;
 
 public class NonOperationalStep implements Step {
 	@Override
-	public void fulfill() {
+	public void go() {
 		// Intentionally left blank.
 	}
 }

@@ -17,31 +17,47 @@
 package de.codecentric.zucchini.examples;
 
 import de.codecentric.zucchini.bdd.ExecutorHolder;
-import de.codecentric.zucchini.web.WebDriverExecutor;
-import de.codecentric.zucchini.web.provider.ChromeDriverProvider;
+import de.codecentric.zucchini.bdd.SimpleExecutor;
+import de.codecentric.zucchini.bdd.dsl.Fact;
+import de.codecentric.zucchini.bdd.dsl.Result;
+import de.codecentric.zucchini.bdd.dsl.Step;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.By;
 
 import static de.codecentric.zucchini.bdd.dsl.TestContext.given;
-import static de.codecentric.zucchini.web.conditions.WebConditions.submit;
-import static de.codecentric.zucchini.web.conditions.WebConditions.type;
-import static de.codecentric.zucchini.web.facts.WebFacts.onPage;
-import static de.codecentric.zucchini.web.results.WebResults.see;
 
-public class CodecentricTest {
+public class LambdaTest {
 	@Before
 	public void setUp() {
-		ExecutorHolder.setExecutor(new WebDriverExecutor(new ChromeDriverProvider()));
+		ExecutorHolder.setExecutor(new SimpleExecutor());
 	}
 
 	@Test
-	public void testSearchOnCodecentricWebsite() {
-		By searchInputField = By.name("s");
-		given(onPage(CodecentricPage.class))
-				.when(type("codecentric").into(searchInputField))
-				.andWhen(submit(searchInputField))
-				.then(see("codecentric"))
+	public void testHumanityWithLambda() {
+		given(() -> System.out.println("Man and woman"))
+				.when(() -> System.out.println("love"))
+				.then(() -> System.out.println("baby"))
 				.end();
+	}
+
+	@SuppressWarnings("Convert2Lambda")
+	@Test
+	public void testHumanityWithoutLambda() {
+		given(new Fact() {
+			@Override
+			public void establish() {
+				System.out.println("Man and woman");
+			}
+		}).when(new Step() {
+			@Override
+			public void go() {
+				System.out.println("love");
+			}
+		}).then(new Result() {
+			@Override
+			public void expect() {
+				System.out.println("baby");
+			}
+		}).end();
 	}
 }

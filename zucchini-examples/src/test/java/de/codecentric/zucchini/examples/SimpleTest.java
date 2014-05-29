@@ -31,7 +31,6 @@ import static de.codecentric.zucchini.web.pageobjects.SimplePage.url;
 import static de.codecentric.zucchini.web.results.WebResults.see;
 
 public class SimpleTest {
-
 	@Before
 	public void setUp() {
 		ExecutorHolder.setExecutor(new WebDriverExecutor(new ChromeDriverProvider()));
@@ -46,5 +45,4 @@ public class SimpleTest {
 				.then(see("codecentric"))
 				.end();
 	}
-
 }

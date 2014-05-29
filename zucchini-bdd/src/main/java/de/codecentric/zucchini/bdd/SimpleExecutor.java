@@ -14,8 +14,21 @@
  * limitations under the License.
  */
 
-package de.codecentric.zucchini.bdd.dsl;
+package de.codecentric.zucchini.bdd;
 
-public interface Step extends Statement {
-	void go();
+public class SimpleExecutor extends AbstractExecutor {
+	@Override
+	protected void initialize() {
+		// Intentionally left blank.
+	}
+
+	@Override
+	protected void shutdown() {
+		// Intentionally left blank.
+	}
+
+	@Override
+	protected void failOnInvalidContext(ExecutionContext executionContext) {
+		// Intentionally left blank.
+	}
 }

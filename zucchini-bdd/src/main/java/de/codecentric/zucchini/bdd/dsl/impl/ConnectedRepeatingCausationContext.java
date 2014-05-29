@@ -18,6 +18,7 @@ package de.codecentric.zucchini.bdd.dsl.impl;
 
 import de.codecentric.zucchini.bdd.dsl.Fact;
 import de.codecentric.zucchini.bdd.dsl.RepeatingCausationContext;
+import de.codecentric.zucchini.bdd.resolver.StatementResolverHolder;
 
 import java.util.List;
 
@@ -31,5 +32,10 @@ public class ConnectedRepeatingCausationContext extends ConnectedFirstConditiona
 	public RepeatingCausationContext andGiven(Fact fact) {
 		getFacts().add(fact);
 		return this;
+	}
+
+	@Override
+	public RepeatingCausationContext andGiven(String factName) {
+		return andGiven(StatementResolverHolder.getStatementResolver().resolveStatement(factName, Fact.class));
 	}
 }

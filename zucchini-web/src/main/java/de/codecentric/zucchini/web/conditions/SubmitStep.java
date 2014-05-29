@@ -26,7 +26,7 @@ public class SubmitStep extends AbstractWebStep {
 	}
 
 	@Override
-	public void fulfill() {
+	public void go() {
 		getWebDriver().findElement(element).submit();
 	}
 }

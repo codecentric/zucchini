@@ -18,4 +18,6 @@ package de.codecentric.zucchini.bdd.dsl;
 
 public interface RepeatingOutcomeContext extends Termination {
 	RepeatingOutcomeContext andThen(Result result);
+
+	RepeatingOutcomeContext andThen(String resultName);
 }

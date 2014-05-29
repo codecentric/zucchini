@@ -42,7 +42,7 @@ public class WaitForStep extends AbstractWebStep {
 	}
 
 	@Override
-	public void fulfill() {
+	public void go() {
 		WebDriverWait waiting = new WebDriverWait(getWebDriver(), timeout);
 		waiting.until(ExpectedConditions.presenceOfElementLocated(element));
 	}

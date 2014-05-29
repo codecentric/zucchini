@@ -17,6 +17,7 @@
 package de.codecentric.zucchini.bdd.dsl.impl;
 
 import de.codecentric.zucchini.bdd.dsl.*;
+import de.codecentric.zucchini.bdd.resolver.StatementResolverHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +41,18 @@ public class ConnectedRepeatingConditionalContext implements RepeatingConditiona
 	}
 
 	@Override
+	public RepeatingConditionalContext andWhen(String stepName) {
+		this.steps.add(StatementResolverHolder.getStatementResolver().resolveStatement(stepName, Step.class));
+		return this;
+	}
+
+	@Override
 	public RepeatingOutcomeContext then(Result result) {
 		return new ConnectedRepeatingOutcomeContext(facts, steps, createMutableList(result));
+	}
+
+	@Override
+	public RepeatingOutcomeContext then(String resultName) {
+		return then(StatementResolverHolder.getStatementResolver().resolveStatement(resultName, Result.class));
 	}
 }

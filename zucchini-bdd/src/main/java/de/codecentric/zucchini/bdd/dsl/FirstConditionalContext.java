@@ -18,4 +18,6 @@ package de.codecentric.zucchini.bdd.dsl;
 
 public interface FirstConditionalContext {
 	RepeatingConditionalContext when(Step step);
+
+	RepeatingConditionalContext when(String stepName);
 }
