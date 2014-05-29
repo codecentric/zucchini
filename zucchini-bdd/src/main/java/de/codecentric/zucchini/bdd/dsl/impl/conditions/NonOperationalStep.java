@@ -14,8 +14,13 @@
  * limitations under the License.
  */
 
-package de.codecentric.zucchini.bdd.dsl;
+package de.codecentric.zucchini.bdd.dsl.impl.conditions;
 
-public interface Condition extends Statement {
-	void fulfill();
+import de.codecentric.zucchini.bdd.dsl.Step;
+
+public class NonOperationalStep implements Step {
+	@Override
+	public void fulfill() {
+		// Intentionally left blank.
+	}
 }

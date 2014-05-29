@@ -51,7 +51,7 @@ public class ExecutionContextTest {
 				if (executionContext.getFacts().size() != 1) {
 					return false;
 				}
-				if (executionContext.getConditions().size() != 1) {
+				if (executionContext.getSteps().size() != 1) {
 					return false;
 				}
 				if (executionContext.getResults().size() != 3) {

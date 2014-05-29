@@ -16,7 +16,7 @@
 
 package de.codecentric.zucchini.bdd.dsl.impl;
 
-import de.codecentric.zucchini.bdd.dsl.Condition;
+import de.codecentric.zucchini.bdd.dsl.Step;
 import de.codecentric.zucchini.bdd.dsl.Fact;
 import de.codecentric.zucchini.bdd.dsl.RepeatingOutcomeContext;
 import de.codecentric.zucchini.bdd.dsl.Result;
@@ -26,8 +26,8 @@ import java.util.List;
 public class ConnectedRepeatingOutcomeContext extends ConnectedTermination implements RepeatingOutcomeContext {
 	private final List<Result> results;
 
-	public ConnectedRepeatingOutcomeContext(List<Fact> facts, List<Condition> conditions, List<Result> results) {
-		super(facts, conditions, results);
+	public ConnectedRepeatingOutcomeContext(List<Fact> facts, List<Step> steps, List<Result> results) {
+		super(facts, steps, results);
 		this.results = results;
 	}
 

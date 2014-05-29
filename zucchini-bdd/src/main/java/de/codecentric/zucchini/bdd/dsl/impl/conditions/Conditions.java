@@ -16,12 +16,12 @@
 
 package de.codecentric.zucchini.bdd.dsl.impl.conditions;
 
-import de.codecentric.zucchini.bdd.dsl.Condition;
+import de.codecentric.zucchini.bdd.dsl.Step;
 
 public class Conditions {
 
-	public static Condition noOpCondition() {
-		return new NonOperationalCondition();
+	public static Step noOpCondition() {
+		return new NonOperationalStep();
 	}
 
 }

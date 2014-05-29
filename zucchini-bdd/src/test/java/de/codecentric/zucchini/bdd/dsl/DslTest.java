@@ -16,7 +16,7 @@
 
 package de.codecentric.zucchini.bdd.dsl;
 
-import de.codecentric.zucchini.bdd.dsl.impl.conditions.NonOperationalCondition;
+import de.codecentric.zucchini.bdd.dsl.impl.conditions.NonOperationalStep;
 import de.codecentric.zucchini.bdd.dsl.impl.facts.NonOperationalFact;
 import de.codecentric.zucchini.bdd.dsl.impl.results.NonOperationalResult;
 import org.junit.Test;
@@ -28,7 +28,7 @@ public class DslTest {
 	@Test
 	public void testOneGivenOneWhenOneThen() {
 		given(new NonOperationalFact())
-				.when(new NonOperationalCondition())
+				.when(new NonOperationalStep())
 				.then(new NonOperationalResult())
 				.end();
 	}
@@ -37,7 +37,7 @@ public class DslTest {
 	public void testTwoGivenOneWhenOneThen() {
 		given(new NonOperationalFact())
 				.andGiven(new NonOperationalFact())
-				.when(new NonOperationalCondition())
+				.when(new NonOperationalStep())
 				.then(new NonOperationalResult())
 				.end();
 	}
@@ -47,7 +47,7 @@ public class DslTest {
 		given(new NonOperationalFact())
 				.andGiven(new NonOperationalFact())
 				.andGiven(new NonOperationalFact())
-				.when(new NonOperationalCondition())
+				.when(new NonOperationalStep())
 				.then(new NonOperationalResult())
 				.end();
 	}
@@ -55,8 +55,8 @@ public class DslTest {
 	@Test
 	public void testOneGivenTwoWhenOneThen() {
 		given(new NonOperationalFact())
-				.when(new NonOperationalCondition())
-				.andWhen(new NonOperationalCondition())
+				.when(new NonOperationalStep())
+				.andWhen(new NonOperationalStep())
 				.then(new NonOperationalResult())
 				.end();
 	}
@@ -65,8 +65,8 @@ public class DslTest {
 	public void testTwoGivenTwoWhenOneThen() {
 		given(new NonOperationalFact())
 				.andGiven(new NonOperationalFact())
-				.when(new NonOperationalCondition())
-				.andWhen(new NonOperationalCondition())
+				.when(new NonOperationalStep())
+				.andWhen(new NonOperationalStep())
 				.then(new NonOperationalResult())
 				.end();
 	}
@@ -74,7 +74,7 @@ public class DslTest {
 	@Test
 	public void testOneGivenOneWhenTwoThen() {
 		given(new NonOperationalFact())
-				.when(new NonOperationalCondition())
+				.when(new NonOperationalStep())
 				.then(new NonOperationalResult())
 				.andThen(new NonOperationalResult())
 				.end();
@@ -85,9 +85,9 @@ public class DslTest {
 		given(new NonOperationalFact())
 				.andGiven(new NonOperationalFact())
 				.andGiven(new NonOperationalFact())
-				.when(new NonOperationalCondition())
-				.andWhen(new NonOperationalCondition())
-				.andWhen(new NonOperationalCondition())
+				.when(new NonOperationalStep())
+				.andWhen(new NonOperationalStep())
+				.andWhen(new NonOperationalStep())
 				.then(new NonOperationalResult())
 				.end();
 	}

@@ -17,7 +17,7 @@
 package de.codecentric.zucchini.bdd;
 
 
-import de.codecentric.zucchini.bdd.dsl.Condition;
+import de.codecentric.zucchini.bdd.dsl.Step;
 import de.codecentric.zucchini.bdd.dsl.Fact;
 import de.codecentric.zucchini.bdd.dsl.Result;
 import de.codecentric.zucchini.bdd.dsl.Statement;
@@ -32,7 +32,7 @@ public abstract class AbstractExecutor implements Executor {
 		initialize();
 		failOnInvalidContext(executionContext);
 		establishFacts(executionContext.getFacts());
-		fulfillConditions(executionContext.getConditions());
+		fulfillConditions(executionContext.getSteps());
 		expectResults(executionContext.getResults());
 		shutdown();
 	}
@@ -45,11 +45,11 @@ public abstract class AbstractExecutor implements Executor {
 		}
 	}
 
-	private void fulfillConditions(List<Condition> conditions) {
-		for (Condition condition : conditions) {
-			logStrategy.writeLog(condition);
-			prepareStatement(condition);
-			condition.fulfill();
+	private void fulfillConditions(List<Step> steps) {
+		for (Step step : steps) {
+			logStrategy.writeLog(step);
+			prepareStatement(step);
+			step.fulfill();
 		}
 	}
 

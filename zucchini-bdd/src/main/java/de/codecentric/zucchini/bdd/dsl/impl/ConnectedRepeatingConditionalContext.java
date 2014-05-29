@@ -26,21 +26,21 @@ import static de.codecentric.zucchini.bdd.dsl.impl.util.ArrayConverter.createMut
 public class ConnectedRepeatingConditionalContext implements RepeatingConditionalContext {
 	private final List<Fact> facts;
 
-	private final List<Condition> conditions = new ArrayList<Condition>();
+	private final List<Step> steps = new ArrayList<Step>();
 
-	public ConnectedRepeatingConditionalContext(List<Fact> facts, Condition condition) {
+	public ConnectedRepeatingConditionalContext(List<Fact> facts, Step step) {
 		this.facts = facts;
-		conditions.add(condition);
+		steps.add(step);
 	}
 
 	@Override
-	public RepeatingConditionalContext andWhen(Condition condition) {
-		this.conditions.add(condition);
+	public RepeatingConditionalContext andWhen(Step step) {
+		this.steps.add(step);
 		return this;
 	}
 
 	@Override
 	public RepeatingOutcomeContext then(Result result) {
-		return new ConnectedRepeatingOutcomeContext(facts, conditions, createMutableList(result));
+		return new ConnectedRepeatingOutcomeContext(facts, steps, createMutableList(result));
 	}
 }

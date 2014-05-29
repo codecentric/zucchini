@@ -16,7 +16,7 @@
 
 package de.codecentric.zucchini.bdd;
 
-import de.codecentric.zucchini.bdd.dsl.Condition;
+import de.codecentric.zucchini.bdd.dsl.Step;
 import de.codecentric.zucchini.bdd.dsl.Fact;
 import de.codecentric.zucchini.bdd.dsl.Result;
 
@@ -25,12 +25,12 @@ import java.util.List;
 public class ExecutionContext {
 
 	private final List<Fact> facts;
-	private final List<Condition> conditions;
+	private final List<Step> steps;
 	private final List<Result> results;
 
-	public ExecutionContext(List<Fact> facts, List<Condition> conditions, List<Result> results) {
+	public ExecutionContext(List<Fact> facts, List<Step> steps, List<Result> results) {
 		this.facts = facts;
-		this.conditions = conditions;
+		this.steps = steps;
 		this.results = results;
 	}
 
@@ -38,8 +38,8 @@ public class ExecutionContext {
 		return facts;
 	}
 
-	public List<Condition> getConditions() {
-		return conditions;
+	public List<Step> getSteps() {
+		return steps;
 	}
 
 	public List<Result> getResults() {

@@ -23,15 +23,15 @@ public class WebConditions {
 		return new TypeContext(text);
 	}
 
-	public static SubmitCondition submit(By element) {
-		return new SubmitCondition(element);
+	public static SubmitStep submit(By element) {
+		return new SubmitStep(element);
 	}
 
-	public static ClickCondition click(By element) {
-		return new ClickCondition(element);
+	public static ClickStep click(By element) {
+		return new ClickStep(element);
 	}
 
-	public static WaitForCondition waitFor(By element) {
-		return new WaitForCondition(element);
+	public static WaitForStep waitFor(By element) {
+		return new WaitForStep(element);
 	}
 }

@@ -19,7 +19,7 @@ package de.codecentric.zucchini.bdd;
 import de.codecentric.zucchini.bdd.annotations.Given;
 import de.codecentric.zucchini.bdd.annotations.Then;
 import de.codecentric.zucchini.bdd.annotations.When;
-import de.codecentric.zucchini.bdd.dsl.Condition;
+import de.codecentric.zucchini.bdd.dsl.Step;
 import de.codecentric.zucchini.bdd.dsl.Fact;
 import de.codecentric.zucchini.bdd.dsl.Result;
 import de.codecentric.zucchini.bdd.dsl.Statement;
@@ -33,8 +33,8 @@ public class DefaultLogStrategy implements LogStrategy {
 	public void writeLog(Statement statement) {
 		if (statement instanceof Fact) {
 			writeLog((Fact) statement);
-		} else if (statement instanceof Condition) {
-			writeLog((Condition) statement);
+		} else if (statement instanceof Step) {
+			writeLog((Step) statement);
 		} else if (statement instanceof Result) {
 			writeLog((Result) statement);
 		}
@@ -46,8 +46,8 @@ public class DefaultLogStrategy implements LogStrategy {
 		logger.info("Given: {}", givenAnnotation == null ? factClass.getName() : givenAnnotation.value());
 	}
 
-	protected void writeLog(Condition condition) {
-		Class<?> conditionClass = condition.getClass();
+	protected void writeLog(Step step) {
+		Class<?> conditionClass = step.getClass();
 		When whenAnnotation = conditionClass.getAnnotation(When.class);
 		logger.info("When: {}", whenAnnotation == null ? conditionClass.getName() : whenAnnotation.value());
 	}

@@ -14,19 +14,8 @@
  * limitations under the License.
  */
 
-package de.codecentric.zucchini.web.conditions;
+package de.codecentric.zucchini.bdd.dsl;
 
-import org.openqa.selenium.By;
-
-public class SubmitCondition extends AbstractWebCondition {
-	private final By element;
-
-	public SubmitCondition(By element) {
-		this.element = element;
-	}
-
-	@Override
-	public void fulfill() {
-		getWebDriver().findElement(element).submit();
-	}
+public interface Step extends Statement {
+	void fulfill();
 }

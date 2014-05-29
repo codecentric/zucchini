@@ -17,33 +17,19 @@
 package de.codecentric.zucchini.web.conditions;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class WaitForCondition extends AbstractWebCondition {
-	private static final long DEFAULT_TIMEOUT = 10;
+public class TypeStep extends AbstractWebStep {
 
+	private TypeContext typeContext;
 	private By element;
 
-	private long timeout;
-
-	public WaitForCondition(By element) {
-		this(element, DEFAULT_TIMEOUT);
-	}
-
-	public WaitForCondition(By element, long timeout) {
+	public TypeStep(TypeContext typeContext, By element) {
+		this.typeContext = typeContext;
 		this.element = element;
-		this.timeout = timeout;
-	}
-
-	public WaitForCondition withTimeout(long timeout) {
-		this.timeout = timeout;
-		return this;
 	}
 
 	@Override
 	public void fulfill() {
-		WebDriverWait waiting = new WebDriverWait(getWebDriver(), timeout);
-		waiting.until(ExpectedConditions.presenceOfElementLocated(element));
+		getWebDriver().findElement(element).sendKeys(typeContext.getText());
 	}
 }

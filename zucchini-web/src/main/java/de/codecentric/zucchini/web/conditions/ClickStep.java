@@ -18,18 +18,15 @@ package de.codecentric.zucchini.web.conditions;
 
 import org.openqa.selenium.By;
 
-public class TypeCondition extends AbstractWebCondition {
-
-	private TypeContext typeContext;
+public class ClickStep extends AbstractWebStep {
 	private By element;
 
-	public TypeCondition(TypeContext typeContext, By element) {
-		this.typeContext = typeContext;
+	public ClickStep(By element) {
 		this.element = element;
 	}
 
 	@Override
 	public void fulfill() {
-		getWebDriver().findElement(element).sendKeys(typeContext.getText());
+		getWebDriver().findElement(element).clear();
 	}
 }

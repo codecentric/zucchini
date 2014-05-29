@@ -14,13 +14,19 @@
  * limitations under the License.
  */
 
-package de.codecentric.zucchini.bdd.dsl.impl.conditions;
+package de.codecentric.zucchini.web.conditions;
 
-import de.codecentric.zucchini.bdd.dsl.Condition;
+import org.openqa.selenium.By;
 
-public class NonOperationalCondition implements Condition {
+public class SubmitStep extends AbstractWebStep {
+	private final By element;
+
+	public SubmitStep(By element) {
+		this.element = element;
+	}
+
 	@Override
 	public void fulfill() {
-		// Intentionally left blank.
+		getWebDriver().findElement(element).submit();
 	}
 }

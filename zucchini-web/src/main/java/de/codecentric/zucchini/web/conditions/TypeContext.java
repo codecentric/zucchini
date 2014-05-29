@@ -25,8 +25,8 @@ public class TypeContext {
 		this.text = text;
 	}
 
-	public TypeCondition into(By into) {
-		return new TypeCondition(this, into);
+	public TypeStep into(By into) {
+		return new TypeStep(this, into);
 	}
 
 	public String getText() {

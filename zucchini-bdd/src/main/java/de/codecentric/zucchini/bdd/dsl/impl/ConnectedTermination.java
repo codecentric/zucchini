@@ -20,7 +20,7 @@ import de.codecentric.zucchini.bdd.ExecutionContext;
 import de.codecentric.zucchini.bdd.ExecutionException;
 import de.codecentric.zucchini.bdd.Executor;
 import de.codecentric.zucchini.bdd.ExecutorHolder;
-import de.codecentric.zucchini.bdd.dsl.Condition;
+import de.codecentric.zucchini.bdd.dsl.Step;
 import de.codecentric.zucchini.bdd.dsl.Fact;
 import de.codecentric.zucchini.bdd.dsl.Result;
 import de.codecentric.zucchini.bdd.dsl.Termination;
@@ -29,12 +29,12 @@ import java.util.List;
 
 public class ConnectedTermination implements Termination {
 	private final List<Fact> facts;
-	private final List<Condition> conditions;
+	private final List<Step> steps;
 	private final List<Result> results;
 
-	ConnectedTermination(List<Fact> facts, List<Condition> conditions, List<Result> results) {
+	ConnectedTermination(List<Fact> facts, List<Step> steps, List<Result> results) {
 		this.facts = facts;
-		this.conditions = conditions;
+		this.steps = steps;
 		this.results = results;
 	}
 
@@ -44,6 +44,6 @@ public class ConnectedTermination implements Termination {
 		if (executor == null) {
 			throw new ExecutionException("No executor is defined. Use ExecutorHolder.setExecutor() to set one.");
 		}
-		executor.execute(new ExecutionContext(facts, conditions, results));
+		executor.execute(new ExecutionContext(facts, steps, results));
 	}
 }

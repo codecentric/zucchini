@@ -16,8 +16,17 @@
 
 package de.codecentric.zucchini.web.conditions;
 
-import de.codecentric.zucchini.bdd.dsl.Condition;
-import de.codecentric.zucchini.web.WebDriverAware;
+import org.openqa.selenium.WebDriver;
 
-public interface WebCondition extends Condition, WebDriverAware {
+public abstract class AbstractWebStep implements WebStep {
+	private WebDriver webDriver;
+
+	@Override
+	public final void setWebDriver(WebDriver webDriver) {
+		this.webDriver = webDriver;
+	}
+
+	protected final WebDriver getWebDriver() {
+		return webDriver;
+	}
 }

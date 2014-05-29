@@ -17,5 +17,5 @@
 package de.codecentric.zucchini.bdd.dsl;
 
 public interface RepeatingConditionalContext extends FirstOutcomeContext {
-	RepeatingConditionalContext andWhen(Condition condition);
+	RepeatingConditionalContext andWhen(Step step);
 }
