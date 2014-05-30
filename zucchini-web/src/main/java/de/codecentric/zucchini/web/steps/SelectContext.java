@@ -14,14 +14,30 @@
  * limitations under the License.
  */
 
-package de.codecentric.zucchini.bdd;
+package de.codecentric.zucchini.web.steps;
 
-public class ExecutionException extends RuntimeException {
-	public ExecutionException(String message) {
-		super(message);
+import org.openqa.selenium.By;
+
+public class SelectContext {
+	private final By element;
+
+	public SelectContext(By element) {
+		this.element = element;
 	}
 
-	public ExecutionException(String message, Throwable cause) {
-		super(message, cause);
+	public SelectStep index(int index) {
+		return new SelectStep(this, index, SelectStep.OptionSelectorType.INDEX);
+	}
+
+	public SelectStep value(int value) {
+		return new SelectStep(this, value, SelectStep.OptionSelectorType.VALUE);
+	}
+
+	public SelectStep text(String text) {
+		return new SelectStep(this, text, SelectStep.OptionSelectorType.TEXT);
+	}
+
+	By getElement() {
+		return element;
 	}
 }

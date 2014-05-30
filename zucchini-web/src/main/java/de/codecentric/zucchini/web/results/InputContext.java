@@ -14,14 +14,30 @@
  * limitations under the License.
  */
 
-package de.codecentric.zucchini.bdd;
+package de.codecentric.zucchini.web.results;
 
-public class ExecutionException extends RuntimeException {
-	public ExecutionException(String message) {
-		super(message);
+import org.openqa.selenium.By;
+
+public class InputContext {
+	private final By element;
+
+	public InputContext(By element) {
+		this.element = element;
 	}
 
-	public ExecutionException(String message, Throwable cause) {
-		super(message, cause);
+	public InputReadOnlyResult isReadOnly() {
+		return new InputReadOnlyResult(this);
+	}
+
+	public InputDisabledResult isDisabled() {
+		return new InputDisabledResult(this);
+	}
+
+	public InputValueResult value(String value) {
+		return new InputValueResult(this, value);
+	}
+
+	By getElement() {
+		return element;
 	}
 }

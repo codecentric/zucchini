@@ -14,14 +14,32 @@
  * limitations under the License.
  */
 
-package de.codecentric.zucchini.bdd;
+package de.codecentric.zucchini.web.steps;
 
-public class ExecutionException extends RuntimeException {
-	public ExecutionException(String message) {
-		super(message);
+public class WaitStep extends AbstractWebStep {
+	private static final long DEFAULT_SLEEP_TIME = 10;
+
+	private long sleepTime;
+
+	public WaitStep() {
+		this.sleepTime = DEFAULT_SLEEP_TIME;
 	}
 
-	public ExecutionException(String message, Throwable cause) {
-		super(message, cause);
+	public WaitStep(long sleepTime) {
+		this.sleepTime = sleepTime;
+	}
+
+	public WaitStep withSleepTime(long sleepTime) {
+		this.sleepTime = sleepTime;
+		return this;
+	}
+
+	@Override
+	public void go() {
+		try {
+			Thread.sleep(sleepTime);
+		} catch (InterruptedException ie) {
+			throw new RuntimeException("Could not sleep thread.", ie);
+		}
 	}
 }

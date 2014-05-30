@@ -23,15 +23,39 @@ public class WebSteps {
 		return new TypeContext(text);
 	}
 
+	public static NonOperationalWebStep noOpWebStep() {
+		return new NonOperationalWebStep();
+	}
+
+	public static SelectContext select(By element) {
+		return new SelectContext(element);
+	}
+
 	public static SubmitStep submit(By element) {
 		return new SubmitStep(element);
+	}
+
+	public static ClearStep clear(By element) {
+		return new ClearStep(element);
 	}
 
 	public static ClickStep click(By element) {
 		return new ClickStep(element);
 	}
 
+	public static WaitStep doWait() {
+		return new WaitStep();
+	}
+
+	public static WaitStep doWait(long sleepTime) {
+		return new WaitStep(sleepTime);
+	}
+
 	public static WaitForStep waitFor(By element) {
 		return new WaitForStep(element);
+	}
+
+	public static WaitForStep waitFor(By element, long timeout) {
+		return new WaitForStep(element, timeout);
 	}
 }

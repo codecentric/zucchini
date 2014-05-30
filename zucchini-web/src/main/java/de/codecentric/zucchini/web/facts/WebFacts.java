@@ -19,6 +19,10 @@ package de.codecentric.zucchini.web.facts;
 import de.codecentric.zucchini.web.pageobjects.PageObject;
 
 public class WebFacts {
+	public static NonOperationalWebFact noOpWebFact() {
+		return new NonOperationalWebFact();
+	}
+
 	public static WebFact onPage(PageObject pageObject) {
 		return new OnPageFact(pageObject);
 	}

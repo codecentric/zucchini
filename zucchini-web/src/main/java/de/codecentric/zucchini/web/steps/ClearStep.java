@@ -14,14 +14,19 @@
  * limitations under the License.
  */
 
-package de.codecentric.zucchini.bdd;
+package de.codecentric.zucchini.web.steps;
 
-public class ExecutionException extends RuntimeException {
-	public ExecutionException(String message) {
-		super(message);
+import org.openqa.selenium.By;
+
+public class ClearStep extends AbstractWebStep {
+	private By element;
+
+	public ClearStep(By element) {
+		this.element = element;
 	}
 
-	public ExecutionException(String message, Throwable cause) {
-		super(message, cause);
+	@Override
+	public void go() {
+		getWebDriver().findElement(element).clear();
 	}
 }

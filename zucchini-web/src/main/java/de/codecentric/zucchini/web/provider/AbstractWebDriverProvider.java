@@ -21,16 +21,20 @@ import org.openqa.selenium.WebDriver;
 public abstract class AbstractWebDriverProvider implements WebDriverProvider {
 	private WebDriver webDriver;
 
+	private int nestingLevel = 0;
+
 	@Override
 	public void startWebDriver() {
 		if (webDriver == null) {
 			webDriver = createWebDriver();
 		}
+		nestingLevel++;
 	}
 
 	@Override
 	public void stopWebDriver() {
-		if (webDriver != null) {
+		nestingLevel--;
+		if (webDriver != null && nestingLevel == 0) {
 			webDriver.close();
 			webDriver.quit();
 			webDriver = null;

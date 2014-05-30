@@ -14,14 +14,20 @@
  * limitations under the License.
  */
 
-package de.codecentric.zucchini.bdd;
+package de.codecentric.zucchini.web.facts;
 
-public class ExecutionException extends RuntimeException {
-	public ExecutionException(String message) {
-		super(message);
+import de.codecentric.zucchini.bdd.dsl.Fact;
+import de.codecentric.zucchini.bdd.dsl.impl.facts.NonOperationalFact;
+import org.openqa.selenium.WebDriver;
+
+public class NonOperationalWebFact extends NonOperationalFact implements WebFact {
+	@Override
+	public void establish() {
+		// Intentionally left blank.
 	}
 
-	public ExecutionException(String message, Throwable cause) {
-		super(message, cause);
+	@Override
+	public void setWebDriver(WebDriver webDriver) {
+		// Intentionally left blank.
 	}
 }

@@ -14,14 +14,22 @@
  * limitations under the License.
  */
 
-package de.codecentric.zucchini.bdd;
+package de.codecentric.zucchini.web.results;
 
-public class ExecutionException extends RuntimeException {
-	public ExecutionException(String message) {
-		super(message);
+import static com.thoughtworks.selenium.SeleneseTestBase.assertEquals;
+
+public class InputValueResult extends AbstractWebResult {
+	private final InputContext inputContext;
+	private final String value;
+
+	public InputValueResult(InputContext inputContext, String value) {
+		this.inputContext = inputContext;
+		this.value = value;
 	}
 
-	public ExecutionException(String message, Throwable cause) {
-		super(message, cause);
+
+	@Override
+	public void expect() {
+		assertEquals(value, getWebDriver().findElement(inputContext.getElement()).getAttribute("value"));
 	}
 }

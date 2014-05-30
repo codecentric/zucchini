@@ -16,12 +16,13 @@
 
 package de.codecentric.zucchini.web.steps;
 
+import de.codecentric.zucchini.bdd.ExecutionException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class WaitForStep extends AbstractWebStep {
-	private static final long DEFAULT_TIMEOUT = 10;
+	private static final long DEFAULT_TIMEOUT = 10000;
 
 	private By element;
 
@@ -44,6 +45,10 @@ public class WaitForStep extends AbstractWebStep {
 	@Override
 	public void go() {
 		WebDriverWait waiting = new WebDriverWait(getWebDriver(), timeout);
-		waiting.until(ExpectedConditions.presenceOfElementLocated(element));
+		try {
+			waiting.until(ExpectedConditions.presenceOfElementLocated(element));
+		} catch (NullPointerException e) {
+			throw new ExecutionException(String.format("Element [%s] did not appear within %d ms.", element.toString(), timeout), e);
+		}
 	}
 }

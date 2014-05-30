@@ -29,7 +29,7 @@ public class TypeContext {
 		return new TypeStep(this, into);
 	}
 
-	public String getText() {
+	String getText() {
 		return text;
 	}
 }

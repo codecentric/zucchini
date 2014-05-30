@@ -14,14 +14,19 @@
  * limitations under the License.
  */
 
-package de.codecentric.zucchini.bdd;
+package de.codecentric.zucchini.web.steps;
 
-public class ExecutionException extends RuntimeException {
-	public ExecutionException(String message) {
-		super(message);
+import de.codecentric.zucchini.bdd.dsl.impl.steps.NonOperationalStep;
+import org.openqa.selenium.WebDriver;
+
+public class NonOperationalWebStep extends NonOperationalStep implements WebStep {
+	@Override
+	public void go() {
+		// Intentionally left blank.
 	}
 
-	public ExecutionException(String message, Throwable cause) {
-		super(message, cause);
+	@Override
+	public void setWebDriver(WebDriver webDriver) {
+		// Intentionally left blank.
 	}
 }

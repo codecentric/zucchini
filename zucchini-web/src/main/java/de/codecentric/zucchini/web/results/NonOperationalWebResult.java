@@ -14,14 +14,19 @@
  * limitations under the License.
  */
 
-package de.codecentric.zucchini.bdd;
+package de.codecentric.zucchini.web.results;
 
-public class ExecutionException extends RuntimeException {
-	public ExecutionException(String message) {
-		super(message);
+import de.codecentric.zucchini.bdd.dsl.impl.results.NonOperationalResult;
+import org.openqa.selenium.WebDriver;
+
+public class NonOperationalWebResult extends NonOperationalResult implements WebResult {
+	@Override
+	public void expect() {
+		// Intentionally left blank.
 	}
 
-	public ExecutionException(String message, Throwable cause) {
-		super(message, cause);
+	@Override
+	public void setWebDriver(WebDriver webDriver) {
+		// Intentionally left blank.
 	}
 }

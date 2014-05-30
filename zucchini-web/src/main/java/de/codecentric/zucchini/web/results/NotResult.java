@@ -16,22 +16,30 @@
 
 package de.codecentric.zucchini.web.results;
 
-import org.openqa.selenium.By;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public class WebResults {
-	public static NonOperationalWebResult noOpWebResult() {
-		return new NonOperationalWebResult();
+import static com.thoughtworks.selenium.SeleneseTestBase.assertFalse;
+
+public class NotResult extends AbstractWebResult {
+	private static final Logger logger = LoggerFactory.getLogger(NotResult.class);
+
+	private WebResult webResult;
+
+	public NotResult(WebResult webResult) {
+		this.webResult = webResult;
 	}
 
-	public static InputContext input(By element) {
-		return new InputContext(element);
-	}
-
-	public static SeeResult see(String text) {
-		return new SeeResult(text);
-	}
-
-	public static WebResult not(WebResult webResult) {
-		return new NotResult(webResult);
+	@Override
+	public void expect() {
+		try {
+			webResult.setWebDriver(getWebDriver());
+			webResult.expect();
+			assertFalse(true);
+		} catch (Exception e) {
+			logger.debug("Negated failure:", e);
+		} catch (AssertionError e) {
+			logger.debug("Negated failure:", e);
+		}
 	}
 }
