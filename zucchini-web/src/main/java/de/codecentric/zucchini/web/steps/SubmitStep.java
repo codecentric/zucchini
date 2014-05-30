@@ -14,10 +14,19 @@
  * limitations under the License.
  */
 
-package de.codecentric.zucchini.bdd.dsl;
+package de.codecentric.zucchini.web.steps;
 
-public interface FirstOutcomeContext {
-	RepeatingResultContext then(Result result);
+import org.openqa.selenium.By;
 
-	RepeatingResultContext then(String resultName);
+public class SubmitStep extends AbstractWebStep {
+	private final By element;
+
+	public SubmitStep(By element) {
+		this.element = element;
+	}
+
+	@Override
+	public void go() {
+		getWebDriver().findElement(element).submit();
+	}
 }

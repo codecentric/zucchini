@@ -14,24 +14,19 @@
  * limitations under the License.
  */
 
-package de.codecentric.zucchini.web.conditions;
+package de.codecentric.zucchini.web.results;
 
 import org.openqa.selenium.By;
 
-public class WebConditions {
-	public static TypeContext type(String text) {
-		return new TypeContext(text);
+public class SeeElementResult extends AbstractWebResult {
+	private By element;
+
+	public SeeElementResult(By element) {
+		this.element = element;
 	}
 
-	public static SubmitStep submit(By element) {
-		return new SubmitStep(element);
-	}
-
-	public static ClickStep click(By element) {
-		return new ClickStep(element);
-	}
-
-	public static WaitForStep waitFor(By element) {
-		return new WaitForStep(element);
+	@Override
+	public void expect() {
+		getWebDriver().findElement(element);
 	}
 }

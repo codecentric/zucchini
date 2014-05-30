@@ -14,10 +14,19 @@
  * limitations under the License.
  */
 
-package de.codecentric.zucchini.bdd.dsl;
+package de.codecentric.zucchini.web.steps;
 
-public interface RepeatingCausationContext extends FirstConditionalContext {
-	RepeatingCausationContext andGiven(Fact fact);
+import org.openqa.selenium.WebDriver;
 
-	RepeatingCausationContext andGiven(String factName);
+public abstract class AbstractWebStep implements WebStep {
+	private WebDriver webDriver;
+
+	@Override
+	public final void setWebDriver(WebDriver webDriver) {
+		this.webDriver = webDriver;
+	}
+
+	protected final WebDriver getWebDriver() {
+		return webDriver;
+	}
 }

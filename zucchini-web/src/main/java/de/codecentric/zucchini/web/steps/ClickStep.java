@@ -14,36 +14,19 @@
  * limitations under the License.
  */
 
-package de.codecentric.zucchini.web.conditions;
+package de.codecentric.zucchini.web.steps;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class WaitForStep extends AbstractWebStep {
-	private static final long DEFAULT_TIMEOUT = 10;
-
+public class ClickStep extends AbstractWebStep {
 	private By element;
 
-	private long timeout;
-
-	public WaitForStep(By element) {
-		this(element, DEFAULT_TIMEOUT);
-	}
-
-	public WaitForStep(By element, long timeout) {
+	public ClickStep(By element) {
 		this.element = element;
-		this.timeout = timeout;
-	}
-
-	public WaitForStep withTimeout(long timeout) {
-		this.timeout = timeout;
-		return this;
 	}
 
 	@Override
 	public void go() {
-		WebDriverWait waiting = new WebDriverWait(getWebDriver(), timeout);
-		waiting.until(ExpectedConditions.presenceOfElementLocated(element));
+		getWebDriver().findElement(element).click();
 	}
 }

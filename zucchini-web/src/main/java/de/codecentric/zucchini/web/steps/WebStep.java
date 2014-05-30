@@ -14,19 +14,10 @@
  * limitations under the License.
  */
 
-package de.codecentric.zucchini.web.conditions;
+package de.codecentric.zucchini.web.steps;
 
-import org.openqa.selenium.WebDriver;
+import de.codecentric.zucchini.bdd.dsl.Step;
+import de.codecentric.zucchini.web.WebDriverAware;
 
-public abstract class AbstractWebStep implements WebStep {
-	private WebDriver webDriver;
-
-	@Override
-	public final void setWebDriver(WebDriver webDriver) {
-		this.webDriver = webDriver;
-	}
-
-	protected final WebDriver getWebDriver() {
-		return webDriver;
-	}
+public interface WebStep extends Step, WebDriverAware {
 }

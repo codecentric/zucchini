@@ -14,10 +14,24 @@
  * limitations under the License.
  */
 
-package de.codecentric.zucchini.bdd.dsl;
+package de.codecentric.zucchini.web.steps;
 
-public interface FirstConditionalContext {
-	RepeatingConditionalContext when(Step step);
+import org.openqa.selenium.By;
 
-	RepeatingConditionalContext when(String stepName);
+public class WebSteps {
+	public static TypeContext type(String text) {
+		return new TypeContext(text);
+	}
+
+	public static SubmitStep submit(By element) {
+		return new SubmitStep(element);
+	}
+
+	public static ClickStep click(By element) {
+		return new ClickStep(element);
+	}
+
+	public static WaitForStep waitFor(By element) {
+		return new WaitForStep(element);
+	}
 }

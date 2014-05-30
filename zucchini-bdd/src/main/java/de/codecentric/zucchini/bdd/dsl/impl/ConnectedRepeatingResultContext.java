@@ -17,29 +17,29 @@
 package de.codecentric.zucchini.bdd.dsl.impl;
 
 import de.codecentric.zucchini.bdd.dsl.Fact;
-import de.codecentric.zucchini.bdd.dsl.RepeatingOutcomeContext;
+import de.codecentric.zucchini.bdd.dsl.RepeatingResultContext;
 import de.codecentric.zucchini.bdd.dsl.Result;
 import de.codecentric.zucchini.bdd.dsl.Step;
 import de.codecentric.zucchini.bdd.resolver.StatementResolverHolder;
 
 import java.util.List;
 
-public class ConnectedRepeatingOutcomeContext extends ConnectedTermination implements RepeatingOutcomeContext {
+public class ConnectedRepeatingResultContext extends ConnectedTermination implements RepeatingResultContext {
 	private final List<Result> results;
 
-	public ConnectedRepeatingOutcomeContext(List<Fact> facts, List<Step> steps, List<Result> results) {
+	public ConnectedRepeatingResultContext(List<Fact> facts, List<Step> steps, List<Result> results) {
 		super(facts, steps, results);
 		this.results = results;
 	}
 
 	@Override
-	public RepeatingOutcomeContext andThen(Result result) {
+	public RepeatingResultContext andThen(Result result) {
 		results.add(result);
 		return this;
 	}
 
 	@Override
-	public RepeatingOutcomeContext andThen(String resultName) {
+	public RepeatingResultContext andThen(String resultName) {
 		return andThen(StatementResolverHolder.getStatementResolver().resolveStatement(resultName, Result.class));
 	}
 }

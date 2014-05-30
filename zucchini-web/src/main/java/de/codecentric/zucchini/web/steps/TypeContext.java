@@ -14,10 +14,22 @@
  * limitations under the License.
  */
 
-package de.codecentric.zucchini.web.conditions;
+package de.codecentric.zucchini.web.steps;
 
-import de.codecentric.zucchini.bdd.dsl.Step;
-import de.codecentric.zucchini.web.WebDriverAware;
+import org.openqa.selenium.By;
 
-public interface WebStep extends Step, WebDriverAware {
+public class TypeContext {
+	private final String text;
+
+	public TypeContext(String text) {
+		this.text = text;
+	}
+
+	public TypeStep into(By into) {
+		return new TypeStep(this, into);
+	}
+
+	public String getText() {
+		return text;
+	}
 }

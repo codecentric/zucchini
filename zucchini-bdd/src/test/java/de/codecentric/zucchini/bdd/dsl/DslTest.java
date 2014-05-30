@@ -16,7 +16,7 @@
 
 package de.codecentric.zucchini.bdd.dsl;
 
-import de.codecentric.zucchini.bdd.dsl.impl.conditions.NonOperationalStep;
+import de.codecentric.zucchini.bdd.dsl.impl.steps.NonOperationalStep;
 import de.codecentric.zucchini.bdd.dsl.impl.facts.NonOperationalFact;
 import de.codecentric.zucchini.bdd.dsl.impl.results.NonOperationalResult;
 import org.junit.Test;

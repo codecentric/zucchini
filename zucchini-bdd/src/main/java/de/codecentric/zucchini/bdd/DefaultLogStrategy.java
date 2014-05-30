@@ -47,9 +47,9 @@ public class DefaultLogStrategy implements LogStrategy {
 	}
 
 	protected void writeLog(Step step) {
-		Class<?> conditionClass = step.getClass();
-		When whenAnnotation = conditionClass.getAnnotation(When.class);
-		logger.info("When: {}", whenAnnotation == null ? conditionClass.getName() : whenAnnotation.value());
+		Class<?> stepClass = step.getClass();
+		When whenAnnotation = stepClass.getAnnotation(When.class);
+		logger.info("When: {}", whenAnnotation == null ? stepClass.getName() : whenAnnotation.value());
 	}
 
 	protected void writeLog(Result result) {

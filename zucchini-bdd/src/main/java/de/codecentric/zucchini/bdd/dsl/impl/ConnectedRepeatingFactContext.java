@@ -17,31 +17,25 @@
 package de.codecentric.zucchini.bdd.dsl.impl;
 
 import de.codecentric.zucchini.bdd.dsl.Fact;
-import de.codecentric.zucchini.bdd.dsl.FirstConditionalContext;
-import de.codecentric.zucchini.bdd.dsl.RepeatingConditionalContext;
-import de.codecentric.zucchini.bdd.dsl.Step;
+import de.codecentric.zucchini.bdd.dsl.RepeatingFactContext;
 import de.codecentric.zucchini.bdd.resolver.StatementResolverHolder;
 
 import java.util.List;
 
-public class ConnectedFirstConditionalContext implements FirstConditionalContext {
-	private final List<Fact> facts;
+public class ConnectedRepeatingFactContext extends ConnectedFirstStepContext implements RepeatingFactContext {
 
-	ConnectedFirstConditionalContext(List<Fact> facts) {
-		this.facts = facts;
+	public ConnectedRepeatingFactContext(List<Fact> facts) {
+		super(facts);
 	}
 
 	@Override
-	public RepeatingConditionalContext when(Step step) {
-		return new ConnectedRepeatingConditionalContext(facts, step);
+	public RepeatingFactContext andGiven(Fact fact) {
+		getFacts().add(fact);
+		return this;
 	}
 
 	@Override
-	public RepeatingConditionalContext when(String stepName) {
-		return when(StatementResolverHolder.getStatementResolver().resolveStatement(stepName, Step.class));
-	}
-
-	List<Fact> getFacts() {
-		return facts;
+	public RepeatingFactContext andGiven(String factName) {
+		return andGiven(StatementResolverHolder.getStatementResolver().resolveStatement(factName, Fact.class));
 	}
 }

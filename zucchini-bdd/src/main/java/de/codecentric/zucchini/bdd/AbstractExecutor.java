@@ -32,7 +32,7 @@ public abstract class AbstractExecutor implements Executor {
 		initialize();
 		failOnInvalidContext(executionContext);
 		establishFacts(executionContext.getFacts());
-		fulfillConditions(executionContext.getSteps());
+		goSteps(executionContext.getSteps());
 		expectResults(executionContext.getResults());
 		shutdown();
 	}
@@ -45,7 +45,7 @@ public abstract class AbstractExecutor implements Executor {
 		}
 	}
 
-	private void fulfillConditions(List<Step> steps) {
+	private void goSteps(List<Step> steps) {
 		for (Step step : steps) {
 			logStrategy.writeLog(step);
 			prepareStatement(step);

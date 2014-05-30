@@ -16,8 +16,8 @@
 
 package de.codecentric.zucchini.bdd.dsl;
 
-public interface RepeatingOutcomeContext extends Termination {
-	RepeatingOutcomeContext andThen(Result result);
+public interface RepeatingStepContext extends FirstOutcomeContext {
+	RepeatingStepContext andWhen(Step step);
 
-	RepeatingOutcomeContext andThen(String resultName);
+	RepeatingStepContext andWhen(String stepName);
 }
