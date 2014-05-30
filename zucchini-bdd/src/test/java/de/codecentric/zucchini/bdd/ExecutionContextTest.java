@@ -20,7 +20,7 @@ import org.junit.Test;
 import org.mockito.ArgumentMatcher;
 
 import static de.codecentric.zucchini.bdd.dsl.TestContext.given;
-import static de.codecentric.zucchini.bdd.dsl.impl.conditions.Conditions.noOpCondition;
+import static de.codecentric.zucchini.bdd.dsl.impl.steps.Steps.noOpStep;
 import static de.codecentric.zucchini.bdd.dsl.impl.facts.Facts.noOpFact;
 import static de.codecentric.zucchini.bdd.dsl.impl.results.Results.noOpResult;
 import static org.mockito.Matchers.argThat;
@@ -35,7 +35,7 @@ public class ExecutionContextTest {
 		ExecutorHolder.setExecutor(executorMock);
 
 		given(noOpFact())
-				.when(noOpCondition())
+				.when(noOpStep())
 				.then(noOpResult())
 				.andThen(noOpResult())
 				.andThen(noOpResult())

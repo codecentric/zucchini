@@ -24,35 +24,35 @@ import java.util.List;
 
 import static de.codecentric.zucchini.bdd.dsl.impl.util.ArrayConverter.createMutableList;
 
-public class ConnectedRepeatingConditionalContext implements RepeatingConditionalContext {
+public class ConnectedRepeatingStepContext implements RepeatingStepContext {
 	private final List<Fact> facts;
 
 	private final List<Step> steps = new ArrayList<Step>();
 
-	public ConnectedRepeatingConditionalContext(List<Fact> facts, Step step) {
+	public ConnectedRepeatingStepContext(List<Fact> facts, Step step) {
 		this.facts = facts;
 		steps.add(step);
 	}
 
 	@Override
-	public RepeatingConditionalContext andWhen(Step step) {
+	public RepeatingStepContext andWhen(Step step) {
 		this.steps.add(step);
 		return this;
 	}
 
 	@Override
-	public RepeatingConditionalContext andWhen(String stepName) {
+	public RepeatingStepContext andWhen(String stepName) {
 		this.steps.add(StatementResolverHolder.getStatementResolver().resolveStatement(stepName, Step.class));
 		return this;
 	}
 
 	@Override
-	public RepeatingOutcomeContext then(Result result) {
-		return new ConnectedRepeatingOutcomeContext(facts, steps, createMutableList(result));
+	public RepeatingResultContext then(Result result) {
+		return new ConnectedRepeatingResultContext(facts, steps, createMutableList(result));
 	}
 
 	@Override
-	public RepeatingOutcomeContext then(String resultName) {
+	public RepeatingResultContext then(String resultName) {
 		return then(StatementResolverHolder.getStatementResolver().resolveStatement(resultName, Result.class));
 	}
 }

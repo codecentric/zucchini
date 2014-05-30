@@ -14,14 +14,10 @@
  * limitations under the License.
  */
 
-package de.codecentric.zucchini.bdd.dsl.impl.conditions;
+package de.codecentric.zucchini.bdd.dsl;
 
-import de.codecentric.zucchini.bdd.dsl.Step;
+public interface RepeatingFactContext extends FirstStepContext {
+	RepeatingFactContext andGiven(Fact fact);
 
-public class Conditions {
-
-	public static Step noOpCondition() {
-		return new NonOperationalStep();
-	}
-
+	RepeatingFactContext andGiven(String factName);
 }

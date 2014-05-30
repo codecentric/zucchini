@@ -14,13 +14,10 @@
  * limitations under the License.
  */
 
-package de.codecentric.zucchini.bdd.dsl.impl.conditions;
+package de.codecentric.zucchini.bdd.dsl;
 
-import de.codecentric.zucchini.bdd.dsl.Step;
+public interface FirstStepContext {
+	RepeatingStepContext when(Step step);
 
-public class NonOperationalStep implements Step {
-	@Override
-	public void go() {
-		// Intentionally left blank.
-	}
+	RepeatingStepContext when(String stepName);
 }

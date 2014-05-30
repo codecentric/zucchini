@@ -14,22 +14,12 @@
  * limitations under the License.
  */
 
-package de.codecentric.zucchini.web.conditions;
+package de.codecentric.zucchini.bdd.dsl.impl.steps;
 
-import org.openqa.selenium.By;
+import de.codecentric.zucchini.bdd.dsl.Step;
 
-public class TypeStep extends AbstractWebStep {
-
-	private TypeContext typeContext;
-	private By element;
-
-	public TypeStep(TypeContext typeContext, By element) {
-		this.typeContext = typeContext;
-		this.element = element;
-	}
-
-	@Override
-	public void go() {
-		getWebDriver().findElement(element).sendKeys(typeContext.getText());
+public class Steps {
+	public static Step noOpStep() {
+		return new NonOperationalStep();
 	}
 }

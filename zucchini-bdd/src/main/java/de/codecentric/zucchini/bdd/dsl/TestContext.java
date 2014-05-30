@@ -16,16 +16,16 @@
 
 package de.codecentric.zucchini.bdd.dsl;
 
-import de.codecentric.zucchini.bdd.dsl.impl.ConnectedRepeatingCausationContext;
+import de.codecentric.zucchini.bdd.dsl.impl.ConnectedRepeatingFactContext;
 
 import static de.codecentric.zucchini.bdd.dsl.impl.util.ArrayConverter.createMutableList;
 
 public class TestContext {
-	public static RepeatingCausationContext given(Fact fact) {
-		return new ConnectedRepeatingCausationContext(createMutableList(fact));
+	public static RepeatingFactContext given(Fact fact) {
+		return new ConnectedRepeatingFactContext(createMutableList(fact));
 	}
 
-	public static RepeatingCausationContext given(String fact) {
-		return new ConnectedRepeatingCausationContext(createMutableList(new Fact[]{}));
+	public static RepeatingFactContext given(String fact) {
+		return new ConnectedRepeatingFactContext(createMutableList(new Fact[]{}));
 	}
 }

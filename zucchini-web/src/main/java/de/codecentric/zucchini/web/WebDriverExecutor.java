@@ -23,7 +23,7 @@ import de.codecentric.zucchini.bdd.dsl.Step;
 import de.codecentric.zucchini.bdd.dsl.Fact;
 import de.codecentric.zucchini.bdd.dsl.Result;
 import de.codecentric.zucchini.bdd.dsl.Statement;
-import de.codecentric.zucchini.web.conditions.WebStep;
+import de.codecentric.zucchini.web.steps.WebStep;
 import de.codecentric.zucchini.web.facts.WebFact;
 import de.codecentric.zucchini.web.provider.HtmlUnitDriverProvider;
 import de.codecentric.zucchini.web.provider.WebDriverProvider;
@@ -67,7 +67,7 @@ public class WebDriverExecutor extends AbstractExecutor {
 		}
 		for (Step step : executionContext.getSteps()) {
 			if (!(step instanceof WebStep)) {
-				throw new ExecutionException("Invalid condition detected. The WebDriverExecutor only supports WebCondition implementations.");
+				throw new ExecutionException("Invalid step detected. The WebDriverExecutor only supports WebCondition implementations.");
 			}
 		}
 		for (Result result : executionContext.getResults()) {

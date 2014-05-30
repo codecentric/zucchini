@@ -14,19 +14,22 @@
  * limitations under the License.
  */
 
-package de.codecentric.zucchini.web.conditions;
+package de.codecentric.zucchini.web.steps;
 
 import org.openqa.selenium.By;
 
-public class ClickStep extends AbstractWebStep {
+public class TypeStep extends AbstractWebStep {
+
+	private TypeContext typeContext;
 	private By element;
 
-	public ClickStep(By element) {
+	public TypeStep(TypeContext typeContext, By element) {
+		this.typeContext = typeContext;
 		this.element = element;
 	}
 
 	@Override
 	public void go() {
-		getWebDriver().findElement(element).clear();
+		getWebDriver().findElement(element).sendKeys(typeContext.getText());
 	}
 }

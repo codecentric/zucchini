@@ -14,22 +14,13 @@
  * limitations under the License.
  */
 
-package de.codecentric.zucchini.web.conditions;
+package de.codecentric.zucchini.bdd.dsl.impl.steps;
 
-import org.openqa.selenium.By;
+import de.codecentric.zucchini.bdd.dsl.Step;
 
-public class TypeContext {
-	private final String text;
-
-	public TypeContext(String text) {
-		this.text = text;
-	}
-
-	public TypeStep into(By into) {
-		return new TypeStep(this, into);
-	}
-
-	public String getText() {
-		return text;
+public class NonOperationalStep implements Step {
+	@Override
+	public void go() {
+		// Intentionally left blank.
 	}
 }
