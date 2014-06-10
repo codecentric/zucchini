@@ -47,7 +47,7 @@ See the zucchini-examples project.
 
 ## License
 
-CCUnit is released under version 2.0 of the [Apache License][].
+Zucchini is released under version 2.0 of the [Apache License][].
 
 [Pull requests]: http://help.github.com/send-pull-requests
 [Apache License]: http://www.apache.org/licenses/LICENSE-2.0
