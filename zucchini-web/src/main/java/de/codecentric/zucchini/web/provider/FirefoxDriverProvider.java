@@ -14,30 +14,14 @@
  * limitations under the License.
  */
 
-package de.codecentric.zucchini.web.pageobjects;
+package de.codecentric.zucchini.web.provider;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
-public abstract class AbstractPageObject implements PageObject {
-	private WebDriver webDriver;
-
+public class FirefoxDriverProvider extends AbstractWebDriverProvider {
 	@Override
-	public void open() {
-		String url = getUrl();
-		if (url == null) {
-			throw new IllegalPageObjectConfigurationException(String.format("%s.getUrl() must not return null.", this.getClass().getName()));
-		}
-		webDriver.get(url);
-	}
-
-	protected abstract String getUrl();
-
-	public void setWebDriver(WebDriver webDriver) {
-		this.webDriver = webDriver;
-	}
-
-	@Override
-	public String toString() {
-		return getClass().getSimpleName() + "{url=" + getUrl() + '}';
+	protected WebDriver createWebDriver() {
+		return new FirefoxDriver();
 	}
 }

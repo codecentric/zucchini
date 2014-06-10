@@ -16,7 +16,6 @@
 
 package de.codecentric.zucchini.web.facts;
 
-import de.codecentric.zucchini.bdd.dsl.Fact;
 import de.codecentric.zucchini.bdd.dsl.impl.facts.NonOperationalFact;
 import org.openqa.selenium.WebDriver;
 

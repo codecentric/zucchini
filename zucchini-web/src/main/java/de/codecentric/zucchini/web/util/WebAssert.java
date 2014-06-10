@@ -14,13 +14,22 @@
  * limitations under the License.
  */
 
-package de.codecentric.zucchini.bdd.annotations;
+package de.codecentric.zucchini.web.util;
 
-import java.lang.annotation.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
-@Target(ElementType.TYPE)
-@Retention(RetentionPolicy.RUNTIME)
-@Documented
-public @interface Given {
-	String value();
+import static de.codecentric.zucchini.bdd.util.Assert.fail;
+
+public class WebAssert {
+	public static final WebElement findElementOrFail(WebDriver webDriver, By element) {
+		try {
+			return webDriver.findElement(element);
+		} catch (NoSuchElementException e) {
+			fail("Element should exist but it does not.");
+		}
+		return null;
+	}
 }

@@ -28,7 +28,7 @@
 
 	<groupId>de.codecentric.zucchini</groupId>
 	<artifactId>zucchini-parent</artifactId>
-	<version>1.1.2</version>
+	<version>1.1.3</version>
 	<packaging>pom</packaging>
 
 	<name>Zucchini Parent</name>
@@ -76,6 +76,22 @@
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
+				<groupId>de.codecentric.zucchini</groupId>
+				<artifactId>zucchini-bdd</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.codecentric.zucchini</groupId>
+				<artifactId>zucchini-web</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.codecentric.zucchini</groupId>
+				<artifactId>zucchini-web-junit</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
 				<groupId>org.seleniumhq.selenium</groupId>
 				<artifactId>selenium-java</artifactId>
 				<version>${selenium.version}</version>
@@ -104,7 +120,7 @@
 	</dependencyManagement>
 
 	<properties>
-		<selenium.version>2.42.0</selenium.version>
+		<selenium.version>2.42.1</selenium.version>
 		<slf4j.version>1.7.7</slf4j.version>
 		<junit.version>4.11</junit.version>
 		<mockito.version>1.9.5</mockito.version>

@@ -14,13 +14,7 @@
  * limitations under the License.
  */
 
-package de.codecentric.zucchini.bdd.annotations;
+package de.codecentric.zucchini.bdd.dsl;
 
-import java.lang.annotation.*;
-
-@Target(ElementType.TYPE)
-@Retention(RetentionPolicy.RUNTIME)
-@Documented
-public @interface When {
-	String value();
+public interface ExecutionFact extends Fact {
 }

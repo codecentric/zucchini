@@ -17,8 +17,14 @@
 package de.codecentric.zucchini.web.steps;
 
 import org.openqa.selenium.By;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import static de.codecentric.zucchini.web.util.WebAssert.findElementOrFail;
 
 public class ClearStep extends AbstractWebStep {
+	private static final Logger logger = LoggerFactory.getLogger(ClearStep.class);
+
 	private By element;
 
 	public ClearStep(By element) {
@@ -27,6 +33,7 @@ public class ClearStep extends AbstractWebStep {
 
 	@Override
 	public void go() {
-		getWebDriver().findElement(element).clear();
+		logger.info("Clearing {}...", element);
+		findElementOrFail(getWebDriver(), element).clear();
 	}
 }

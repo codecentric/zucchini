@@ -18,4 +18,6 @@ package de.codecentric.zucchini.bdd.dsl;
 
 public interface Termination {
 	void end();
+
+	ExecutionFact asFact();
 }

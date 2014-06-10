@@ -24,10 +24,10 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 
 import static de.codecentric.zucchini.bdd.dsl.TestContext.given;
-import static de.codecentric.zucchini.web.steps.WebSteps.submit;
-import static de.codecentric.zucchini.web.steps.WebSteps.type;
 import static de.codecentric.zucchini.web.facts.WebFacts.onPage;
 import static de.codecentric.zucchini.web.results.WebResults.see;
+import static de.codecentric.zucchini.web.steps.WebSteps.submit;
+import static de.codecentric.zucchini.web.steps.WebSteps.type;
 
 public class CodecentricTest {
 	@Before

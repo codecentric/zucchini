@@ -22,6 +22,6 @@ import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 public class HtmlUnitDriverProvider extends AbstractWebDriverProvider {
 	@Override
 	protected WebDriver createWebDriver() {
-		return new HtmlUnitDriver();
+		return new HtmlUnitDriver(true);
 	}
 }

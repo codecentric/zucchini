@@ -17,8 +17,13 @@
 package de.codecentric.zucchini.web.steps;
 
 import org.openqa.selenium.support.ui.Select;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import static de.codecentric.zucchini.web.util.WebAssert.findElementOrFail;
 
 public class SelectStep extends AbstractWebStep {
+	private static final Logger logger = LoggerFactory.getLogger(SelectStep.class);
 
 	public enum OptionSelectorType {
 		VALUE,
@@ -40,12 +45,16 @@ public class SelectStep extends AbstractWebStep {
 
 	@Override
 	public void go() {
-		Select select = new Select(getWebDriver().findElement(selectContext.getElement()));
+		logger.info("Waiting for select {}...", selectContext.getElement());
+		Select select = new Select(findElementOrFail(getWebDriver(), selectContext.getElement()));
 		if (OptionSelectorType.INDEX.equals(optionSelectorType)) {
+			logger.info("Selecting index {}...", optionSelector);
 			select.selectByIndex((Integer) optionSelector);
 		} else if (OptionSelectorType.VALUE.equals(optionSelectorType)) {
+			logger.info("Selecting value {}...", optionSelector);
 			select.selectByValue((String) optionSelector);
 		} else if (OptionSelectorType.TEXT.equals(optionSelectorType)) {
+			logger.info("Selecting text {}...", optionSelector);
 			select.selectByVisibleText((String) optionSelector);
 		}
 	}

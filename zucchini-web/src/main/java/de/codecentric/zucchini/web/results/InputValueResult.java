@@ -16,7 +16,8 @@
 
 package de.codecentric.zucchini.web.results;
 
-import static com.thoughtworks.selenium.SeleneseTestBase.assertEquals;
+import static de.codecentric.zucchini.bdd.util.Assert.assertEquals;
+import static de.codecentric.zucchini.web.util.WebAssert.findElementOrFail;
 
 public class InputValueResult extends AbstractWebResult {
 	private final InputContext inputContext;
@@ -30,6 +31,6 @@ public class InputValueResult extends AbstractWebResult {
 
 	@Override
 	public void expect() {
-		assertEquals(value, getWebDriver().findElement(inputContext.getElement()).getAttribute("value"));
+		assertEquals("Element should be read-only but it is not.", value, findElementOrFail(getWebDriver(), inputContext.getElement()).getAttribute("value"));
 	}
 }

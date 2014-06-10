@@ -19,8 +19,12 @@ package de.codecentric.zucchini.web.facts;
 import de.codecentric.zucchini.web.pageobjects.PageObject;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class OnPageFact implements WebFact {
+	private static final Logger logger = LoggerFactory.getLogger(OnPageFact.class);
+
 	private WebDriver webDriver;
 	private PageObject pageObject;
 
@@ -35,6 +39,7 @@ public class OnPageFact implements WebFact {
 
 	@Override
 	public void establish() {
+		logger.info("Opening page {}...", pageObject);
 		pageObject.open();
 	}
 

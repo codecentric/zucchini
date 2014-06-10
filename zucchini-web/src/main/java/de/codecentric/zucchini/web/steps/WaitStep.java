@@ -16,7 +16,13 @@
 
 package de.codecentric.zucchini.web.steps;
 
+import de.codecentric.zucchini.bdd.ExecutionException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class WaitStep extends AbstractWebStep {
+	private static final Logger logger = LoggerFactory.getLogger(WaitStep.class);
+
 	private static final long DEFAULT_SLEEP_TIME = 10;
 
 	private long sleepTime;
@@ -36,10 +42,11 @@ public class WaitStep extends AbstractWebStep {
 
 	@Override
 	public void go() {
+		logger.info("Waiting {} seconds...", sleepTime);
 		try {
 			Thread.sleep(sleepTime);
-		} catch (InterruptedException ie) {
-			throw new RuntimeException("Could not sleep thread.", ie);
+		} catch (InterruptedException e) {
+			throw new ExecutionException("Thread could not sleep.", e);
 		}
 	}
 }

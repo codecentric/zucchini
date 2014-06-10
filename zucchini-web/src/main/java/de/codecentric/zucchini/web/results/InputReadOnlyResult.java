@@ -17,7 +17,8 @@
 package de.codecentric.zucchini.web.results;
 
 
-import static com.thoughtworks.selenium.SeleneseTestBase.assertNotEquals;
+import static de.codecentric.zucchini.bdd.util.Assert.assertNotNull;
+import static de.codecentric.zucchini.web.util.WebAssert.findElementOrFail;
 
 public class InputReadOnlyResult extends AbstractWebResult {
 	private InputContext inputContext;
@@ -28,6 +29,6 @@ public class InputReadOnlyResult extends AbstractWebResult {
 
 	@Override
 	public void expect() {
-		assertNotEquals(null, getWebDriver().findElement(inputContext.getElement()).getAttribute("readonly"));
+		assertNotNull("Element should be read-only but it is not.", findElementOrFail(getWebDriver(), inputContext.getElement()).getAttribute("readonly"));
 	}
 }

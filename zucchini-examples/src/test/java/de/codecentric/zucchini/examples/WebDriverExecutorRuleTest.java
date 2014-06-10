@@ -16,10 +16,9 @@
 
 package de.codecentric.zucchini.examples;
 
-import de.codecentric.zucchini.bdd.ExecutorHolder;
-import de.codecentric.zucchini.web.WebDriverExecutor;
+import de.codecentric.zucchini.web.junit.WebDriverExecutorRule;
 import de.codecentric.zucchini.web.provider.ChromeDriverProvider;
-import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.openqa.selenium.By;
 
@@ -30,14 +29,12 @@ import static de.codecentric.zucchini.web.results.WebResults.see;
 import static de.codecentric.zucchini.web.steps.WebSteps.submit;
 import static de.codecentric.zucchini.web.steps.WebSteps.type;
 
-public class SimpleTest {
-	@Before
-	public void setUp() {
-		ExecutorHolder.setExecutor(new WebDriverExecutor(new ChromeDriverProvider()));
-	}
+public class WebDriverExecutorRuleTest {
+	@Rule
+	public WebDriverExecutorRule webDriverExecutorRule = new WebDriverExecutorRule(new ChromeDriverProvider());
 
 	@Test
-	public void testSearchOnCodecentricWebsite() {
+	public void testRunInChrome() {
 		By searchInputField = By.name("s");
 		given(onPage(url("http://www.codecentric.de")))
 				.when(type("codecentric").into(searchInputField))

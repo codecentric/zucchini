@@ -25,8 +25,6 @@ import de.codecentric.zucchini.bdd.dsl.Step;
 import java.util.List;
 
 public abstract class AbstractExecutor implements Executor {
-	private LogStrategy logStrategy = new DefaultLogStrategy();
-
 	@Override
 	public void execute(ExecutionContext executionContext) throws ExecutionException {
 		initialize();
@@ -39,7 +37,6 @@ public abstract class AbstractExecutor implements Executor {
 
 	private void establishFacts(List<Fact> facts) {
 		for (Fact fact : facts) {
-			logStrategy.writeLog(fact);
 			prepareStatement(fact);
 			fact.establish();
 		}
@@ -47,7 +44,6 @@ public abstract class AbstractExecutor implements Executor {
 
 	private void goSteps(List<Step> steps) {
 		for (Step step : steps) {
-			logStrategy.writeLog(step);
 			prepareStatement(step);
 			step.go();
 		}
@@ -55,17 +51,9 @@ public abstract class AbstractExecutor implements Executor {
 
 	private void expectResults(List<Result> results) {
 		for (Result result : results) {
-			logStrategy.writeLog(result);
 			prepareStatement(result);
 			result.expect();
 		}
-	}
-
-	public final void setLogStrategy(LogStrategy logStrategy) {
-		if (logStrategy == null) {
-			throw new NullPointerException("The LogStrategy must not be null.");
-		}
-		this.logStrategy = logStrategy;
 	}
 
 	protected abstract void initialize();

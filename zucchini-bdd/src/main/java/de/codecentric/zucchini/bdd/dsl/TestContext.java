@@ -17,6 +17,7 @@
 package de.codecentric.zucchini.bdd.dsl;
 
 import de.codecentric.zucchini.bdd.dsl.impl.ConnectedRepeatingFactContext;
+import de.codecentric.zucchini.bdd.resolver.StatementResolverHolder;
 
 import static de.codecentric.zucchini.bdd.dsl.impl.util.ArrayConverter.createMutableList;
 
@@ -26,6 +27,6 @@ public class TestContext {
 	}
 
 	public static RepeatingFactContext given(String fact) {
-		return new ConnectedRepeatingFactContext(createMutableList(new Fact[]{}));
+		return new ConnectedRepeatingFactContext(createMutableList(new Fact[]{StatementResolverHolder.getStatementResolver().resolveStatement(fact, Fact.class)}));
 	}
 }

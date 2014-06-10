@@ -18,6 +18,8 @@ package de.codecentric.zucchini.web.results;
 
 import org.openqa.selenium.By;
 
+import static de.codecentric.zucchini.web.util.WebAssert.findElementOrFail;
+
 public class SeeElementResult extends AbstractWebResult {
 	private By element;
 
@@ -27,6 +29,6 @@ public class SeeElementResult extends AbstractWebResult {
 
 	@Override
 	public void expect() {
-		getWebDriver().findElement(element);
+		findElementOrFail(getWebDriver(), element);
 	}
 }

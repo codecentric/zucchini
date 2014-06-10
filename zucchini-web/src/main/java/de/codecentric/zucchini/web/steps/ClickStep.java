@@ -17,8 +17,14 @@
 package de.codecentric.zucchini.web.steps;
 
 import org.openqa.selenium.By;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import static de.codecentric.zucchini.web.util.WebAssert.findElementOrFail;
 
 public class ClickStep extends AbstractWebStep {
+	private static final Logger logger = LoggerFactory.getLogger(ClickStep.class);
+
 	private By element;
 
 	public ClickStep(By element) {
@@ -27,6 +33,7 @@ public class ClickStep extends AbstractWebStep {
 
 	@Override
 	public void go() {
-		getWebDriver().findElement(element).click();
+		logger.info("Clicking {}...", element);
+		findElementOrFail(getWebDriver(), element).click();
 	}
 }

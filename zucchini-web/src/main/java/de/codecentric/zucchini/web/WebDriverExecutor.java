@@ -19,18 +19,14 @@ package de.codecentric.zucchini.web;
 import de.codecentric.zucchini.bdd.AbstractExecutor;
 import de.codecentric.zucchini.bdd.ExecutionContext;
 import de.codecentric.zucchini.bdd.ExecutionException;
-import de.codecentric.zucchini.bdd.dsl.Step;
-import de.codecentric.zucchini.bdd.dsl.Fact;
-import de.codecentric.zucchini.bdd.dsl.Result;
-import de.codecentric.zucchini.bdd.dsl.Statement;
-import de.codecentric.zucchini.web.steps.WebStep;
+import de.codecentric.zucchini.bdd.dsl.*;
 import de.codecentric.zucchini.web.facts.WebFact;
 import de.codecentric.zucchini.web.provider.HtmlUnitDriverProvider;
 import de.codecentric.zucchini.web.provider.WebDriverProvider;
 import de.codecentric.zucchini.web.results.WebResult;
+import de.codecentric.zucchini.web.steps.WebStep;
 
 public class WebDriverExecutor extends AbstractExecutor {
-
 	private WebDriverProvider webDriverProvider;
 
 	public WebDriverExecutor() {
@@ -42,6 +38,10 @@ public class WebDriverExecutor extends AbstractExecutor {
 			throw new NullPointerException("The WebDriverExecutor expects the WebDriverProvider to be non-null.");
 		}
 		this.webDriverProvider = webDriverProvider;
+	}
+
+	public WebDriverProvider getWebDriverProvider() {
+		return webDriverProvider;
 	}
 
 	protected void initialize() {
@@ -61,7 +61,7 @@ public class WebDriverExecutor extends AbstractExecutor {
 
 	protected void failOnInvalidContext(ExecutionContext executionContext) {
 		for (Fact fact : executionContext.getFacts()) {
-			if (!(fact instanceof WebFact)) {
+			if (!(fact instanceof WebFact) && !(fact instanceof ExecutionFact)) {
 				throw new ExecutionException("Invalid facts detected. The WebDriverExecutor only supports WebFact implementations.");
 			}
 		}

@@ -17,8 +17,14 @@
 package de.codecentric.zucchini.web.steps;
 
 import org.openqa.selenium.By;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import static de.codecentric.zucchini.web.util.WebAssert.findElementOrFail;
 
 public class SubmitStep extends AbstractWebStep {
+	private static final Logger logger = LoggerFactory.getLogger(SubmitStep.class);
+
 	private final By element;
 
 	public SubmitStep(By element) {
@@ -27,6 +33,7 @@ public class SubmitStep extends AbstractWebStep {
 
 	@Override
 	public void go() {
-		getWebDriver().findElement(element).submit();
+		logger.info("Submitting {}...", element);
+		findElementOrFail(getWebDriver(), element).submit();
 	}
 }

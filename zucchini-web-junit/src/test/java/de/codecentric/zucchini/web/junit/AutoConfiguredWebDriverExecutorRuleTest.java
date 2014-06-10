@@ -14,13 +14,17 @@
  * limitations under the License.
  */
 
-package de.codecentric.zucchini.bdd.annotations;
+package de.codecentric.zucchini.web.junit;
 
-import java.lang.annotation.*;
+import de.codecentric.zucchini.web.WebDriverExecutor;
+import org.junit.Rule;
 
-@Target(ElementType.TYPE)
-@Retention(RetentionPolicy.RUNTIME)
-@Documented
-public @interface Then {
-	String value();
+public class AutoConfiguredWebDriverExecutorRuleTest extends ZucchiniWebRuleTestBase {
+	@Rule
+	public WebDriverExecutorRule autoConfiguredWebDriverExecutorRule = new WebDriverExecutorRule();
+
+	@Override
+	public WebDriverExecutor getWebDriverExecutor() {
+		return autoConfiguredWebDriverExecutorRule.getWebDriverExecutor();
+	}
 }

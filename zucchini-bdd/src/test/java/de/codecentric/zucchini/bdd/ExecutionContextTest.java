@@ -20,9 +20,9 @@ import org.junit.Test;
 import org.mockito.ArgumentMatcher;
 
 import static de.codecentric.zucchini.bdd.dsl.TestContext.given;
-import static de.codecentric.zucchini.bdd.dsl.impl.steps.Steps.noOpStep;
 import static de.codecentric.zucchini.bdd.dsl.impl.facts.Facts.noOpFact;
 import static de.codecentric.zucchini.bdd.dsl.impl.results.Results.noOpResult;
+import static de.codecentric.zucchini.bdd.dsl.impl.steps.Steps.noOpStep;
 import static org.mockito.Matchers.argThat;
 import static org.mockito.Mockito.*;
 

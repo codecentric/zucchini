@@ -14,19 +14,17 @@
  * limitations under the License.
  */
 
-package de.codecentric.zucchini.web.results;
+package de.codecentric.zucchini.web.junit;
 
-import static de.codecentric.zucchini.bdd.util.Assert.assertTrue;
+import de.codecentric.zucchini.web.WebDriverExecutor;
+import org.junit.Rule;
 
-public class SeeResult extends AbstractWebResult {
-	private String text;
-
-	public SeeResult(String text) {
-		this.text = text;
-	}
+public class WebRuleWithCustomWebDriverExecutorDriverExecutorTest extends ZucchiniWebRuleTestBase {
+	@Rule
+	public WebDriverExecutorRule webRuleWithCustomWebDriverExecutorDriverExecutor = new WebDriverExecutorRule(new WebDriverExecutor());
 
 	@Override
-	public void expect() {
-		assertTrue(String.format("Page should contain \"%s\" but it does not.", text), getWebDriver().getPageSource().contains(text));
+	public WebDriverExecutor getWebDriverExecutor() {
+		return webRuleWithCustomWebDriverExecutorDriverExecutor.getWebDriverExecutor();
 	}
 }

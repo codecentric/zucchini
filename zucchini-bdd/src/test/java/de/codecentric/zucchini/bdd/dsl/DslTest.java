@@ -16,14 +16,21 @@
 
 package de.codecentric.zucchini.bdd.dsl;
 
-import de.codecentric.zucchini.bdd.dsl.impl.steps.NonOperationalStep;
+import de.codecentric.zucchini.bdd.ExecutorHolder;
+import de.codecentric.zucchini.bdd.SimpleExecutor;
 import de.codecentric.zucchini.bdd.dsl.impl.facts.NonOperationalFact;
 import de.codecentric.zucchini.bdd.dsl.impl.results.NonOperationalResult;
+import de.codecentric.zucchini.bdd.dsl.impl.steps.NonOperationalStep;
+import org.junit.Before;
 import org.junit.Test;
 
 import static de.codecentric.zucchini.bdd.dsl.TestContext.given;
 
 public class DslTest {
+	@Before
+	public void setUp() {
+		ExecutorHolder.setExecutor(new SimpleExecutor());
+	}
 
 	@Test
 	public void testOneGivenOneWhenOneThen() {
@@ -88,6 +95,19 @@ public class DslTest {
 				.when(new NonOperationalStep())
 				.andWhen(new NonOperationalStep())
 				.andWhen(new NonOperationalStep())
+				.then(new NonOperationalResult())
+				.end();
+	}
+
+	@Test
+	public void testPreparedExecution() {
+		Fact fact = given(new NonOperationalFact())
+				.when(new NonOperationalStep())
+				.then(new NonOperationalResult())
+				.asFact();
+
+		given(fact)
+				.when(new NonOperationalStep())
 				.then(new NonOperationalResult())
 				.end();
 	}

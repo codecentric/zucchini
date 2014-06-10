@@ -19,7 +19,7 @@ package de.codecentric.zucchini.web.results;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static com.thoughtworks.selenium.SeleneseTestBase.assertFalse;
+import static com.thoughtworks.selenium.SeleneseTestBase.fail;
 
 public class NotResult extends AbstractWebResult {
 	private static final Logger logger = LoggerFactory.getLogger(NotResult.class);
@@ -35,7 +35,7 @@ public class NotResult extends AbstractWebResult {
 		try {
 			webResult.setWebDriver(getWebDriver());
 			webResult.expect();
-			assertFalse(true);
+			fail("Result should fail but it did not.");
 		} catch (Exception e) {
 			logger.debug("Negated failure:", e);
 		} catch (AssertionError e) {

@@ -14,12 +14,10 @@
  * limitations under the License.
  */
 
-package de.codecentric.zucchini.examples;
+package de.codecentric.zucchini.web.junit;
 
-import de.codecentric.zucchini.bdd.ExecutorHolder;
 import de.codecentric.zucchini.web.WebDriverExecutor;
-import de.codecentric.zucchini.web.provider.ChromeDriverProvider;
-import org.junit.Before;
+import de.codecentric.zucchini.web.provider.HtmlUnitDriverProvider;
 import org.junit.Test;
 import org.openqa.selenium.By;
 
@@ -29,15 +27,11 @@ import static de.codecentric.zucchini.web.pageobjects.SimplePage.url;
 import static de.codecentric.zucchini.web.results.WebResults.see;
 import static de.codecentric.zucchini.web.steps.WebSteps.submit;
 import static de.codecentric.zucchini.web.steps.WebSteps.type;
+import static org.junit.Assert.assertTrue;
 
-public class SimpleTest {
-	@Before
-	public void setUp() {
-		ExecutorHolder.setExecutor(new WebDriverExecutor(new ChromeDriverProvider()));
-	}
-
+public abstract class ZucchiniWebRuleTestBase {
 	@Test
-	public void testSearchOnCodecentricWebsite() {
+	public void testExecuteTestWithAutoConfiguredZucchiniWebRule() {
 		By searchInputField = By.name("s");
 		given(onPage(url("http://www.codecentric.de")))
 				.when(type("codecentric").into(searchInputField))
@@ -45,4 +39,12 @@ public class SimpleTest {
 				.then(see("codecentric"))
 				.end();
 	}
+
+	@Test
+	public void testWebDriverProviderIsConfigured() {
+		assertTrue(getWebDriverExecutor() instanceof WebDriverExecutor);
+		assertTrue(getWebDriverExecutor().getWebDriverProvider() instanceof HtmlUnitDriverProvider);
+	}
+
+	public abstract WebDriverExecutor getWebDriverExecutor();
 }

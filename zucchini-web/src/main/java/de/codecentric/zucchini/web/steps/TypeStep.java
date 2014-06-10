@@ -17,8 +17,13 @@
 package de.codecentric.zucchini.web.steps;
 
 import org.openqa.selenium.By;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import static de.codecentric.zucchini.web.util.WebAssert.findElementOrFail;
 
 public class TypeStep extends AbstractWebStep {
+	private static final Logger logger = LoggerFactory.getLogger(TypeStep.class);
 
 	private TypeContext typeContext;
 	private By element;
@@ -30,6 +35,7 @@ public class TypeStep extends AbstractWebStep {
 
 	@Override
 	public void go() {
-		getWebDriver().findElement(element).sendKeys(typeContext.getText());
+		logger.info("Typing \"{}\" into {}...", typeContext.getText(), element);
+		findElementOrFail(getWebDriver(), element).sendKeys(typeContext.getText());
 	}
 }

@@ -14,31 +14,21 @@
  * limitations under the License.
  */
 
-package de.codecentric.zucchini.examples;
+package de.codecentric.zucchini.bdd.dsl.impl.facts;
 
+import de.codecentric.zucchini.bdd.ExecutionContext;
 import de.codecentric.zucchini.bdd.ExecutorHolder;
-import de.codecentric.zucchini.bdd.SimpleExecutor;
-import org.junit.Before;
-import org.junit.Test;
+import de.codecentric.zucchini.bdd.dsl.ExecutionFact;
 
-import static de.codecentric.zucchini.bdd.dsl.TestContext.given;
+public class PreparedExecutionFact implements ExecutionFact {
+	private ExecutionContext executionContext;
 
-public class CustomLogStrategyTest {
-	@Before
-	public void setUp() {
-		SimpleExecutor executor = new SimpleExecutor();
-		executor.setLogStrategy(statement -> System.out.println(statement.getClass().getSimpleName()));
-		ExecutorHolder.setExecutor(executor);
+	public PreparedExecutionFact(ExecutionContext executionContext) {
+		this.executionContext = executionContext;
 	}
 
-	@Test
-	public void testCustomLogStrategy() {
-		given(() -> {
-			// Intentionally left blank.
-		}).when(() -> {
-			// Intentionally left blank.
-		}).then(() -> {
-			// Intentionally left blank.
-		}).end();
+	@Override
+	public void establish() {
+		ExecutorHolder.getExecutor().execute(executionContext);
 	}
 }
