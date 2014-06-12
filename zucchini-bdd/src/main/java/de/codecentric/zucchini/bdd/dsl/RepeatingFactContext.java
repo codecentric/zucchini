@@ -16,7 +16,7 @@
 
 package de.codecentric.zucchini.bdd.dsl;
 
-public interface RepeatingFactContext extends FirstStepContext {
+public interface RepeatingFactContext extends FirstStepContext, Termination {
 	RepeatingFactContext andGiven(Fact fact);
 
 	RepeatingFactContext andGiven(String factName);

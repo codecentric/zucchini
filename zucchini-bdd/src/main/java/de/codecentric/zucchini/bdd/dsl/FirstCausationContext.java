@@ -17,7 +17,4 @@
 package de.codecentric.zucchini.bdd.dsl;
 
 public interface FirstCausationContext {
-	RepeatingFactContext given(Fact fact);
-
-	RepeatingFactContext given(String factName);
 }

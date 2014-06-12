@@ -16,32 +16,27 @@
 
 package de.codecentric.zucchini.bdd.dsl.impl;
 
-import de.codecentric.zucchini.bdd.dsl.Fact;
+import de.codecentric.zucchini.bdd.ExecutionContext;
+import de.codecentric.zucchini.bdd.dsl.ExecutionFact;
 import de.codecentric.zucchini.bdd.dsl.FirstStepContext;
 import de.codecentric.zucchini.bdd.dsl.RepeatingStepContext;
 import de.codecentric.zucchini.bdd.dsl.Step;
+import de.codecentric.zucchini.bdd.dsl.impl.facts.PreparedExecutionFact;
 import de.codecentric.zucchini.bdd.resolver.StatementResolverHolder;
 
-import java.util.List;
-
-public class ConnectedFirstStepContext implements FirstStepContext {
-	private final List<Fact> facts;
-
-	ConnectedFirstStepContext(List<Fact> facts) {
-		this.facts = facts;
+public class ConnectedFirstStepContext extends ConnectedTermination implements FirstStepContext {
+	ConnectedFirstStepContext(ExecutionContext executionContext) {
+		super(executionContext);
 	}
 
 	@Override
 	public RepeatingStepContext when(Step step) {
-		return new ConnectedRepeatingStepContext(facts, step);
+		getExecutionContext().getSteps().add(step);
+		return new ConnectedRepeatingStepContext(getExecutionContext());
 	}
 
 	@Override
 	public RepeatingStepContext when(String stepName) {
 		return when(StatementResolverHolder.getStatementResolver().resolveStatement(stepName, Step.class));
-	}
-
-	List<Fact> getFacts() {
-		return facts;
 	}
 }

@@ -26,28 +26,24 @@ import de.codecentric.zucchini.bdd.dsl.impl.facts.PreparedExecutionFact;
 import java.util.List;
 
 public class ConnectedTermination implements Termination {
-	private final List<Fact> facts;
-	private final List<Step> steps;
-	private final List<Result> results;
+	private final ExecutionContext executionContext;
 
-	ConnectedTermination(List<Fact> facts, List<Step> steps, List<Result> results) {
-		this.facts = facts;
-		this.steps = steps;
-		this.results = results;
+	ConnectedTermination(ExecutionContext executionContext) {
+		this.executionContext = executionContext;
+	}
+
+	protected final ExecutionContext getExecutionContext() {
+		return executionContext;
 	}
 
 	@Override
-	public void end() {
+	public final void end() {
 		getExecutor().execute(getExecutionContext());
 	}
 
 	@Override
-	public ExecutionFact asFact() {
+	public final ExecutionFact asFact() {
 		return new PreparedExecutionFact(getExecutionContext());
-	}
-
-	private ExecutionContext getExecutionContext() {
-		return new ExecutionContext(facts, steps, results);
 	}
 
 	private Executor getExecutor() {

@@ -16,8 +16,6 @@
 
 package de.codecentric.zucchini.bdd.dsl;
 
-public interface FirstOutcomeContext extends Termination {
-	RepeatingResultContext then(Result result);
-
-	RepeatingResultContext then(String resultName);
+public interface AsFactConverter {
+	ExecutionFact asFact();
 }

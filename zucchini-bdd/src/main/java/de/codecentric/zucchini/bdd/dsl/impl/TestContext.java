@@ -14,19 +14,23 @@
  * limitations under the License.
  */
 
-package de.codecentric.zucchini.bdd.dsl;
+package de.codecentric.zucchini.bdd.dsl.impl;
 
+import de.codecentric.zucchini.bdd.ExecutionContext;
+import de.codecentric.zucchini.bdd.dsl.*;
 import de.codecentric.zucchini.bdd.dsl.impl.ConnectedRepeatingFactContext;
 import de.codecentric.zucchini.bdd.resolver.StatementResolverHolder;
 
+import java.util.ArrayList;
+
 import static de.codecentric.zucchini.bdd.dsl.impl.util.ArrayConverter.createMutableList;
 
-public class TestContext {
+public class TestContext implements FirstCausationContext {
 	public static RepeatingFactContext given(Fact fact) {
-		return new ConnectedRepeatingFactContext(createMutableList(fact));
+		return new ConnectedRepeatingFactContext(new ExecutionContext(createMutableList(fact), new ArrayList<Step>(), new ArrayList<Result>()));
 	}
 
 	public static RepeatingFactContext given(String fact) {
-		return new ConnectedRepeatingFactContext(createMutableList(new Fact[]{StatementResolverHolder.getStatementResolver().resolveStatement(fact, Fact.class)}));
+		return given(StatementResolverHolder.getStatementResolver().resolveStatement(fact, Fact.class));
 	}
 }

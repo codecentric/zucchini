@@ -16,8 +16,6 @@
 
 package de.codecentric.zucchini.bdd.dsl;
 
-public interface Termination {
+public interface Termination extends AsFactConverter {
 	void end();
-
-	ExecutionFact asFact();
 }

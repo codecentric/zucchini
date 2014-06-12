@@ -22,7 +22,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.openqa.selenium.By;
 
-import static de.codecentric.zucchini.bdd.dsl.TestContext.given;
+import static de.codecentric.zucchini.bdd.dsl.impl.TestContext.given;
 import static de.codecentric.zucchini.web.facts.WebFacts.onPage;
 import static de.codecentric.zucchini.web.pageobjects.SimplePage.url;
 import static de.codecentric.zucchini.web.results.WebResults.see;

@@ -16,7 +16,9 @@
 
 package de.codecentric.zucchini.bdd.dsl.impl;
 
+import de.codecentric.zucchini.bdd.ExecutionContext;
 import de.codecentric.zucchini.bdd.dsl.*;
+import de.codecentric.zucchini.bdd.dsl.impl.facts.PreparedExecutionFact;
 import de.codecentric.zucchini.bdd.resolver.StatementResolverHolder;
 
 import java.util.ArrayList;
@@ -24,31 +26,27 @@ import java.util.List;
 
 import static de.codecentric.zucchini.bdd.dsl.impl.util.ArrayConverter.createMutableList;
 
-public class ConnectedRepeatingStepContext implements RepeatingStepContext {
-	private final List<Fact> facts;
+public class ConnectedRepeatingStepContext extends ConnectedTermination implements RepeatingStepContext {
 
-	private final List<Step> steps = new ArrayList<Step>();
-
-	public ConnectedRepeatingStepContext(List<Fact> facts, Step step) {
-		this.facts = facts;
-		steps.add(step);
+	ConnectedRepeatingStepContext(ExecutionContext executionContext) {
+		super(executionContext);
 	}
 
 	@Override
 	public RepeatingStepContext andWhen(Step step) {
-		this.steps.add(step);
+		getExecutionContext().getSteps().add(step);
 		return this;
 	}
 
 	@Override
 	public RepeatingStepContext andWhen(String stepName) {
-		this.steps.add(StatementResolverHolder.getStatementResolver().resolveStatement(stepName, Step.class));
-		return this;
+		return andWhen(StatementResolverHolder.getStatementResolver().resolveStatement(stepName, Step.class));
 	}
 
 	@Override
 	public RepeatingResultContext then(Result result) {
-		return new ConnectedRepeatingResultContext(facts, steps, createMutableList(result));
+		getExecutionContext().getResults().add(result);
+		return new ConnectedRepeatingResultContext(getExecutionContext());
 	}
 
 	@Override

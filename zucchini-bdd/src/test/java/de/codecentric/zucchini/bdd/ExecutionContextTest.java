@@ -19,7 +19,7 @@ package de.codecentric.zucchini.bdd;
 import org.junit.Test;
 import org.mockito.ArgumentMatcher;
 
-import static de.codecentric.zucchini.bdd.dsl.TestContext.given;
+import static de.codecentric.zucchini.bdd.dsl.impl.TestContext.given;
 import static de.codecentric.zucchini.bdd.dsl.impl.facts.Facts.noOpFact;
 import static de.codecentric.zucchini.bdd.dsl.impl.results.Results.noOpResult;
 import static de.codecentric.zucchini.bdd.dsl.impl.steps.Steps.noOpStep;
@@ -27,11 +27,55 @@ import static org.mockito.Matchers.argThat;
 import static org.mockito.Mockito.*;
 
 public class ExecutionContextTest {
+	@Test
+	public void testOneFactZeroStepsZeroResults() {
+		Executor executorMock = mock(Executor.class);
+		ExecutorHolder.setExecutor(executorMock);
+
+		given(noOpFact()).end();
+
+		verifyExecutionContext(executorMock, 1, 0, 0);
+	}
 
 	@Test
-	public void testOpenGoogle() {
+	public void testOneFactOneStepZeroResults() {
 		Executor executorMock = mock(Executor.class);
+		ExecutorHolder.setExecutor(executorMock);
 
+		given(noOpFact()).when(noOpStep()).end();
+
+		verifyExecutionContext(executorMock, 1, 1, 0);
+	}
+
+	@Test
+	public void testOneFactTwoStepsZeroResults() {
+		Executor executorMock = mock(Executor.class);
+		ExecutorHolder.setExecutor(executorMock);
+
+		given(noOpFact())
+				.when(noOpStep())
+				.andWhen(noOpStep())
+				.end();
+
+		verifyExecutionContext(executorMock, 1, 2, 0);
+	}
+
+	@Test
+	public void testOneFactOneStepOneResult() {
+		Executor executorMock = mock(Executor.class);
+		ExecutorHolder.setExecutor(executorMock);
+
+		given(noOpFact())
+				.when(noOpStep())
+				.then(noOpResult())
+				.end();
+
+		verifyExecutionContext(executorMock, 1, 1, 1);
+	}
+
+	@Test
+	public void testOneFactOneStepThreeResults() {
+		Executor executorMock = mock(Executor.class);
 		ExecutorHolder.setExecutor(executorMock);
 
 		given(noOpFact())
@@ -41,6 +85,10 @@ public class ExecutionContextTest {
 				.andThen(noOpResult())
 				.end();
 
+		verifyExecutionContext(executorMock, 1, 1, 3);
+	}
+
+	private void verifyExecutionContext(Executor executorMock, final int expectedNumberOfFacts, final int expectedNumberOfSteps, final int expectedNumberOfResults) {
 		verify(executorMock).execute(argThat(new ArgumentMatcher<ExecutionContext>() {
 			@Override
 			public boolean matches(Object argument) {
@@ -48,13 +96,13 @@ public class ExecutionContextTest {
 					return false;
 				}
 				ExecutionContext executionContext = (ExecutionContext) argument;
-				if (executionContext.getFacts().size() != 1) {
+				if (executionContext.getFacts().size() != expectedNumberOfFacts) {
 					return false;
 				}
-				if (executionContext.getSteps().size() != 1) {
+				if (executionContext.getSteps().size() != expectedNumberOfSteps) {
 					return false;
 				}
-				if (executionContext.getResults().size() != 3) {
+				if (executionContext.getResults().size() != expectedNumberOfResults) {
 					return false;
 				}
 				return true;
@@ -62,5 +110,4 @@ public class ExecutionContextTest {
 		}));
 		verifyNoMoreInteractions(executorMock);
 	}
-
 }
