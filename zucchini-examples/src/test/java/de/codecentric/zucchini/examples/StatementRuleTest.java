@@ -28,9 +28,9 @@ import org.openqa.selenium.By;
 import static de.codecentric.zucchini.bdd.dsl.impl.TestContext.given;
 import static de.codecentric.zucchini.web.facts.WebFacts.onPage;
 import static de.codecentric.zucchini.web.pageobjects.SimplePage.url;
-import static de.codecentric.zucchini.web.results.WebResults.noOpWebResult;
 import static de.codecentric.zucchini.web.results.WebResults.see;
-import static de.codecentric.zucchini.web.steps.WebSteps.*;
+import static de.codecentric.zucchini.web.steps.WebSteps.submit;
+import static de.codecentric.zucchini.web.steps.WebSteps.type;
 
 public class StatementRuleTest {
 	@Rule
@@ -66,9 +66,6 @@ public class StatementRuleTest {
 
 	@Test
 	public void testPreparedRules() {
-		given("all")
-				.when(noOpWebStep())
-				.then(noOpWebResult())
-				.end();
+		given("all").end();
 	}
 }
