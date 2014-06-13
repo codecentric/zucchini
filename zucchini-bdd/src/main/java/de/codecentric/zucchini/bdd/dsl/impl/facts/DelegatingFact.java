@@ -14,27 +14,31 @@
  * limitations under the License.
  */
 
-package de.codecentric.zucchini.bdd.dsl.impl;
+package de.codecentric.zucchini.bdd.dsl.impl.facts;
 
-import de.codecentric.zucchini.bdd.ExecutionContext;
+import de.codecentric.zucchini.bdd.dsl.DelegatingStatement;
 import de.codecentric.zucchini.bdd.dsl.Fact;
-import de.codecentric.zucchini.bdd.dsl.RepeatingFactContext;
-import de.codecentric.zucchini.bdd.dsl.impl.facts.DelegatingFact;
+import de.codecentric.zucchini.bdd.resolver.StatementResolverHolder;
 
-public class ConnectedRepeatingFactContext extends ConnectedFirstStepContext implements RepeatingFactContext {
+public class DelegatingFact implements Fact, DelegatingStatement<Fact> {
+	private String factName;
 
-	public ConnectedRepeatingFactContext(ExecutionContext executionContext) {
-		super(executionContext);
+	private Fact fact;
+
+	public DelegatingFact(String factName) {
+		this.factName = factName;
 	}
 
 	@Override
-	public RepeatingFactContext andGiven(Fact fact) {
-		getExecutionContext().getFacts().add(fact);
-		return this;
+	public void establish() {
+		getStatement().establish();
 	}
 
 	@Override
-	public RepeatingFactContext andGiven(String factName) {
-		return andGiven(new DelegatingFact(factName));
+	public Fact getStatement() {
+		if (fact == null) {
+			fact = StatementResolverHolder.getStatementResolver().resolveStatement(factName, Fact.class);
+		}
+		return fact;
 	}
 }

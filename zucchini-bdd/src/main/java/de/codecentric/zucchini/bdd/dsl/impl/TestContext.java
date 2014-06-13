@@ -18,7 +18,7 @@ package de.codecentric.zucchini.bdd.dsl.impl;
 
 import de.codecentric.zucchini.bdd.ExecutionContext;
 import de.codecentric.zucchini.bdd.dsl.*;
-import de.codecentric.zucchini.bdd.resolver.StatementResolverHolder;
+import de.codecentric.zucchini.bdd.dsl.impl.facts.DelegatingFact;
 
 import java.util.ArrayList;
 
@@ -29,7 +29,7 @@ public class TestContext implements FirstCausationContext {
 		return new ConnectedRepeatingFactContext(new ExecutionContext(createMutableList(fact), new ArrayList<Step>(), new ArrayList<Result>()));
 	}
 
-	public static RepeatingFactContext given(String fact) {
-		return given(StatementResolverHolder.getStatementResolver().resolveStatement(fact, Fact.class));
+	public static RepeatingFactContext given(String factName) {
+		return given(new DelegatingFact(factName));
 	}
 }

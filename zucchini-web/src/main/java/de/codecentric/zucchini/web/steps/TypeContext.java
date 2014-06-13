@@ -18,18 +18,12 @@ package de.codecentric.zucchini.web.steps;
 
 import org.openqa.selenium.By;
 
-public class TypeContext {
-	private final String text;
-
-	public TypeContext(String text) {
-		this.text = text;
+public class TypeContext extends TypeStep {
+	public TypeContext(CharSequence... keys) {
+		super(keys);
 	}
 
-	public TypeStep into(By into) {
-		return new TypeStep(this, into);
-	}
-
-	String getText() {
-		return text;
+	public TypeIntoStep into(By into) {
+		return new TypeIntoStep(this, into);
 	}
 }
