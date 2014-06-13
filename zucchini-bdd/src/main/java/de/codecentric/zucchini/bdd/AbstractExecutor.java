@@ -28,11 +28,14 @@ public abstract class AbstractExecutor implements Executor {
 	@Override
 	public void execute(ExecutionContext executionContext) throws ExecutionException {
 		initialize();
-		failOnInvalidContext(executionContext);
-		establishFacts(executionContext.getFacts());
-		goSteps(executionContext.getSteps());
-		expectResults(executionContext.getResults());
-		shutdown();
+		try {
+			failOnInvalidContext(executionContext);
+			establishFacts(executionContext.getFacts());
+			goSteps(executionContext.getSteps());
+			expectResults(executionContext.getResults());
+		} finally {
+			shutdown();
+		}
 	}
 
 	private void establishFacts(List<Fact> facts) {

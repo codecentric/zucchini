@@ -21,8 +21,10 @@ import de.codecentric.zucchini.bdd.ExecutionException;
 import de.codecentric.zucchini.bdd.Executor;
 import de.codecentric.zucchini.bdd.ExecutorHolder;
 import de.codecentric.zucchini.bdd.dsl.ExecutionFact;
+import de.codecentric.zucchini.bdd.dsl.Fact;
 import de.codecentric.zucchini.bdd.dsl.Termination;
 import de.codecentric.zucchini.bdd.dsl.impl.facts.PreparedExecutionFact;
+import de.codecentric.zucchini.bdd.resolver.StatementResolverHolder;
 
 public class ConnectedTermination implements Termination {
 	private final ExecutionContext executionContext;
@@ -43,6 +45,11 @@ public class ConnectedTermination implements Termination {
 	@Override
 	public final ExecutionFact asFact() {
 		return new PreparedExecutionFact(getExecutionContext());
+	}
+
+	@Override
+	public final void registerAsFact(String factName) {
+		StatementResolverHolder.getStatementResolver().addStatement(factName, asFact(), Fact.class);
 	}
 
 	private Executor getExecutor() {

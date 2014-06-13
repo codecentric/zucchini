@@ -20,7 +20,7 @@ import de.codecentric.zucchini.bdd.ExecutionContext;
 import de.codecentric.zucchini.bdd.dsl.FirstStepContext;
 import de.codecentric.zucchini.bdd.dsl.RepeatingStepContext;
 import de.codecentric.zucchini.bdd.dsl.Step;
-import de.codecentric.zucchini.bdd.resolver.StatementResolverHolder;
+import de.codecentric.zucchini.bdd.dsl.impl.steps.DelegatingStep;
 
 public class ConnectedFirstStepContext extends ConnectedTermination implements FirstStepContext {
 	ConnectedFirstStepContext(ExecutionContext executionContext) {
@@ -35,6 +35,6 @@ public class ConnectedFirstStepContext extends ConnectedTermination implements F
 
 	@Override
 	public RepeatingStepContext when(String stepName) {
-		return when(StatementResolverHolder.getStatementResolver().resolveStatement(stepName, Step.class));
+		return when(new DelegatingStep(stepName));
 	}
 }

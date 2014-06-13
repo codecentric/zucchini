@@ -21,6 +21,7 @@ import de.codecentric.zucchini.bdd.dsl.RepeatingResultContext;
 import de.codecentric.zucchini.bdd.dsl.RepeatingStepContext;
 import de.codecentric.zucchini.bdd.dsl.Result;
 import de.codecentric.zucchini.bdd.dsl.Step;
+import de.codecentric.zucchini.bdd.dsl.impl.results.DelegatingResult;
 import de.codecentric.zucchini.bdd.resolver.StatementResolverHolder;
 
 public class ConnectedRepeatingStepContext extends ConnectedTermination implements RepeatingStepContext {
@@ -48,6 +49,6 @@ public class ConnectedRepeatingStepContext extends ConnectedTermination implemen
 
 	@Override
 	public RepeatingResultContext then(String resultName) {
-		return then(StatementResolverHolder.getStatementResolver().resolveStatement(resultName, Result.class));
+		return then(new DelegatingResult(resultName));
 	}
 }

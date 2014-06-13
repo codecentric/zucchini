@@ -16,27 +16,26 @@
 
 package de.codecentric.zucchini.web.steps;
 
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.By;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TypeStep extends AbstractWebStep {
-	private static final Logger logger = LoggerFactory.getLogger(TypeStep.class);
+import static de.codecentric.zucchini.web.util.WebAssert.findElementOrFail;
 
-	private CharSequence[] keys;
+public class TypeIntoStep extends AbstractWebStep {
+	private static final Logger logger = LoggerFactory.getLogger(TypeIntoStep.class);
 
-	public TypeStep(CharSequence... keys) {
-		this.keys = keys;
-	}
+	private TypeContext typeContext;
+	private By element;
 
-	CharSequence[] getKeys() {
-		return keys;
+	public TypeIntoStep(TypeContext typeContext, By element) {
+		this.typeContext = typeContext;
+		this.element = element;
 	}
 
 	@Override
 	public void go() {
-		logger.info("Typing \"{}\"...", keys);
-		new Actions(getWebDriver()).sendKeys(Keys.ENTER);
+		logger.info("Typing \"{}\" into {}...", typeContext.getKeys(), element);
+		findElementOrFail(getWebDriver(), element).sendKeys(typeContext.getKeys());
 	}
 }

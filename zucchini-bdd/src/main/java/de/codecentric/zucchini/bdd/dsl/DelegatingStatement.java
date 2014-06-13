@@ -16,6 +16,6 @@
 
 package de.codecentric.zucchini.bdd.dsl;
 
-public interface Termination extends AsFactConverter, FactRegistrar {
-	void end();
+public interface DelegatingStatement<T extends Statement> {
+	T getStatement();
 }

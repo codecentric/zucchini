@@ -14,29 +14,30 @@
  * limitations under the License.
  */
 
-package de.codecentric.zucchini.web.steps;
+package de.codecentric.zucchini.bdd.dsl.impl.steps;
 
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.interactions.Actions;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import de.codecentric.zucchini.bdd.dsl.DelegatingStatement;
+import de.codecentric.zucchini.bdd.dsl.Step;
+import de.codecentric.zucchini.bdd.resolver.StatementResolverHolder;
 
-public class TypeStep extends AbstractWebStep {
-	private static final Logger logger = LoggerFactory.getLogger(TypeStep.class);
+public class DelegatingStep implements Step, DelegatingStatement<Step> {
+	private String stepName;
 
-	private CharSequence[] keys;
+	private Step step;
 
-	public TypeStep(CharSequence... keys) {
-		this.keys = keys;
-	}
-
-	CharSequence[] getKeys() {
-		return keys;
+	public DelegatingStep(String stepName) {
+		this.stepName = stepName;
 	}
 
 	@Override
 	public void go() {
-		logger.info("Typing \"{}\"...", keys);
-		new Actions(getWebDriver()).sendKeys(Keys.ENTER);
+		getStatement().go();
+	}
+
+	public Step getStatement() {
+		if (step == null) {
+			step = StatementResolverHolder.getStatementResolver().resolveStatement(stepName, Step.class);
+		}
+		return step;
 	}
 }

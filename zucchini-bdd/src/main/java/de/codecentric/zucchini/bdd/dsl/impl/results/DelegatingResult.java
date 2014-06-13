@@ -14,26 +14,31 @@
  * limitations under the License.
  */
 
-package de.codecentric.zucchini.bdd.dsl.impl;
+package de.codecentric.zucchini.bdd.dsl.impl.results;
 
-import de.codecentric.zucchini.bdd.ExecutionContext;
-import de.codecentric.zucchini.bdd.dsl.RepeatingResultContext;
+import de.codecentric.zucchini.bdd.dsl.DelegatingStatement;
 import de.codecentric.zucchini.bdd.dsl.Result;
-import de.codecentric.zucchini.bdd.dsl.impl.results.DelegatingResult;
+import de.codecentric.zucchini.bdd.resolver.StatementResolverHolder;
 
-public class ConnectedRepeatingResultContext extends ConnectedTermination implements RepeatingResultContext {
-	ConnectedRepeatingResultContext(ExecutionContext executionContext) {
-		super(executionContext);
+public class DelegatingResult implements Result, DelegatingStatement<Result> {
+	private String resultName;
+
+	private Result result;
+
+	public DelegatingResult(String resultName) {
+		this.resultName = resultName;
 	}
 
 	@Override
-	public RepeatingResultContext andThen(Result result) {
-		getExecutionContext().getResults().add(result);
-		return this;
+	public void expect() {
+		getStatement().expect();
 	}
 
 	@Override
-	public RepeatingResultContext andThen(String resultName) {
-		return andThen(new DelegatingResult(resultName));
+	public Result getStatement() {
+		if (result == null) {
+			result = StatementResolverHolder.getStatementResolver().resolveStatement(resultName, Result.class);
+		}
+		return result;
 	}
 }
