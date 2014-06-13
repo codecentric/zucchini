@@ -17,13 +17,9 @@
 package de.codecentric.zucchini.bdd.dsl.impl;
 
 import de.codecentric.zucchini.bdd.ExecutionContext;
-import de.codecentric.zucchini.bdd.dsl.Fact;
 import de.codecentric.zucchini.bdd.dsl.RepeatingResultContext;
 import de.codecentric.zucchini.bdd.dsl.Result;
-import de.codecentric.zucchini.bdd.dsl.Step;
 import de.codecentric.zucchini.bdd.resolver.StatementResolverHolder;
-
-import java.util.List;
 
 public class ConnectedRepeatingResultContext extends ConnectedTermination implements RepeatingResultContext {
 	ConnectedRepeatingResultContext(ExecutionContext executionContext) {

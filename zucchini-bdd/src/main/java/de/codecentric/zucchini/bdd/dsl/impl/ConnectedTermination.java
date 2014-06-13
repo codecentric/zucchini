@@ -20,10 +20,9 @@ import de.codecentric.zucchini.bdd.ExecutionContext;
 import de.codecentric.zucchini.bdd.ExecutionException;
 import de.codecentric.zucchini.bdd.Executor;
 import de.codecentric.zucchini.bdd.ExecutorHolder;
-import de.codecentric.zucchini.bdd.dsl.*;
+import de.codecentric.zucchini.bdd.dsl.ExecutionFact;
+import de.codecentric.zucchini.bdd.dsl.Termination;
 import de.codecentric.zucchini.bdd.dsl.impl.facts.PreparedExecutionFact;
-
-import java.util.List;
 
 public class ConnectedTermination implements Termination {
 	private final ExecutionContext executionContext;

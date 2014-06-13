@@ -18,7 +18,6 @@ package de.codecentric.zucchini.bdd.dsl.impl;
 
 import de.codecentric.zucchini.bdd.ExecutionContext;
 import de.codecentric.zucchini.bdd.dsl.*;
-import de.codecentric.zucchini.bdd.dsl.impl.ConnectedRepeatingFactContext;
 import de.codecentric.zucchini.bdd.resolver.StatementResolverHolder;
 
 import java.util.ArrayList;

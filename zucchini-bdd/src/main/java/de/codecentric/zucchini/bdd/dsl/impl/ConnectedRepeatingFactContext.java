@@ -17,13 +17,9 @@
 package de.codecentric.zucchini.bdd.dsl.impl;
 
 import de.codecentric.zucchini.bdd.ExecutionContext;
-import de.codecentric.zucchini.bdd.dsl.ExecutionFact;
 import de.codecentric.zucchini.bdd.dsl.Fact;
 import de.codecentric.zucchini.bdd.dsl.RepeatingFactContext;
-import de.codecentric.zucchini.bdd.dsl.impl.facts.PreparedExecutionFact;
 import de.codecentric.zucchini.bdd.resolver.StatementResolverHolder;
-
-import java.util.List;
 
 public class ConnectedRepeatingFactContext extends ConnectedFirstStepContext implements RepeatingFactContext {
 

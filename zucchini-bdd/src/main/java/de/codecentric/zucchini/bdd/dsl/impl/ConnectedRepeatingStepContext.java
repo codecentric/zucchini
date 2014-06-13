@@ -17,14 +17,11 @@
 package de.codecentric.zucchini.bdd.dsl.impl;
 
 import de.codecentric.zucchini.bdd.ExecutionContext;
-import de.codecentric.zucchini.bdd.dsl.*;
-import de.codecentric.zucchini.bdd.dsl.impl.facts.PreparedExecutionFact;
+import de.codecentric.zucchini.bdd.dsl.RepeatingResultContext;
+import de.codecentric.zucchini.bdd.dsl.RepeatingStepContext;
+import de.codecentric.zucchini.bdd.dsl.Result;
+import de.codecentric.zucchini.bdd.dsl.Step;
 import de.codecentric.zucchini.bdd.resolver.StatementResolverHolder;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static de.codecentric.zucchini.bdd.dsl.impl.util.ArrayConverter.createMutableList;
 
 public class ConnectedRepeatingStepContext extends ConnectedTermination implements RepeatingStepContext {
 

@@ -17,11 +17,9 @@
 package de.codecentric.zucchini.bdd.dsl.impl;
 
 import de.codecentric.zucchini.bdd.ExecutionContext;
-import de.codecentric.zucchini.bdd.dsl.ExecutionFact;
 import de.codecentric.zucchini.bdd.dsl.FirstStepContext;
 import de.codecentric.zucchini.bdd.dsl.RepeatingStepContext;
 import de.codecentric.zucchini.bdd.dsl.Step;
-import de.codecentric.zucchini.bdd.dsl.impl.facts.PreparedExecutionFact;
 import de.codecentric.zucchini.bdd.resolver.StatementResolverHolder;
 
 public class ConnectedFirstStepContext extends ConnectedTermination implements FirstStepContext {
