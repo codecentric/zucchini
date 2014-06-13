@@ -17,12 +17,12 @@
 package de.codecentric.zucchini.web.junit;
 
 import de.codecentric.zucchini.web.WebDriverExecutor;
-import de.codecentric.zucchini.web.provider.HtmlUnitDriverProvider;
+import de.codecentric.zucchini.web.provider.ChromeDriverProvider;
 import org.junit.Rule;
 
 public class WebRuleWithCustomWebDriverExecutorDriverProviderTest extends ZucchiniWebRuleTestBase {
 	@Rule
-	public WebDriverExecutorRule webRuleWithCustomWebDriverExecutorDriverProvider = new WebDriverExecutorRule(new HtmlUnitDriverProvider());
+	public WebDriverExecutorRule webRuleWithCustomWebDriverExecutorDriverProvider = new WebDriverExecutorRule(new ChromeDriverProvider());
 
 	@Override
 	public WebDriverExecutor getWebDriverExecutor() {

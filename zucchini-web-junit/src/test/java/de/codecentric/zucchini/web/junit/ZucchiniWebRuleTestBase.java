@@ -17,7 +17,7 @@
 package de.codecentric.zucchini.web.junit;
 
 import de.codecentric.zucchini.web.WebDriverExecutor;
-import de.codecentric.zucchini.web.provider.HtmlUnitDriverProvider;
+import de.codecentric.zucchini.web.provider.ChromeDriverProvider;
 import org.junit.Test;
 import org.openqa.selenium.By;
 
@@ -43,7 +43,7 @@ public abstract class ZucchiniWebRuleTestBase {
 	@Test
 	public void testWebDriverProviderIsConfigured() {
 		assertTrue(getWebDriverExecutor() instanceof WebDriverExecutor);
-		assertTrue(getWebDriverExecutor().getWebDriverProvider() instanceof HtmlUnitDriverProvider);
+		assertTrue(getWebDriverExecutor().getWebDriverProvider() instanceof ChromeDriverProvider);
 	}
 
 	public abstract WebDriverExecutor getWebDriverExecutor();
