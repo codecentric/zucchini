@@ -21,7 +21,7 @@ import de.codecentric.zucchini.bdd.ExecutionContext;
 import de.codecentric.zucchini.bdd.ExecutionException;
 import de.codecentric.zucchini.bdd.dsl.*;
 import de.codecentric.zucchini.web.facts.WebFact;
-import de.codecentric.zucchini.web.provider.HtmlUnitDriverProvider;
+import de.codecentric.zucchini.web.provider.ChromeDriverProvider;
 import de.codecentric.zucchini.web.provider.WebDriverProvider;
 import de.codecentric.zucchini.web.results.WebResult;
 import de.codecentric.zucchini.web.steps.WebStep;
@@ -30,7 +30,7 @@ public class WebDriverExecutor extends AbstractExecutor {
 	private WebDriverProvider webDriverProvider;
 
 	public WebDriverExecutor() {
-		this(new HtmlUnitDriverProvider());
+		this(new ChromeDriverProvider());
 	}
 
 	public WebDriverExecutor(WebDriverProvider webDriverProvider) {
