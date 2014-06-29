@@ -19,11 +19,11 @@ package de.codecentric.zucchini.examples;
 import de.codecentric.zucchini.web.junit.WebDriverExecutorRule;
 import de.codecentric.zucchini.web.junit.WebFactRule;
 import de.codecentric.zucchini.web.provider.ChromeDriverProvider;
-import jdk.nashorn.internal.ir.annotations.Ignore;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 
-import static de.codecentric.zucchini.bdd.dsl.impl.TestContext.given;
+import static de.codecentric.zucchini.bdd.dsl.impl.ScenarioBuilder.given;
 import static de.codecentric.zucchini.web.facts.WebFacts.onPage;
 import static de.codecentric.zucchini.web.pageobjects.SimplePage.url;
 

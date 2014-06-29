@@ -29,8 +29,7 @@ public class ConnectedFirstStepContext extends ConnectedTermination implements F
 
 	@Override
 	public RepeatingStepContext when(Step step) {
-		getExecutionContext().getSteps().add(step);
-		return new ConnectedRepeatingStepContext(getExecutionContext());
+		return new ConnectedRepeatingStepContext(getExecutionContext().addStep(step));
 	}
 
 	@Override

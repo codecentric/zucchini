@@ -16,7 +16,7 @@
 
 package de.codecentric.zucchini.bdd.dsl;
 
-public interface FirstStepContext {
+public interface FirstStepContext extends Termination {
 	RepeatingStepContext when(Step step);
 
 	RepeatingStepContext when(String stepName);

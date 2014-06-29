@@ -19,9 +19,7 @@ package de.codecentric.zucchini.bdd.dsl.impl.facts;
 import de.codecentric.zucchini.bdd.dsl.Fact;
 
 public class Facts {
-
-	public static Fact noOpFact() {
+	public static Fact noContext() {
 		return new NonOperationalFact();
 	}
-
 }

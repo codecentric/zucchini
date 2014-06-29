@@ -32,7 +32,7 @@ public class ConnectedRepeatingStepContext extends ConnectedTermination implemen
 
 	@Override
 	public RepeatingStepContext andWhen(Step step) {
-		getExecutionContext().getSteps().add(step);
+		getExecutionContext().addStep(step);
 		return this;
 	}
 
@@ -43,8 +43,7 @@ public class ConnectedRepeatingStepContext extends ConnectedTermination implemen
 
 	@Override
 	public RepeatingResultContext then(Result result) {
-		getExecutionContext().getResults().add(result);
-		return new ConnectedRepeatingResultContext(getExecutionContext());
+		return new ConnectedRepeatingResultContext(getExecutionContext().addResult(result));
 	}
 
 	@Override

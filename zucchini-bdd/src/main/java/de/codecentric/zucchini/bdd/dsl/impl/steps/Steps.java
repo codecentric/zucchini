@@ -19,7 +19,7 @@ package de.codecentric.zucchini.bdd.dsl.impl.steps;
 import de.codecentric.zucchini.bdd.dsl.Step;
 
 public class Steps {
-	public static Step noOpStep() {
+	public static Step noOperation() {
 		return new NonOperationalStep();
 	}
 }

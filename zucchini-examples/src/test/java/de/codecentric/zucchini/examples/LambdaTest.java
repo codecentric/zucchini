@@ -24,7 +24,7 @@ import de.codecentric.zucchini.bdd.dsl.Step;
 import org.junit.Before;
 import org.junit.Test;
 
-import static de.codecentric.zucchini.bdd.dsl.impl.TestContext.given;
+import static de.codecentric.zucchini.bdd.dsl.impl.ScenarioBuilder.given;
 
 public class LambdaTest {
 	@Before
