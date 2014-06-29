@@ -29,7 +29,7 @@ public class ConnectedRepeatingFactContext extends ConnectedFirstStepContext imp
 
 	@Override
 	public RepeatingFactContext andGiven(Fact fact) {
-		getExecutionContext().getFacts().add(fact);
+		getExecutionContext().addFact(fact);
 		return this;
 	}
 

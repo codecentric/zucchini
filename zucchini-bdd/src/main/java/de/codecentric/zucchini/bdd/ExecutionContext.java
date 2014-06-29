@@ -20,29 +20,38 @@ import de.codecentric.zucchini.bdd.dsl.Fact;
 import de.codecentric.zucchini.bdd.dsl.Result;
 import de.codecentric.zucchini.bdd.dsl.Step;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ExecutionContext {
-
-	private final List<Fact> facts;
-	private final List<Step> steps;
-	private final List<Result> results;
-
-	public ExecutionContext(List<Fact> facts, List<Step> steps, List<Result> results) {
-		this.facts = facts;
-		this.steps = steps;
-		this.results = results;
-	}
+	private final List<Fact> facts = new ArrayList<Fact>();
+	private final List<Step> steps = new ArrayList<Step>();
+	private final List<Result> results = new ArrayList<Result>();
 
 	public List<Fact> getFacts() {
 		return facts;
+	}
+
+	public ExecutionContext addFact(Fact fact) {
+		facts.add(fact);
+		return this;
 	}
 
 	public List<Step> getSteps() {
 		return steps;
 	}
 
+	public ExecutionContext addStep(Step step) {
+		steps.add(step);
+		return this;
+	}
+
 	public List<Result> getResults() {
 		return results;
+	}
+
+	public ExecutionContext addResult(Result result) {
+		results.add(result);
+		return this;
 	}
 }

@@ -16,7 +16,7 @@
 
 package de.codecentric.zucchini.bdd.dsl;
 
-public interface RepeatingStepContext extends FirstOutcomeContext {
+public interface RepeatingStepContext extends FirstResultContext {
 	RepeatingStepContext andWhen(Step step);
 
 	RepeatingStepContext andWhen(String stepName);

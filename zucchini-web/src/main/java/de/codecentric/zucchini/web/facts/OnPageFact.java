@@ -26,15 +26,25 @@ public class OnPageFact implements WebFact {
 	private static final Logger logger = LoggerFactory.getLogger(OnPageFact.class);
 
 	private WebDriver webDriver;
+
 	private PageObject pageObject;
 
+	private Class<? extends PageObject> pageObjectClass;
+
+	private boolean isInitialized = false;
+
 	public OnPageFact(PageObject pageObject) {
+		if (pageObject == null) {
+			throw new NullPointerException("You must specify a valid page object or page object class.");
+		}
 		this.pageObject = pageObject;
-		PageFactory.initElements(webDriver, pageObject);
 	}
 
 	public OnPageFact(Class<? extends PageObject> pageObjectClass) {
-		this.pageObject = PageFactory.initElements(webDriver, pageObjectClass);
+		if (pageObjectClass == null) {
+			throw new NullPointerException("You must specify a valid page object or page object class.");
+		}
+		this.pageObjectClass = pageObjectClass;
 	}
 
 	@Override
@@ -46,6 +56,17 @@ public class OnPageFact implements WebFact {
 	@Override
 	public void setWebDriver(WebDriver webDriver) {
 		this.webDriver = webDriver;
+		initializePage();
 		pageObject.setWebDriver(webDriver);
+	}
+
+	private void initializePage() {
+		if (!isInitialized) {
+			if (pageObject != null) {
+				PageFactory.initElements(webDriver, pageObject);
+			} else if (pageObjectClass != null) {
+				pageObject = PageFactory.initElements(webDriver, pageObjectClass);
+			}
+		}
 	}
 }

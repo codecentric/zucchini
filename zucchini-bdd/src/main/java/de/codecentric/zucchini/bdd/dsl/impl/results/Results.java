@@ -19,7 +19,7 @@ package de.codecentric.zucchini.bdd.dsl.impl.results;
 import de.codecentric.zucchini.bdd.dsl.Result;
 
 public class Results {
-	public static Result noOpResult() {
+	public static Result noResult() {
 		return new NonOperationalResult();
 	}
 }

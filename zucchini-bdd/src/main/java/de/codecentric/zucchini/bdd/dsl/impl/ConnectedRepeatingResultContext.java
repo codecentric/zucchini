@@ -28,7 +28,7 @@ public class ConnectedRepeatingResultContext extends ConnectedTermination implem
 
 	@Override
 	public RepeatingResultContext andThen(Result result) {
-		getExecutionContext().getResults().add(result);
+		getExecutionContext().addResult(result);
 		return this;
 	}
 

@@ -29,7 +29,7 @@ public class SelectContext {
 		return new SelectStep(this, index, SelectStep.OptionSelectorType.INDEX);
 	}
 
-	public SelectStep value(int value) {
+	public SelectStep value(String value) {
 		return new SelectStep(this, value, SelectStep.OptionSelectorType.VALUE);
 	}
 

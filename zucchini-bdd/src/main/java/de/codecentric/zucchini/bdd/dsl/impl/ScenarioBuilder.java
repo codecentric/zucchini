@@ -17,16 +17,14 @@
 package de.codecentric.zucchini.bdd.dsl.impl;
 
 import de.codecentric.zucchini.bdd.ExecutionContext;
-import de.codecentric.zucchini.bdd.dsl.*;
+import de.codecentric.zucchini.bdd.dsl.Fact;
+import de.codecentric.zucchini.bdd.dsl.FirstFactContext;
+import de.codecentric.zucchini.bdd.dsl.RepeatingFactContext;
 import de.codecentric.zucchini.bdd.dsl.impl.facts.DelegatingFact;
 
-import java.util.ArrayList;
-
-import static de.codecentric.zucchini.bdd.dsl.impl.util.ArrayConverter.createMutableList;
-
-public class TestContext implements FirstCausationContext {
+public class ScenarioBuilder implements FirstFactContext {
 	public static RepeatingFactContext given(Fact fact) {
-		return new ConnectedRepeatingFactContext(new ExecutionContext(createMutableList(fact), new ArrayList<Step>(), new ArrayList<Result>()));
+		return new ConnectedRepeatingFactContext(new ExecutionContext().addFact(fact));
 	}
 
 	public static RepeatingFactContext given(String factName) {

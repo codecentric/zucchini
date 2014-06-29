@@ -19,55 +19,36 @@ package de.codecentric.zucchini.bdd;
 import org.junit.Test;
 import org.mockito.ArgumentMatcher;
 
-import static de.codecentric.zucchini.bdd.dsl.impl.TestContext.given;
-import static de.codecentric.zucchini.bdd.dsl.impl.facts.Facts.noOpFact;
-import static de.codecentric.zucchini.bdd.dsl.impl.results.Results.noOpResult;
-import static de.codecentric.zucchini.bdd.dsl.impl.steps.Steps.noOpStep;
+import static de.codecentric.zucchini.bdd.dsl.impl.ScenarioBuilder.given;
+import static de.codecentric.zucchini.bdd.dsl.impl.facts.Facts.noContext;
+import static de.codecentric.zucchini.bdd.dsl.impl.results.Results.noResult;
+import static de.codecentric.zucchini.bdd.dsl.impl.steps.Steps.noOperation;
 import static org.mockito.Matchers.argThat;
 import static org.mockito.Mockito.*;
 
 public class ExecutionContextTest {
 	@Test
-	public void testOneFactZeroStepsZeroResults() {
+	public void testOneFactTwoStepsOneResultZeroExamples() {
 		Executor executorMock = mock(Executor.class);
 		ExecutorHolder.setExecutor(executorMock);
 
-		given(noOpFact()).end();
-
-		verifyExecutionContext(executorMock, 1, 0, 0);
-	}
-
-	@Test
-	public void testOneFactOneStepZeroResults() {
-		Executor executorMock = mock(Executor.class);
-		ExecutorHolder.setExecutor(executorMock);
-
-		given(noOpFact()).when(noOpStep()).end();
-
-		verifyExecutionContext(executorMock, 1, 1, 0);
-	}
-
-	@Test
-	public void testOneFactTwoStepsZeroResults() {
-		Executor executorMock = mock(Executor.class);
-		ExecutorHolder.setExecutor(executorMock);
-
-		given(noOpFact())
-				.when(noOpStep())
-				.andWhen(noOpStep())
+		given(noContext())
+				.when(noOperation())
+				.andWhen(noOperation())
+				.then(noResult())
 				.end();
 
-		verifyExecutionContext(executorMock, 1, 2, 0);
+		verifyExecutionContext(executorMock, 1, 2, 1);
 	}
 
 	@Test
-	public void testOneFactOneStepOneResult() {
+	public void testOneFactOneStepOneResultZeroExamples() {
 		Executor executorMock = mock(Executor.class);
 		ExecutorHolder.setExecutor(executorMock);
 
-		given(noOpFact())
-				.when(noOpStep())
-				.then(noOpResult())
+		given(noContext())
+				.when(noOperation())
+				.then(noResult())
 				.end();
 
 		verifyExecutionContext(executorMock, 1, 1, 1);
@@ -78,11 +59,11 @@ public class ExecutionContextTest {
 		Executor executorMock = mock(Executor.class);
 		ExecutorHolder.setExecutor(executorMock);
 
-		given(noOpFact())
-				.when(noOpStep())
-				.then(noOpResult())
-				.andThen(noOpResult())
-				.andThen(noOpResult())
+		given(noContext())
+				.when(noOperation())
+				.then(noResult())
+				.andThen(noResult())
+				.andThen(noResult())
 				.end();
 
 		verifyExecutionContext(executorMock, 1, 1, 3);
@@ -102,10 +83,7 @@ public class ExecutionContextTest {
 				if (executionContext.getSteps().size() != expectedNumberOfSteps) {
 					return false;
 				}
-				if (executionContext.getResults().size() != expectedNumberOfResults) {
-					return false;
-				}
-				return true;
+				return executionContext.getResults().size() == expectedNumberOfResults;
 			}
 		}));
 		verifyNoMoreInteractions(executorMock);

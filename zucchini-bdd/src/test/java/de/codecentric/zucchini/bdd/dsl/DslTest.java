@@ -24,7 +24,7 @@ import de.codecentric.zucchini.bdd.dsl.impl.steps.NonOperationalStep;
 import org.junit.Before;
 import org.junit.Test;
 
-import static de.codecentric.zucchini.bdd.dsl.impl.TestContext.given;
+import static de.codecentric.zucchini.bdd.dsl.impl.ScenarioBuilder.given;
 
 public class DslTest {
 	@Before
@@ -95,29 +95,6 @@ public class DslTest {
 				.when(new NonOperationalStep())
 				.andWhen(new NonOperationalStep())
 				.andWhen(new NonOperationalStep())
-				.then(new NonOperationalResult())
-				.end();
-	}
-
-	@Test
-	public void testPreparedExecutionWithFacts() {
-		Fact fact = given(new NonOperationalFact())
-				.asFact();
-
-		given(fact)
-				.when(new NonOperationalStep())
-				.then(new NonOperationalResult())
-				.end();
-	}
-
-	@Test
-	public void testPreparedExecutionWithFactsAndSteps() {
-		Fact fact = given(new NonOperationalFact())
-				.when(new NonOperationalStep())
-				.asFact();
-
-		given(fact)
-				.when(new NonOperationalStep())
 				.then(new NonOperationalResult())
 				.end();
 	}
