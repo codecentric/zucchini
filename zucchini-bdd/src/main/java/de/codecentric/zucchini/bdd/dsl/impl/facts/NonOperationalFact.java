@@ -19,7 +19,7 @@ package de.codecentric.zucchini.bdd.dsl.impl.facts;
 import de.codecentric.zucchini.bdd.dsl.Fact;
 
 /**
- * A non-operational result is a dummy fact that does nothing.
+ * A non-operational fact is a dummy fact that does nothing.
  */
 public class NonOperationalFact implements Fact {
 	/**

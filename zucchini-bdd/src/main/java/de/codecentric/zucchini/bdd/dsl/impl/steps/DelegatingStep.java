@@ -23,7 +23,7 @@ import de.codecentric.zucchini.bdd.resolver.StatementResolverHolder;
 /**
  * A delegating step is a step that delegates the call of {@code go()} to another step which is referenced  by
  * name.
- * <p/>
+ *
  * The step which is referenced must be registered using a
  * {@link de.codecentric.zucchini.bdd.resolver.StatementResolver}.
  */

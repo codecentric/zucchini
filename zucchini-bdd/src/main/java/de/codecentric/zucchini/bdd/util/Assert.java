@@ -124,9 +124,6 @@ public class Assert {
 		assertNotIdentity(message, null, actual);
 	}
 
-	/**
-	 * Prevents that this utility class is instantiated.
-	 */
 	private Assert() {
 	}
 }

@@ -23,7 +23,7 @@ import de.codecentric.zucchini.bdd.resolver.StatementResolverHolder;
 /**
  * A delegating result is a result that delegates the call of {@code expect()} to another result which is referenced  by
  * name.
- * <p/>
+ *
  * The result which is referenced must be registered using a
  * {@link de.codecentric.zucchini.bdd.resolver.StatementResolver}.
  */

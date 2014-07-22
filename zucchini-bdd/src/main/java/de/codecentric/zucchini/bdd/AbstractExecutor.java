@@ -69,7 +69,7 @@ public abstract class AbstractExecutor implements Executor {
 
 	/**
 	 * This method is meant to be overridden for initialization purposes.
-	 * <p/>
+	 *
 	 * If this method is not overridden, no initialization will occur. This method is called first, right before the
 	 * {@link de.codecentric.zucchini.bdd.ExecutionContext} is validated using {@code failOnInvalidContext()}.
 	 */
@@ -79,7 +79,7 @@ public abstract class AbstractExecutor implements Executor {
 
 	/**
 	 * This method is meant to be overridden for shutdown purposes.
-	 * <p/>
+	 *
 	 * If this method is not overridden, no shutdown will occur. This method is called last, right after the execution
 	 * is completed. This method is called no matter whether the execution failed or not. An exception thrown during the
 	 * execution process does not affect the execution of this method.
@@ -90,7 +90,7 @@ public abstract class AbstractExecutor implements Executor {
 
 	/**
 	 * This method is meant ot be overridden for context validation purposes.
-	 * <p/>
+	 *
 	 * If this method is not overridden, no context validation will occur. This method is called right after
 	 * {@code initialize()}. Implementations can throw any unchecked exception but it is recommended to throw an instance
 	 * of {@link de.codecentric.zucchini.bdd.ExecutionException}.

@@ -18,7 +18,7 @@ package de.codecentric.zucchini.bdd.dsl;
 
 /**
  * A statement is the atomic thing that defines what will be executed.
- * <p/>
+ *
  * There are three basic subtypes:
  * - {@link de.codecentric.zucchini.bdd.dsl.Fact}
  * - {@link de.codecentric.zucchini.bdd.dsl.Step}

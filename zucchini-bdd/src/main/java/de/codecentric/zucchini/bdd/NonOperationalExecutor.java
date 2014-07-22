@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * This is a dummy {@link de.codecentric.zucchini.bdd.Executor} which does nothing but writing a warning to the log.
- * <p/>
+ *
  * You should manually set an executor using {@code ExecutorHolder.setExecutor()}.
  */
 public class NonOperationalExecutor implements Executor {

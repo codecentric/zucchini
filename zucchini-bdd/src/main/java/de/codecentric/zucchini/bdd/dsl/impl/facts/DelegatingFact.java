@@ -23,7 +23,7 @@ import de.codecentric.zucchini.bdd.resolver.StatementResolverHolder;
 /**
  * A delegating fact is a fact that delegates the call of {@code establish()} to another fact which is referenced by
  * name.
- * <p/>
+ *
  * The fact which is referenced must be registered using a
  * {@link de.codecentric.zucchini.bdd.resolver.StatementResolver}.
  */

@@ -19,7 +19,7 @@ package de.codecentric.zucchini.bdd;
 /**
  * The executor holder is used to define an {@link de.codecentric.zucchini.bdd.Executor} which is used for the execution
  * of statements within the current thread.
- * <p/>
+ *
  * If no executor is registered, the {@link de.codecentric.zucchini.bdd.NonOperationalExecutor} will be used which does
  * not execute anything.
  */

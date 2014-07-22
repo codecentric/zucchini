@@ -19,7 +19,7 @@ package de.codecentric.zucchini.bdd.resolver;
 /**
  * The statement resolver holder is used to define a {@link de.codecentric.zucchini.bdd.resolver.StatementResolver}
  * which is used to resolve statements that are referenced by their name.
- * <p/>
+ *
  * If no statement resolver is registered, the {@link de.codecentric.zucchini.bdd.resolver.SimpleStatementResolver} will
  * be used which should suit most purposes.
  */

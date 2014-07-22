@@ -24,7 +24,7 @@ import de.codecentric.zucchini.bdd.dsl.Statement;
 public interface StatementResolver {
 	/**
 	 * Adds a statement to the registry.
-	 * <p/>
+	 *
 	 * Registered statements can be resolved with {@code resolveStatement()}.
 	 *
 	 * @param statementName The name used to reference the statement afterwards.

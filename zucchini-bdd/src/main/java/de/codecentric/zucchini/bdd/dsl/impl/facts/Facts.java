@@ -30,4 +30,7 @@ public class Facts {
 	public static Fact noContext() {
 		return new NonOperationalFact();
 	}
+
+	private Facts() {
+	}
 }
