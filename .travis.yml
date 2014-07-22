@@ -10,7 +10,6 @@ env:
     - BROWSER=Chrome-unstable ARGS='-x -b Chrome -u'
     - BROWSER=Chrome-unstable ARGS='-x -b Chrome -u --flag=--enable-experimental-web-platform-features'
 before_install:
-  - "wget https://raw.githubusercontent.com/web-animations/web-animations-js/master/.travis-setup.sh"
   - "chmod 777 ./.travis-setup.sh"
   - "sudo ./.travis-setup.sh"
   - "export DISPLAY=:99.0"
