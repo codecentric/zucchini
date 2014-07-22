@@ -22,15 +22,29 @@ import org.slf4j.LoggerFactory;
 
 import static de.codecentric.zucchini.web.util.WebAssert.findElementOrFail;
 
+/**
+ * This step submits a specific {@link org.openqa.selenium.WebElement element} described by
+ * {@link org.openqa.selenium.By}.
+ *
+ * @see WebSteps#submit(org.openqa.selenium.By)
+ */
 public class SubmitStep extends AbstractWebStep {
 	private static final Logger logger = LoggerFactory.getLogger(SubmitStep.class);
 
 	private final By element;
 
+	/**
+	 * Initializes a submit step.
+	 *
+	 * @param element The element that shall be submitted.
+	 */
 	public SubmitStep(By element) {
 		this.element = element;
 	}
 
+	/**
+	 * Submits the {@link org.openqa.selenium.WebElement element} described by {@link org.openqa.selenium.By}.
+	 */
 	@Override
 	public void go() {
 		logger.info("Submitting {}...", element);

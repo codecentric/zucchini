@@ -18,8 +18,19 @@ package de.codecentric.zucchini.bdd.dsl.impl.results;
 
 import de.codecentric.zucchini.bdd.dsl.Result;
 
+/**
+ * This utility class provides methods that return pre-configured results.
+ */
 public class Results {
+	/**
+	 * Returns a non-operational result.
+	 *
+	 * @return A non-operational result.
+	 */
 	public static Result noResult() {
 		return new NonOperationalResult();
+	}
+
+	private Results() {
 	}
 }

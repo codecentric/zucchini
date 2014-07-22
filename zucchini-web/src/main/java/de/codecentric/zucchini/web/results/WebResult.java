@@ -19,5 +19,11 @@ package de.codecentric.zucchini.web.results;
 import de.codecentric.zucchini.bdd.dsl.Result;
 import de.codecentric.zucchini.web.WebDriverAware;
 
+/**
+ * A web result is a specialized {@link de.codecentric.zucchini.bdd.dsl.Result} that is aware of a
+ * {@link org.openqa.selenium.WebDriver}, i.e. web results can use the web driver to manipulate and interact with web
+ * pages.
+ */
+
 public interface WebResult extends Result, WebDriverAware {
 }

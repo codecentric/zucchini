@@ -20,13 +20,19 @@ import de.codecentric.zucchini.bdd.ExecutionContext;
 import de.codecentric.zucchini.bdd.ExecutorHolder;
 import de.codecentric.zucchini.bdd.dsl.ExecutionFact;
 
+/**
+ * {@inheritDoc}
+ */
 public class PreparedExecutionFact implements ExecutionFact {
-	private ExecutionContext executionContext;
+	private final ExecutionContext executionContext;
 
 	public PreparedExecutionFact(ExecutionContext executionContext) {
 		this.executionContext = executionContext;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void establish() {
 		ExecutorHolder.getExecutor().execute(executionContext);

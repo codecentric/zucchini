@@ -18,26 +18,58 @@ package de.codecentric.zucchini.web.results;
 
 import org.openqa.selenium.By;
 
+/**
+ * This class is part of the DSL extension and it provides methods to define the input state that shall be expected.
+ *
+ * <code>
+ * given(...)
+ * .when(...)
+ * .then(input(...).isReadOnly())
+ * .end();
+ * </code>
+ *
+ * @see de.codecentric.zucchini.web.results.WebResults#input(org.openqa.selenium.By)
+ * @see de.codecentric.zucchini.web.results.InputReadOnlyResult
+ * @see de.codecentric.zucchini.web.results.InputDisabledResult
+ * @see de.codecentric.zucchini.web.results.InputValueResult
+ */
 public class InputContext {
 	private final By element;
 
+	/**
+	 * Initializes an input context.
+	 *
+	 * @param element The element whose input state shall be expected.
+	 */
 	public InputContext(By element) {
 		this.element = element;
 	}
 
+	/**
+	 * Returns an {@link de.codecentric.zucchini.web.results.InputReadOnlyResult input read-only result}.
+	 *
+	 * @return An {@link de.codecentric.zucchini.web.results.InputReadOnlyResult input read-only result}.
+	 */
 	public InputReadOnlyResult isReadOnly() {
-		return new InputReadOnlyResult(this);
+		return new InputReadOnlyResult(element);
 	}
 
+	/**
+	 * Returns an {@link de.codecentric.zucchini.web.results.InputDisabledResult input disabled result}.
+	 *
+	 * @return An {@link de.codecentric.zucchini.web.results.InputDisabledResult input disabled result}.
+	 */
 	public InputDisabledResult isDisabled() {
-		return new InputDisabledResult(this);
+		return new InputDisabledResult(element);
 	}
 
+	/**
+	 * Returns an {@link de.codecentric.zucchini.web.results.InputValueResult input value result}.
+	 *
+	 * @param value The input value that shall be expected.
+	 * @return An {@link de.codecentric.zucchini.web.results.InputValueResult input value result}.
+	 */
 	public InputValueResult value(String value) {
-		return new InputValueResult(this, value);
-	}
-
-	By getElement() {
-		return element;
+		return new InputValueResult(element, value);
 	}
 }

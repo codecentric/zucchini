@@ -18,7 +18,13 @@ package de.codecentric.zucchini.bdd.dsl.impl.facts;
 
 import de.codecentric.zucchini.bdd.dsl.Fact;
 
+/**
+ * A non-operational fact is a dummy fact that does nothing.
+ */
 public class NonOperationalFact implements Fact {
+	/**
+	 * This method does nothing.
+	 */
 	@Override
 	public void establish() {
 		// Intentionally left blank.

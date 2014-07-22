@@ -19,12 +19,21 @@ package de.codecentric.zucchini.web.steps;
 import de.codecentric.zucchini.bdd.dsl.impl.steps.NonOperationalStep;
 import org.openqa.selenium.WebDriver;
 
+/**
+ * A non-operational web step is a dummy web step that does nothing.
+ */
 public class NonOperationalWebStep extends NonOperationalStep implements WebStep {
+	/**
+	 * This method does nothing.
+	 */
 	@Override
 	public void go() {
 		// Intentionally left blank.
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void setWebDriver(WebDriver webDriver) {
 		// Intentionally left blank.

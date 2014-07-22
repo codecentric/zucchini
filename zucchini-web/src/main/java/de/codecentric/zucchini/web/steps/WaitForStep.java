@@ -24,6 +24,10 @@ import org.slf4j.LoggerFactory;
 
 import static de.codecentric.zucchini.bdd.util.Assert.fail;
 
+/**
+ * A wait for step waits for a {@link org.openqa.selenium.WebElement element} described by
+ * {@link org.openqa.selenium.By}.
+ */
 public class WaitForStep extends AbstractWebStep {
 	private static final Logger logger = LoggerFactory.getLogger(WaitForStep.class);
 
@@ -33,20 +37,48 @@ public class WaitForStep extends AbstractWebStep {
 
 	private long timeout;
 
+	/**
+	 * Initializes a wait for step with a timeout of 10 seconds.
+	 *
+	 * @param element The element for which shall be waited.
+	 */
 	public WaitForStep(By element) {
 		this(element, DEFAULT_TIMEOUT);
 	}
 
+	/**
+	 * Initializes a wait for step.
+	 *
+	 * @param element The element for which shall be waited.
+	 * @param timeout The wait timeout in seconds.
+	 */
 	public WaitForStep(By element, long timeout) {
 		this.element = element;
 		this.timeout = timeout;
 	}
 
+	/**
+	 * This method is a convenience method that integrates well into the DSL.
+	 *
+	 * For example:
+	 * <code>
+	 * given(...)
+	 * .when(waitFor(...).withTimeout(5))
+	 * .then(...)
+	 * .end();
+	 * </code>
+	 *
+	 * @param timeout The wait timeout in seconds.
+	 * @return A wait for step with the specified timeout.
+	 */
 	public WaitForStep withTimeout(long timeout) {
 		this.timeout = timeout;
 		return this;
 	}
 
+	/**
+	 * Waits for the element.
+	 */
 	@Override
 	public void go() {
 		logger.info("Waiting {} seconds for {}...", timeout, element);

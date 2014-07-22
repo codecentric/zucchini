@@ -18,14 +18,26 @@ package de.codecentric.zucchini.web.steps;
 
 import org.openqa.selenium.WebDriver;
 
+/**
+ * The abstract web step simplifies the usage implementation of
+ * {@link de.codecentric.zucchini.web.steps.WebStep web steps} by providing common methods.
+ */
 public abstract class AbstractWebStep implements WebStep {
 	private WebDriver webDriver;
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public final void setWebDriver(WebDriver webDriver) {
 		this.webDriver = webDriver;
 	}
 
+	/**
+	 * Returns an instance of the {@link org.openqa.selenium.WebDriver web driver} of the current thread.
+	 *
+	 * @return An instance of the web driver of the current thread.
+	 */
 	protected final WebDriver getWebDriver() {
 		return webDriver;
 	}

@@ -16,6 +16,18 @@
 
 package de.codecentric.zucchini.bdd.dsl;
 
+/**
+ * A delegating statement is a statement which delegates the execution to its contained statement.
+ *
+ * @param <T> The type of the statement, i.e. {@link de.codecentric.zucchini.bdd.dsl.Fact},
+ *            {@link de.codecentric.zucchini.bdd.dsl.Step}, {@link de.codecentric.zucchini.bdd.dsl.Result}, or their
+ *            subclasses.
+ */
 public interface DelegatingStatement<T extends Statement> {
+	/**
+	 * Returns the contained statement.
+	 *
+	 * @return The contained statement.
+	 */
 	T getStatement();
 }

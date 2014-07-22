@@ -19,5 +19,10 @@ package de.codecentric.zucchini.web.steps;
 import de.codecentric.zucchini.bdd.dsl.Step;
 import de.codecentric.zucchini.web.WebDriverAware;
 
+/**
+ * A web step is a specialized {@link de.codecentric.zucchini.bdd.dsl.Step} that is aware of a
+ * {@link org.openqa.selenium.WebDriver}, i.e. web steps can use the web driver to manipulate and interact with web
+ * pages.
+ */
 public interface WebStep extends Step, WebDriverAware {
 }

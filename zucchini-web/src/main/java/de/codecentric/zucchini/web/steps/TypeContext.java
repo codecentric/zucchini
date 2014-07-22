@@ -18,12 +18,46 @@ package de.codecentric.zucchini.web.steps;
 
 import org.openqa.selenium.By;
 
+/**
+ * This class is part of the DSL extension and it provides methods to type text either into an
+ * {@link org.openqa.selenium.WebElement element} described by {@link org.openqa.selenium.By} or without an element, for
+ * example:
+ *
+ * <code>
+ * given(...)
+ * .when(type("Lorem ipsum").into(...))
+ * .then(...)
+ * .end();
+ * </code>
+ *
+ * <code>
+ * given(...)
+ * .when(type("K"))
+ * .then(...)
+ * .end();
+ * </code>
+ *
+ * @see de.codecentric.zucchini.web.steps.WebSteps#type(java.lang.CharSequence[])
+ * @see de.codecentric.zucchini.web.steps.TypeStep
+ */
 public class TypeContext extends TypeStep {
+	/**
+	 * Initializes a type step that types without an element.
+	 *
+	 * @param keys The keys that shall be typed.
+	 */
 	public TypeContext(CharSequence... keys) {
 		super(keys);
 	}
 
+	/**
+	 * Returns a type step that types into an {@link org.openqa.selenium.WebElement element} described by
+	 * {@link org.openqa.selenium.By}.
+	 *
+	 * @param into The element into which the keys shall be typed.
+	 * @return A type step that types into an element.
+	 */
 	public TypeIntoStep into(By into) {
-		return new TypeIntoStep(this, into);
+		return new TypeIntoStep(getKeys(), into);
 	}
 }

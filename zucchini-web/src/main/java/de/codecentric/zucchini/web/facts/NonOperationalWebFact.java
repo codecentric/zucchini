@@ -19,12 +19,21 @@ package de.codecentric.zucchini.web.facts;
 import de.codecentric.zucchini.bdd.dsl.impl.facts.NonOperationalFact;
 import org.openqa.selenium.WebDriver;
 
+/**
+ * A non-operational web fact is a dummy web fact that does nothing.
+ */
 public class NonOperationalWebFact extends NonOperationalFact implements WebFact {
+	/**
+	 * This method does nothing.
+	 */
 	@Override
 	public void establish() {
 		// Intentionally left blank.
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void setWebDriver(WebDriver webDriver) {
 		// Intentionally left blank.

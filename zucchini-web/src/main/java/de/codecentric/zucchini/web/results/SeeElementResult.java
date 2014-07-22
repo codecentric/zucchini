@@ -20,13 +20,25 @@ import org.openqa.selenium.By;
 
 import static de.codecentric.zucchini.web.util.WebAssert.findElementOrFail;
 
+/**
+ * A see element result expects that a specific {@link org.openqa.selenium.WebElement element} described by
+ * {@link org.openqa.selenium.By} is present on a page.
+ */
 public class SeeElementResult extends AbstractWebResult {
 	private By element;
 
+	/**
+	 * Initializes a see element result.
+	 *
+	 * @param element The element that shall be expected to be present.
+	 */
 	public SeeElementResult(By element) {
 		this.element = element;
 	}
 
+	/**
+	 * Expects that the specified element is present.
+	 */
 	@Override
 	public void expect() {
 		findElementOrFail(getWebDriver(), element);

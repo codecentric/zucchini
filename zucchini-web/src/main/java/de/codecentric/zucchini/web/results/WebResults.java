@@ -18,19 +18,48 @@ package de.codecentric.zucchini.web.results;
 
 import org.openqa.selenium.By;
 
+/**
+ * This utility class provides methods that return pre-configured web results.
+ */
 public class WebResults {
+	/**
+	 * Returns a non-operational web result.
+	 *
+	 * @return A non-operational web result.
+	 */
 	public static NonOperationalWebResult noOpWebResult() {
 		return new NonOperationalWebResult();
 	}
 
+	/**
+	 * Returns an {@link de.codecentric.zucchini.web.results.InputContext input context}.
+	 *
+	 * @param element The element whose input state shall be expected.
+	 * @return An {@link de.codecentric.zucchini.web.results.InputContext input context}.
+	 * @see de.codecentric.zucchini.web.results.InputDisabledResult
+	 * @see de.codecentric.zucchini.web.results.InputReadOnlyResult
+	 * @see de.codecentric.zucchini.web.results.InputValueResult
+	 */
 	public static InputContext input(By element) {
 		return new InputContext(element);
 	}
 
+	/**
+	 * Returns a {@link de.codecentric.zucchini.web.results.SeeResult see result}.
+	 *
+	 * @param text The text that shall be expected to be present.
+	 * @return A {@link de.codecentric.zucchini.web.results.SeeResult see result}.
+	 */
 	public static SeeResult see(String text) {
 		return new SeeResult(text);
 	}
 
+	/**
+	 * Returns a {@link de.codecentric.zucchini.web.results.NotResult not result}.
+	 *
+	 * @param webResult The result which shall be inverted.
+	 * @return A {@link de.codecentric.zucchini.web.results.NotResult not result}.
+	 */
 	public static WebResult not(WebResult webResult) {
 		return new NotResult(webResult);
 	}

@@ -16,6 +16,14 @@
 
 package de.codecentric.zucchini.bdd.dsl;
 
+/**
+ * This registrar registers facts using a {@link de.codecentric.zucchini.bdd.resolver.StatementResolver}.
+ */
 public interface FactRegistrar {
+	/**
+	 * Registers a fact using a {@link de.codecentric.zucchini.bdd.resolver.StatementResolver}.
+	 *
+	 * @param factName The name used to reference the fact afterwards.
+	 */
 	void registerAsFact(String factName);
 }

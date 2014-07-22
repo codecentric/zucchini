@@ -23,7 +23,6 @@ import static de.codecentric.zucchini.bdd.dsl.impl.ScenarioBuilder.given;
 import static de.codecentric.zucchini.bdd.dsl.impl.facts.Facts.noContext;
 import static de.codecentric.zucchini.bdd.dsl.impl.results.Results.noResult;
 import static de.codecentric.zucchini.bdd.dsl.impl.steps.Steps.noOperation;
-import static org.mockito.Matchers.argThat;
 import static org.mockito.Mockito.*;
 
 public class ExecutionContextTest {
@@ -69,6 +68,7 @@ public class ExecutionContextTest {
 		verifyExecutionContext(executorMock, 1, 1, 3);
 	}
 
+	@SuppressWarnings({"SameParameterValue", "UnusedParameters"})
 	private void verifyExecutionContext(Executor executorMock, final int expectedNumberOfFacts, final int expectedNumberOfSteps, final int expectedNumberOfResults) {
 		verify(executorMock).execute(argThat(new ArgumentMatcher<ExecutionContext>() {
 			@Override
@@ -77,13 +77,9 @@ public class ExecutionContextTest {
 					return false;
 				}
 				ExecutionContext executionContext = (ExecutionContext) argument;
-				if (executionContext.getFacts().size() != expectedNumberOfFacts) {
-					return false;
-				}
-				if (executionContext.getSteps().size() != expectedNumberOfSteps) {
-					return false;
-				}
-				return executionContext.getResults().size() == expectedNumberOfResults;
+				return executionContext.getFacts().size() == 1
+						&& executionContext.getSteps().size() == expectedNumberOfSteps
+						&& executionContext.getResults().size() == expectedNumberOfResults;
 			}
 		}));
 		verifyNoMoreInteractions(executorMock);

@@ -22,20 +22,36 @@ import org.slf4j.LoggerFactory;
 
 import static de.codecentric.zucchini.web.util.WebAssert.findElementOrFail;
 
+/**
+ * A type into step types keys (text or a key combination) into a specific
+ * {@link org.openqa.selenium.WebElement element} described by {@link org.openqa.selenium.By}.
+ *
+ * @see de.codecentric.zucchini.web.steps.WebSteps#type(java.lang.CharSequence[])
+ * @see de.codecentric.zucchini.web.steps.TypeContext#into(org.openqa.selenium.By)
+ */
 public class TypeIntoStep extends AbstractWebStep {
 	private static final Logger logger = LoggerFactory.getLogger(TypeIntoStep.class);
 
-	private TypeContext typeContext;
+	private CharSequence[] keys;
 	private By element;
 
-	public TypeIntoStep(TypeContext typeContext, By element) {
-		this.typeContext = typeContext;
+	/**
+	 * Initializes a type into step.
+	 *
+	 * @param keys    The keys that shall be typed.
+	 * @param element The element in which the keys shall be typed.
+	 */
+	public TypeIntoStep(CharSequence[] keys, By element) {
+		this.keys = keys;
 		this.element = element;
 	}
 
+	/**
+	 * Types into the element.
+	 */
 	@Override
 	public void go() {
-		logger.info("Typing \"{}\" into {}...", typeContext.getKeys(), element);
-		findElementOrFail(getWebDriver(), element).sendKeys(typeContext.getKeys());
+		logger.info("Typing \"{}\" into {}...", keys, element);
+		findElementOrFail(getWebDriver(), element).sendKeys(keys);
 	}
 }

@@ -16,5 +16,8 @@
 
 package de.codecentric.zucchini.bdd.dsl;
 
+/**
+ * An execution fact is a fact that executes other statements.
+ */
 public interface ExecutionFact extends Fact {
 }

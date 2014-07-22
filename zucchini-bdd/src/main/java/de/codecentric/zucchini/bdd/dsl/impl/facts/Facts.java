@@ -18,8 +18,19 @@ package de.codecentric.zucchini.bdd.dsl.impl.facts;
 
 import de.codecentric.zucchini.bdd.dsl.Fact;
 
+/**
+ * This utility class provides methods that return pre-configured facts.
+ */
 public class Facts {
+	/**
+	 * Returns a non-operational fact.
+	 *
+	 * @return A non-operational fact.
+	 */
 	public static Fact noContext() {
 		return new NonOperationalFact();
+	}
+
+	private Facts() {
 	}
 }

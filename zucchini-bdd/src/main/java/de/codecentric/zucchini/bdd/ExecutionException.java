@@ -16,6 +16,9 @@
 
 package de.codecentric.zucchini.bdd;
 
+/**
+ * The execution exception is thrown during the execution process of an {@link de.codecentric.zucchini.bdd.Executor}.
+ */
 public class ExecutionException extends RuntimeException {
 	public ExecutionException(String message) {
 		super(message);

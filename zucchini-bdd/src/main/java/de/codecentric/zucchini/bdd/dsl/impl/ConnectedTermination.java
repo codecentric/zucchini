@@ -26,6 +26,9 @@ import de.codecentric.zucchini.bdd.dsl.Termination;
 import de.codecentric.zucchini.bdd.dsl.impl.facts.PreparedExecutionFact;
 import de.codecentric.zucchini.bdd.resolver.StatementResolverHolder;
 
+/**
+ * {@inheritDoc}
+ */
 public class ConnectedTermination implements Termination {
 	private final ExecutionContext executionContext;
 
@@ -33,20 +36,34 @@ public class ConnectedTermination implements Termination {
 		this.executionContext = executionContext;
 	}
 
-	protected final ExecutionContext getExecutionContext() {
+	/**
+	 * Returns the execution context.
+	 *
+	 * @return The execution context.
+	 */
+	final ExecutionContext getExecutionContext() {
 		return executionContext;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public final void end() {
 		getExecutor().execute(getExecutionContext());
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public final ExecutionFact asFact() {
 		return new PreparedExecutionFact(getExecutionContext());
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public final void registerAsFact(String factName) {
 		StatementResolverHolder.getStatementResolver().addStatement(factName, asFact(), Fact.class);

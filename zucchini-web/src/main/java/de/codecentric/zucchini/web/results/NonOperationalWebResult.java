@@ -19,12 +19,21 @@ package de.codecentric.zucchini.web.results;
 import de.codecentric.zucchini.bdd.dsl.impl.results.NonOperationalResult;
 import org.openqa.selenium.WebDriver;
 
+/**
+ * A non-operational web result is a dummy web result that does nothing.
+ */
 public class NonOperationalWebResult extends NonOperationalResult implements WebResult {
+	/**
+	 * This method does nothing.
+	 */
 	@Override
 	public void expect() {
 		// Intentionally left blank.
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void setWebDriver(WebDriver webDriver) {
 		// Intentionally left blank.

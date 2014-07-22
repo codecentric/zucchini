@@ -21,15 +21,34 @@ import org.slf4j.LoggerFactory;
 
 import static com.thoughtworks.selenium.SeleneseTestBase.fail;
 
+/**
+ * The not result inverts other results and expects them to fail.
+ *
+ * For example:
+ * <code>
+ * given(...)
+ * .when(...)
+ * .then(not(see("This text should not be on the page.")))
+ * .end();
+ * </code>
+ */
 public class NotResult extends AbstractWebResult {
 	private static final Logger logger = LoggerFactory.getLogger(NotResult.class);
 
 	private WebResult webResult;
 
+	/**
+	 * Initializes a not result.
+	 *
+	 * @param webResult The result which shall be inverted.
+	 */
 	public NotResult(WebResult webResult) {
 		this.webResult = webResult;
 	}
 
+	/**
+	 * Expects that the specified web result fails.
+	 */
 	@Override
 	public void expect() {
 		try {

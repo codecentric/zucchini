@@ -16,8 +16,23 @@
 
 package de.codecentric.zucchini.bdd.dsl;
 
+/**
+ * Defines the part of the DSL that allows the definition of additional steps or the first result.
+ */
 public interface RepeatingStepContext extends FirstResultContext {
+	/**
+	 * Defines that the given step will be gone next.
+	 *
+	 * @param step The next step.
+	 * @return A context that allows to define additional steps.
+	 */
 	RepeatingStepContext andWhen(Step step);
 
+	/**
+	 * Defines that the step referenced by the given name will be gone next.
+	 *
+	 * @param stepName The name of the referenced next step.
+	 * @return A context that allows to define additional steps.
+	 */
 	RepeatingStepContext andWhen(String stepName);
 }

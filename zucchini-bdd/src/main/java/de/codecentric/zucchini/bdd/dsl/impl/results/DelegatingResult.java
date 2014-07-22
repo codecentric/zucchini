@@ -20,20 +20,40 @@ import de.codecentric.zucchini.bdd.dsl.DelegatingStatement;
 import de.codecentric.zucchini.bdd.dsl.Result;
 import de.codecentric.zucchini.bdd.resolver.StatementResolverHolder;
 
+/**
+ * A delegating result is a result that delegates the call of {@code expect()} to another result which is referenced  by
+ * name.
+ *
+ * The result which is referenced must be registered using a
+ * {@link de.codecentric.zucchini.bdd.resolver.StatementResolver}.
+ */
 public class DelegatingResult implements Result, DelegatingStatement<Result> {
-	private String resultName;
+	private final String resultName;
 
 	private Result result;
 
+	/**
+	 * Initializes a delegating result which references an actual result by its name.
+	 *
+	 * @param resultName The name of the actual result.
+	 */
 	public DelegatingResult(String resultName) {
 		this.resultName = resultName;
 	}
 
+	/**
+	 * Delegates the call to the result which has been referenced by name at construction time.
+	 */
 	@Override
 	public void expect() {
 		getStatement().expect();
 	}
 
+	/**
+	 * Lazily loads the result which has been referenced by name at construction time.
+	 *
+	 * @return The actual result.
+	 */
 	@Override
 	public Result getStatement() {
 		if (result == null) {

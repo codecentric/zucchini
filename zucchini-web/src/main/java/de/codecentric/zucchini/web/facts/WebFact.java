@@ -19,5 +19,10 @@ package de.codecentric.zucchini.web.facts;
 import de.codecentric.zucchini.bdd.dsl.Fact;
 import de.codecentric.zucchini.web.WebDriverAware;
 
+/**
+ * A web fact is a specialized {@link de.codecentric.zucchini.bdd.dsl.Fact} that is aware of a
+ * {@link org.openqa.selenium.WebDriver}, i.e. web facts can use the web driver to manipulate and interact with web
+ * pages.
+ */
 public interface WebFact extends Fact, WebDriverAware {
 }

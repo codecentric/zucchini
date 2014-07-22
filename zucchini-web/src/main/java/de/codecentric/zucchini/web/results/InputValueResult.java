@@ -16,21 +16,35 @@
 
 package de.codecentric.zucchini.web.results;
 
+import org.openqa.selenium.By;
+
 import static de.codecentric.zucchini.bdd.util.Assert.assertEquals;
 import static de.codecentric.zucchini.web.util.WebAssert.findElementOrFail;
 
+/**
+ * An input value result expects that a specific {@link org.openqa.selenium.WebElement element} described by
+ * {@link org.openqa.selenium.By} has a specific value.
+ */
 public class InputValueResult extends AbstractWebResult {
-	private final InputContext inputContext;
+	private final By element;
 	private final String value;
 
-	public InputValueResult(InputContext inputContext, String value) {
-		this.inputContext = inputContext;
+	/**
+	 * Initializes an input value result.
+	 *
+	 * @param element The element whose value shall be expected to be the specified value.
+	 * @param value   The input value that shall be expected.
+	 */
+	public InputValueResult(By element, String value) {
+		this.element = element;
 		this.value = value;
 	}
 
-
+	/**
+	 * Expects that the input has the specified value.
+	 */
 	@Override
 	public void expect() {
-		assertEquals("Element should be read-only but it is not.", value, findElementOrFail(getWebDriver(), inputContext.getElement()).getAttribute("value"));
+		assertEquals("Element should be read-only but it is not.", value, findElementOrFail(getWebDriver(), element).getAttribute("value"));
 	}
 }

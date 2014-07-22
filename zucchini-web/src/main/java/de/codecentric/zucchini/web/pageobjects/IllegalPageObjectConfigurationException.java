@@ -16,6 +16,11 @@
 
 package de.codecentric.zucchini.web.pageobjects;
 
+/**
+ * The illegal page object configuration exception is thrown once
+ * {@link de.codecentric.zucchini.web.pageobjects.PageObject#open()} is called on a page object that is derived from
+ * {@link de.codecentric.zucchini.web.pageobjects.AbstractPageObject}.
+ */
 public class IllegalPageObjectConfigurationException extends RuntimeException {
 	public IllegalPageObjectConfigurationException(String message) {
 		super(message);

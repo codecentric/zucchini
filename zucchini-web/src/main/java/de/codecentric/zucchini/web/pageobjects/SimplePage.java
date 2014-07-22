@@ -16,17 +16,42 @@
 
 package de.codecentric.zucchini.web.pageobjects;
 
+/**
+ * A simple page is a page object that does not define additional operations.
+ *
+ * You can use a static method import as a shorthand:
+ * <code>
+ * given(onPage(url("http://www.example.com")))
+ * .when(...)
+ * .then(...)
+ * .end();
+ * </code>
+ */
 public class SimplePage extends AbstractPageObject {
 	private String url;
 
+	/**
+	 * Provides a shorthand that integrates well into the DSL.
+	 *
+	 * @param url The URL of the page object.
+	 * @return A page object described by the given URL.
+	 */
 	public static SimplePage url(String url) {
 		return new SimplePage(url);
 	}
 
+	/**
+	 * Initializes a new page object that is described by a URL.
+	 *
+	 * @param url The URL of the page object.
+	 */
 	public SimplePage(String url) {
 		this.url = url;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	protected String getUrl() {
 		return url;

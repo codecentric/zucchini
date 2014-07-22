@@ -23,13 +23,30 @@ import org.openqa.selenium.WebElement;
 
 import static de.codecentric.zucchini.bdd.util.Assert.fail;
 
+/**
+ * This utility class provides methods similar to JUnit's assertion methods but with a focus on web-specific assertions.
+ */
 public class WebAssert {
+	/**
+	 * Tries to find a specific element and fails if the element could not be found.
+	 *
+	 * @param webDriver The web driver.
+	 * @param element   The element.
+	 * @return The found element.
+	 */
 	public static final WebElement findElementOrFail(WebDriver webDriver, By element) {
 		try {
 			return webDriver.findElement(element);
 		} catch (NoSuchElementException e) {
 			fail("Element should exist but it does not.");
 		}
+		/**
+		 * Never reached since {@link de.codecentric.zucchini.bdd.util.Assert#fail(String)} fail()} throws
+		 * {@link java.lang.AssertionError}.
+		 */
 		return null;
+	}
+
+	private WebAssert() {
 	}
 }

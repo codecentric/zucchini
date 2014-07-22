@@ -20,20 +20,40 @@ import de.codecentric.zucchini.bdd.dsl.DelegatingStatement;
 import de.codecentric.zucchini.bdd.dsl.Fact;
 import de.codecentric.zucchini.bdd.resolver.StatementResolverHolder;
 
+/**
+ * A delegating fact is a fact that delegates the call of {@code establish()} to another fact which is referenced by
+ * name.
+ *
+ * The fact which is referenced must be registered using a
+ * {@link de.codecentric.zucchini.bdd.resolver.StatementResolver}.
+ */
 public class DelegatingFact implements Fact, DelegatingStatement<Fact> {
-	private String factName;
+	private final String factName;
 
 	private Fact fact;
 
+	/**
+	 * Initializes a delegating fact which references an actual fact by its name.
+	 *
+	 * @param factName The name of the actual fact.
+	 */
 	public DelegatingFact(String factName) {
 		this.factName = factName;
 	}
 
+	/**
+	 * Delegates the call to the fact which has been referenced by name at construction time.
+	 */
 	@Override
 	public void establish() {
 		getStatement().establish();
 	}
 
+	/**
+	 * Lazily loads the fact which has been referenced by name at construction time.
+	 *
+	 * @return The actual fact.
+	 */
 	@Override
 	public Fact getStatement() {
 		if (fact == null) {

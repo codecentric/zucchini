@@ -16,6 +16,13 @@
 
 package de.codecentric.zucchini.bdd.dsl;
 
+/**
+ * The termination ends the DSL and either starts the execution, converts the execution to a fact, or registers the
+ * execution as a fact.
+ */
 public interface Termination extends AsFactConverter, FactRegistrar {
+	/**
+	 * Starts the execution.
+	 */
 	void end();
 }

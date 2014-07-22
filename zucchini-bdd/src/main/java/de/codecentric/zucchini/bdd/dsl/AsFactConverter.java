@@ -16,6 +16,14 @@
 
 package de.codecentric.zucchini.bdd.dsl;
 
+/**
+ * This converter returns the {@link de.codecentric.zucchini.bdd.dsl.Fact} representation of the implementing class.
+ */
 public interface AsFactConverter {
+	/**
+	 * Returns the {@link de.codecentric.zucchini.bdd.dsl.Fact} representation of the implementing class.
+	 *
+	 * @return the {@link de.codecentric.zucchini.bdd.dsl.Fact} representation of the implementing class.
+	 */
 	ExecutionFact asFact();
 }

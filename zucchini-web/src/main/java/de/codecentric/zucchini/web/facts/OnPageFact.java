@@ -22,6 +22,15 @@ import org.openqa.selenium.support.PageFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The on page fact is used to navigate to a page described by a
+ * {@link de.codecentric.zucchini.web.pageobjects.PageObject page object}.
+ *
+ * Page objects that are used with this fact may use annotations like {@link org.openqa.selenium.support.FindBy} on
+ * fields to inject {@link org.openqa.selenium.WebElement elements} of the page.
+ *
+ * @see <a href="https://code.google.com/p/selenium/wiki/PageFactory">Selenium PageFactory</a>
+ */
 public class OnPageFact implements WebFact {
 	private static final Logger logger = LoggerFactory.getLogger(OnPageFact.class);
 
@@ -33,6 +42,12 @@ public class OnPageFact implements WebFact {
 
 	private boolean isInitialized = false;
 
+	/**
+	 * Initializes a new on page fact.
+	 *
+	 * @param pageObject The page object.
+	 * @see de.codecentric.zucchini.web.facts.WebFacts#onPage(de.codecentric.zucchini.web.pageobjects.PageObject)
+	 */
 	public OnPageFact(PageObject pageObject) {
 		if (pageObject == null) {
 			throw new NullPointerException("You must specify a valid page object or page object class.");
@@ -40,6 +55,12 @@ public class OnPageFact implements WebFact {
 		this.pageObject = pageObject;
 	}
 
+	/**
+	 * Initializes a new on page fact.
+	 *
+	 * @param pageObjectClass The page object class.
+	 * @see de.codecentric.zucchini.web.facts.WebFacts#onPage(Class)
+	 */
 	public OnPageFact(Class<? extends PageObject> pageObjectClass) {
 		if (pageObjectClass == null) {
 			throw new NullPointerException("You must specify a valid page object or page object class.");
@@ -47,12 +68,18 @@ public class OnPageFact implements WebFact {
 		this.pageObjectClass = pageObjectClass;
 	}
 
+	/**
+	 * Opens the page described by the page object of this fact.
+	 */
 	@Override
 	public void establish() {
 		logger.info("Opening page {}...", pageObject);
 		pageObject.open();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void setWebDriver(WebDriver webDriver) {
 		this.webDriver = webDriver;

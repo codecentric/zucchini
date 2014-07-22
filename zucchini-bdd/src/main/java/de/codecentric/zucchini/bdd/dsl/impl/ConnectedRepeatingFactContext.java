@@ -21,18 +21,27 @@ import de.codecentric.zucchini.bdd.dsl.Fact;
 import de.codecentric.zucchini.bdd.dsl.RepeatingFactContext;
 import de.codecentric.zucchini.bdd.dsl.impl.facts.DelegatingFact;
 
+/**
+ * Defines the part of the DSL that allows the definition of additional facts and everything that a
+ * {@link de.codecentric.zucchini.bdd.dsl.impl.ConnectedFirstStepContext} does.
+ */
 public class ConnectedRepeatingFactContext extends ConnectedFirstStepContext implements RepeatingFactContext {
-
 	public ConnectedRepeatingFactContext(ExecutionContext executionContext) {
 		super(executionContext);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public RepeatingFactContext andGiven(Fact fact) {
 		getExecutionContext().addFact(fact);
 		return this;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public RepeatingFactContext andGiven(String factName) {
 		return andGiven(new DelegatingFact(factName));
