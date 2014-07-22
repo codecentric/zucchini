@@ -8,9 +8,6 @@ ls -l /dev/shm
 sudo chmod 1777 /dev/shm
 ls -l /dev/shm
 
-uname -a
-cat /etc/lsb-release
-
 sudo apt-get update --fix-missing
 
 export VERSION=$(echo $BROWSER | sed -e's/[^-]*-//')
@@ -22,14 +19,6 @@ echo VERSION=$VERSION
 sudo ln -sf $(which true) $(which xdg-desktop-menu)
 
 case $BROWSER in
-Android)
-	sudo apt-get install -qq --force-yes \
-		libc6:i386 libgcc1:i386 gcc-4.6-base:i386 libstdc++5:i386 \
-		libstdc++6:i386 lib32z1 libreadline6-dev:i386 \
-		libncurses5-dev:i386
-	bash tools/android/setup.sh
-	;;
-
 Chrome)
 	echo "Getting $VERSION of $BROWSER"
 	export CHROME=google-chrome-${VERSION}_current_amd64.deb
@@ -52,24 +41,4 @@ Chrome)
 	
 	google-chrome --version
 	;;
-
-Firefox)
-	sudo rm -f /usr/local/bin/firefox
-	case $VERSION in
-	beta)
-		yes "\n" | sudo add-apt-repository -y ppa:mozillateam/firefox-next
-		;;
-	aurora)
-		yes "\n" | sudo add-apt-repository -y ppa:ubuntu-mozilla-daily/firefox-aurora
-		;;
-	esac
-	sudo apt-get update --fix-missing
-	sudo apt-get install firefox
-	which firefox
-	ls -l `which firefox`
-	firefox --version
-	;;
 esac
-
-R=tools/python/requirements.txt
-pip install -r $R --use-mirrors || pip install -r $R
