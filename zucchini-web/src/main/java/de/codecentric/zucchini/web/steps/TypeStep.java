@@ -21,11 +21,21 @@ import org.openqa.selenium.interactions.Actions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * A type into step types keys (text or a key combination).
+ *
+ * @see de.codecentric.zucchini.web.steps.WebSteps#type(java.lang.CharSequence[])
+ */
 public class TypeStep extends AbstractWebStep {
 	private static final Logger logger = LoggerFactory.getLogger(TypeStep.class);
 
 	private CharSequence[] keys;
 
+	/**
+	 * Initializes a type step.
+	 *
+	 * @param keys The keys that shall be typed.
+	 */
 	public TypeStep(CharSequence... keys) {
 		this.keys = keys;
 	}
@@ -34,6 +44,9 @@ public class TypeStep extends AbstractWebStep {
 		return keys;
 	}
 
+	/**
+	 * Types the keys.
+	 */
 	@Override
 	public void go() {
 		logger.info("Typing \"{}\"...", keys);

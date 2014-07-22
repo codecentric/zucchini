@@ -18,6 +18,16 @@ package de.codecentric.zucchini.web;
 
 import org.openqa.selenium.WebDriver;
 
+/**
+ * Web driver aware classes will get an instance of the thread-specific {@link org.openqa.selenium.WebDriver}.
+ */
 public interface WebDriverAware {
+	/**
+	 * This method is used to inject a {@link org.openqa.selenium.WebDriver} into the class.
+	 *
+	 * This method is called by the {@link de.codecentric.zucchini.web.WebDriverExecutor}.
+	 *
+	 * @param webDriver The web driver.
+	 */
 	void setWebDriver(WebDriver webDriver);
 }

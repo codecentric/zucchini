@@ -22,15 +22,29 @@ import org.slf4j.LoggerFactory;
 
 import static de.codecentric.zucchini.web.util.WebAssert.findElementOrFail;
 
+/**
+ * This step clears a specific {@link org.openqa.selenium.WebElement element} described by
+ * {@link org.openqa.selenium.By}.
+ *
+ * @see WebSteps#clear(org.openqa.selenium.By)
+ */
 public class ClearStep extends AbstractWebStep {
 	private static final Logger logger = LoggerFactory.getLogger(ClearStep.class);
 
 	private By element;
 
+	/**
+	 * Initializes a clear step.
+	 *
+	 * @param element The element that shall be cleared.
+	 */
 	public ClearStep(By element) {
 		this.element = element;
 	}
 
+	/**
+	 * Clears the {@link org.openqa.selenium.WebElement element} described by {@link org.openqa.selenium.By}.
+	 */
 	@Override
 	public void go() {
 		logger.info("Clearing {}...", element);

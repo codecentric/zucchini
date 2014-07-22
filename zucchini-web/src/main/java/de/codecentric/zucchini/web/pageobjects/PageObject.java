@@ -18,6 +18,15 @@ package de.codecentric.zucchini.web.pageobjects;
 
 import de.codecentric.zucchini.web.WebDriverAware;
 
+/**
+ * A Page object is a design pattern which is commonly used with Selenium tests.
+ *
+ * @see <a href="https://code.google.com/p/selenium/wiki/PageObjects">Page Objects</a>
+ */
 public interface PageObject extends WebDriverAware {
+	/**
+	 * The only method that all page objects must implement is used to open the page in a browser by navigating to its
+	 * URL.
+	 */
 	void open();
 }

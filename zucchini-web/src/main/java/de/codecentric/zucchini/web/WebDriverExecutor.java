@@ -29,13 +29,25 @@ import de.codecentric.zucchini.web.provider.WebDriverProvider;
 import de.codecentric.zucchini.web.results.WebResult;
 import de.codecentric.zucchini.web.steps.WebStep;
 
+/**
+ * This {@link de.codecentric.zucchini.bdd.Executor} implementation uses Selenium 2 and is meant for web tests.
+ */
 public class WebDriverExecutor extends AbstractExecutor {
 	private WebDriverProvider webDriverProvider;
 
+	/**
+	 * Initializes the executor defaulting to a {@link de.codecentric.zucchini.web.provider.ChromeDriverProvider}.
+	 */
 	public WebDriverExecutor() {
 		this(new ChromeDriverProvider());
 	}
 
+	/**
+	 * Initializes the executor with the specified {@link de.codecentric.zucchini.web.provider.WebDriverProvider}.
+	 *
+	 * @param webDriverProvider The {@link de.codecentric.zucchini.web.provider.WebDriverProvider} used for the
+	 *                          execution of web statements.
+	 */
 	public WebDriverExecutor(WebDriverProvider webDriverProvider) {
 		if (webDriverProvider == null) {
 			throw new NullPointerException("The WebDriverExecutor expects the WebDriverProvider to be non-null.");
@@ -43,18 +55,35 @@ public class WebDriverExecutor extends AbstractExecutor {
 		this.webDriverProvider = webDriverProvider;
 	}
 
+	/**
+	 * This method exposes the internal {@link de.codecentric.zucchini.web.provider.WebDriverProvider}.
+	 *
+	 * @return The internal {@link de.codecentric.zucchini.web.provider.WebDriverProvider}.
+	 */
 	public WebDriverProvider getWebDriverProvider() {
 		return webDriverProvider;
 	}
 
+	/**
+	 * This method is called at the beginning of the execution process and it starts the web driver.
+	 */
 	protected void initialize() {
 		webDriverProvider.startWebDriver();
 	}
 
+	/**
+	 * This method is called at the end of the execution process and it stops the web driver.
+	 */
 	protected void shutdown() {
 		webDriverProvider.stopWebDriver();
 	}
 
+	/**
+	 * Web statements require an instance of a {@link org.openqa.selenium.WebDriver} which will be injected during the
+	 * pre-processing of statements.
+	 *
+	 * @param statement The statement that shall be pre-processed.
+	 */
 	@Override
 	protected void prepareStatement(Statement statement) {
 		if (statement instanceof DelegatingStatement) {
@@ -64,12 +93,25 @@ public class WebDriverExecutor extends AbstractExecutor {
 		}
 	}
 
+	/**
+	 * This method injects the web driver into a statement if it implements
+	 * {@link de.codecentric.zucchini.web.WebDriverAware}.
+	 *
+	 * @param statement The statement in which a web driver shall be injected.
+	 */
 	private void injectWebDriver(Statement statement) {
 		if (statement instanceof WebDriverAware) {
 			((WebDriverAware) statement).setWebDriver(webDriverProvider.getWebDriver());
 		}
 	}
 
+	/**
+	 * This method validates the execution context.
+	 *
+	 * Delegating statements and prepared statements are supported.
+	 *
+	 * @param executionContext The context that shall be validated.
+	 */
 	protected void failOnInvalidContext(ExecutionContext executionContext) {
 		for (Fact fact : executionContext.getFacts()) {
 			if (fact instanceof DelegatingFact) {

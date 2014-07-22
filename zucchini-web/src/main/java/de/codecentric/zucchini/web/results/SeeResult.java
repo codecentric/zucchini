@@ -18,13 +18,24 @@ package de.codecentric.zucchini.web.results;
 
 import static de.codecentric.zucchini.bdd.util.Assert.assertTrue;
 
+/**
+ * A see result expects that a specific text is present in the source of a page.
+ */
 public class SeeResult extends AbstractWebResult {
 	private String text;
 
+	/**
+	 * Initializes a see result.
+	 *
+	 * @param text The text that shall be expected to be present.
+	 */
 	public SeeResult(String text) {
 		this.text = text;
 	}
 
+	/**
+	 * Expects that the specified text is present.
+	 */
 	@Override
 	public void expect() {
 		assertTrue(String.format("Page should contain \"%s\" but it does not.", text), getWebDriver().getPageSource().contains(text));

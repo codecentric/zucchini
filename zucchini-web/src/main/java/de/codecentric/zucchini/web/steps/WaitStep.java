@@ -20,26 +20,59 @@ import de.codecentric.zucchini.bdd.ExecutionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * A wait step waits for while, hence it gives a page time to load or run JavaScript.
+ */
 public class WaitStep extends AbstractWebStep {
 	private static final Logger logger = LoggerFactory.getLogger(WaitStep.class);
 
-	private static final long DEFAULT_SLEEP_TIME = 10;
+	private static final long DEFAULT_SLEEP_TIME = 10000;
 
 	private long sleepTime;
 
+	/**
+	 * Initializes a wait step with a sleep time of 10 seconds.
+	 */
 	public WaitStep() {
 		this.sleepTime = DEFAULT_SLEEP_TIME;
 	}
 
+	/**
+	 * Initializes a wait time.
+	 *
+	 * @param sleepTime The wait timeout in milliseconds.
+	 */
 	public WaitStep(long sleepTime) {
 		this.sleepTime = sleepTime;
 	}
 
+	/**
+	 *
+	 * @param sleepTime
+	 * @return
+	 */
+	/**
+	 * This method is a convenience method that integrates well into the DSL.
+	 *
+	 * For example:
+	 * <code>
+	 * given(...)
+	 * .when(wait().withTimeout(5000))
+	 * .then(...)
+	 * .end();
+	 * </code>
+	 *
+	 * @param sleepTime The wait timeout in milliseconds.
+	 * @return A wait step with the specified sleep time.
+	 */
 	public WaitStep withSleepTime(long sleepTime) {
 		this.sleepTime = sleepTime;
 		return this;
 	}
 
+	/**
+	 * Waits for the specified sleep time.
+	 */
 	@Override
 	public void go() {
 		logger.info("Waiting {} seconds...", sleepTime);

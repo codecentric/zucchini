@@ -17,18 +17,32 @@
 package de.codecentric.zucchini.web.results;
 
 
+import org.openqa.selenium.By;
+
 import static de.codecentric.zucchini.bdd.util.Assert.assertNotNull;
 import static de.codecentric.zucchini.web.util.WebAssert.findElementOrFail;
 
+/**
+ * An input read-only result expects that a specific {@link org.openqa.selenium.WebElement element} described by
+ * {@link org.openqa.selenium.By} is a read-only input.
+ */
 public class InputReadOnlyResult extends AbstractWebResult {
-	private InputContext inputContext;
+	private By element;
 
-	public InputReadOnlyResult(InputContext inputContext) {
-		this.inputContext = inputContext;
+	/**
+	 * Initializes an input read-only result.
+	 *
+	 * @param element The element whose input state shall be expected to be read-only.
+	 */
+	public InputReadOnlyResult(By element) {
+		this.element = element;
 	}
 
+	/**
+	 * Expects that the input state is read-only.
+	 */
 	@Override
 	public void expect() {
-		assertNotNull("Element should be read-only but it is not.", findElementOrFail(getWebDriver(), inputContext.getElement()).getAttribute("readonly"));
+		assertNotNull("Element should be read-only but it is not.", findElementOrFail(getWebDriver(), element).getAttribute("readonly"));
 	}
 }

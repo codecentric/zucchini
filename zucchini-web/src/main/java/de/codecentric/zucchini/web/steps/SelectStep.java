@@ -16,37 +16,71 @@
 
 package de.codecentric.zucchini.web.steps;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.Select;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import static de.codecentric.zucchini.web.util.WebAssert.findElementOrFail;
 
+/**
+ * A select step selects an option of a specific {@link org.openqa.selenium.WebElement element} described by
+ * {@link org.openqa.selenium.By}.
+ *
+ * @see de.codecentric.zucchini.web.steps.WebSteps#select(org.openqa.selenium.By)
+ * @see de.codecentric.zucchini.web.steps.SelectContext
+ */
 public class SelectStep extends AbstractWebStep {
 	private static final Logger logger = LoggerFactory.getLogger(SelectStep.class);
 
+	/**
+	 * This enum is used to define which type of selector is used.
+	 */
 	public enum OptionSelectorType {
+		/**
+		 * The selector is the value of the option.
+		 */
 		VALUE,
+
+		/**
+		 * The selector is the text of the option.
+		 */
 		TEXT,
+
+		/**
+		 * The selector is the index of the option.
+		 */
 		INDEX
 	}
 
-	private SelectContext selectContext;
+	private By element;
 
 	private Object optionSelector;
 
 	private OptionSelectorType optionSelectorType;
 
-	public SelectStep(SelectContext selectContext, Object optionSelector, OptionSelectorType optionSelectorType) {
-		this.selectContext = selectContext;
+	/**
+	 * Initializes a select step.
+	 *
+	 * @param element            The element that has options.
+	 * @param optionSelector     The selector (a specific index, text, or value, depending on the
+	 *                           {@link de.codecentric.zucchini.web.steps.SelectStep.OptionSelectorType}.
+	 * @param optionSelectorType The type of the selector.
+	 */
+	public SelectStep(By element, Object optionSelector, OptionSelectorType optionSelectorType) {
+		this.element = element;
 		this.optionSelector = optionSelector;
 		this.optionSelectorType = optionSelectorType;
 	}
 
+	/**
+	 * Selects an option of the {@link org.openqa.selenium.WebElement element} described by
+	 * {@link org.openqa.selenium.By}.
+	 */
 	@Override
 	public void go() {
-		logger.info("Waiting for select {}...", selectContext.getElement());
-		Select select = new Select(findElementOrFail(getWebDriver(), selectContext.getElement()));
+		logger.info("Waiting for select {}...", element);
+		Select select = new Select(findElementOrFail(getWebDriver(), element));
 		if (OptionSelectorType.INDEX.equals(optionSelectorType)) {
 			logger.info("Selecting index {}...", optionSelector);
 			select.selectByIndex((Integer) optionSelector);

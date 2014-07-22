@@ -18,9 +18,18 @@ package de.codecentric.zucchini.web.pageobjects;
 
 import org.openqa.selenium.WebDriver;
 
+/**
+ * The abstract page object simplifies the implementation of custom page objects by providing implementations of methods
+ * that are common for all page objects.
+ */
 public abstract class AbstractPageObject implements PageObject {
 	private WebDriver webDriver;
 
+	/**
+	 * Opens the page whose URL has been returned by {@code getUrl()}.
+	 *
+	 * @throws IllegalPageObjectConfigurationException Thrown if {@code getUrl()} returns {@literal null}.
+	 */
 	@Override
 	public void open() {
 		String url = getUrl();
@@ -30,12 +39,30 @@ public abstract class AbstractPageObject implements PageObject {
 		webDriver.get(url);
 	}
 
+	/**
+	 * This method must be implemented by subclasses.
+	 *
+	 * @return The URL of the page described by the page object.
+	 */
 	protected abstract String getUrl();
 
+	/**
+	 * Sets the web driver.
+	 *
+	 * This method is called by the {@link de.codecentric.zucchini.web.facts.OnPageFact} before {@code open()} is
+	 * called.
+	 *
+	 * @param webDriver The web driver.
+	 */
 	public void setWebDriver(WebDriver webDriver) {
 		this.webDriver = webDriver;
 	}
 
+	/**
+	 * Returns a human-readable description of this page object.
+	 *
+	 * @return A human-readable description of this page object.
+	 */
 	@Override
 	public String toString() {
 		return getClass().getSimpleName() + "{url=" + getUrl() + '}';
