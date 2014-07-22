@@ -23,15 +23,29 @@ import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
 
+/**
+ * This JUnit {@link org.junit.rules.TestRule rule} provides a mechanism for registering a web result with a specific
+ * name.
+ */
 public class WebResultRule implements TestRule {
 	private final String resultName;
 	private final WebResult webResult;
 
+	/**
+	 * Initializes a web result rule that registers the given {@link de.codecentric.zucchini.web.results.WebResult web result}
+	 * with the specified name.
+	 *
+	 * @param resultName The name used to reference the result afterwards.
+	 * @param webResult  The {@link de.codecentric.zucchini.web.results.WebResult web result}.
+	 */
 	public WebResultRule(String resultName, WebResult webResult) {
 		this.resultName = resultName;
 		this.webResult = webResult;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Statement apply(final Statement base, Description description) {
 		return new Statement() {

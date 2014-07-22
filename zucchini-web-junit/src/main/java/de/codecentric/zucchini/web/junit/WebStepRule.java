@@ -23,15 +23,29 @@ import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
 
+/**
+ * This JUnit {@link org.junit.rules.TestRule rule} provides a mechanism for registering a web step with a specific
+ * name.
+ */
 public class WebStepRule implements TestRule {
 	private final String stepName;
 	private final WebStep webStep;
 
+	/**
+	 * Initializes a web step rule that registers the given {@link de.codecentric.zucchini.web.steps.WebStep web step}
+	 * with the specified name.
+	 *
+	 * @param stepName The name used to reference the step afterwards.
+	 * @param webStep  The {@link de.codecentric.zucchini.web.steps.WebStep web step}.
+	 */
 	public WebStepRule(String stepName, WebStep webStep) {
 		this.stepName = stepName;
 		this.webStep = webStep;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Statement apply(final Statement base, Description description) {
 		return new Statement() {
