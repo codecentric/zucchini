@@ -18,7 +18,13 @@ package de.codecentric.zucchini.bdd.dsl.impl.results;
 
 import de.codecentric.zucchini.bdd.dsl.Result;
 
+/**
+ * A non-operational result is a dummy result that does nothing.
+ */
 public class NonOperationalResult implements Result {
+	/**
+	 * This method does nothing.
+	 */
 	@Override
 	public void expect() {
 		// Intentionally left blank.

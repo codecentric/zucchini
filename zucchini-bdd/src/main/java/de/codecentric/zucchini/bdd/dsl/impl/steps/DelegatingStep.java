@@ -20,20 +20,40 @@ import de.codecentric.zucchini.bdd.dsl.DelegatingStatement;
 import de.codecentric.zucchini.bdd.dsl.Step;
 import de.codecentric.zucchini.bdd.resolver.StatementResolverHolder;
 
+/**
+ * A delegating step is a step that delegates the call of {@code go()} to another step which is referenced  by
+ * name.
+ * <p/>
+ * The step which is referenced must be registered using a
+ * {@link de.codecentric.zucchini.bdd.resolver.StatementResolver}.
+ */
 public class DelegatingStep implements Step, DelegatingStatement<Step> {
-	private String stepName;
+	private final String stepName;
 
 	private Step step;
 
+	/**
+	 * Initializes a delegating step which references an actual step by its name.
+	 *
+	 * @param stepName The name of the actual step.
+	 */
 	public DelegatingStep(String stepName) {
 		this.stepName = stepName;
 	}
 
+	/**
+	 * Delegates the call to the step which has been referenced by name at construction time.
+	 */
 	@Override
 	public void go() {
 		getStatement().go();
 	}
 
+	/**
+	 * Lazily loads the step which has been referenced by name at construction time.
+	 *
+	 * @return The actual step.
+	 */
 	public Step getStatement() {
 		if (step == null) {
 			step = StatementResolverHolder.getStatementResolver().resolveStatement(stepName, Step.class);

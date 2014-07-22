@@ -21,17 +21,27 @@ import de.codecentric.zucchini.bdd.dsl.RepeatingResultContext;
 import de.codecentric.zucchini.bdd.dsl.Result;
 import de.codecentric.zucchini.bdd.dsl.impl.results.DelegatingResult;
 
+/**
+ * Defines the part of the DSL that allows the definition of additional results and everything that a
+ * {@link de.codecentric.zucchini.bdd.dsl.impl.ConnectedTermination} does.
+ */
 public class ConnectedRepeatingResultContext extends ConnectedTermination implements RepeatingResultContext {
 	ConnectedRepeatingResultContext(ExecutionContext executionContext) {
 		super(executionContext);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public RepeatingResultContext andThen(Result result) {
 		getExecutionContext().addResult(result);
 		return this;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public RepeatingResultContext andThen(String resultName) {
 		return andThen(new DelegatingResult(resultName));

@@ -16,6 +16,12 @@
 
 package de.codecentric.zucchini.bdd.dsl;
 
+/**
+ * A fact is a statement that defines a required state and is able to establish this state.
+ */
 public interface Fact extends Statement {
+	/**
+	 * Establishes a fact as a required state.
+	 */
 	void establish();
 }

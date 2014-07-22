@@ -22,16 +22,26 @@ import de.codecentric.zucchini.bdd.dsl.RepeatingStepContext;
 import de.codecentric.zucchini.bdd.dsl.Step;
 import de.codecentric.zucchini.bdd.dsl.impl.steps.DelegatingStep;
 
+/**
+ * Defines the part of the DSL that allows the definition of the first step and everything that a
+ * {@link de.codecentric.zucchini.bdd.dsl.impl.ConnectedTermination} does.
+ */
 public class ConnectedFirstStepContext extends ConnectedTermination implements FirstStepContext {
 	ConnectedFirstStepContext(ExecutionContext executionContext) {
 		super(executionContext);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public RepeatingStepContext when(Step step) {
 		return new ConnectedRepeatingStepContext(getExecutionContext().addStep(step));
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public RepeatingStepContext when(String stepName) {
 		return when(new DelegatingStep(stepName));

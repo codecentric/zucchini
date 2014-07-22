@@ -16,6 +16,16 @@
 
 package de.codecentric.zucchini.bdd;
 
+/**
+ * The executor is responsible for the execution of facts, steps, and results.
+ */
 public interface Executor {
+	/**
+	 * This method runs the execution of facts, steps, and results that are defined in the
+	 * {@link de.codecentric.zucchini.bdd.ExecutionContext}
+	 *
+	 * @param executionContext The execution context defining facts, steps, and results.
+	 * @throws ExecutionException Thrown if the execution failed.
+	 */
 	void execute(ExecutionContext executionContext) throws ExecutionException;
 }

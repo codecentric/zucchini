@@ -16,8 +16,23 @@
 
 package de.codecentric.zucchini.bdd.dsl;
 
+/**
+ * Defines the part of the DSL that allows the definition of additional results or the end of the execution.
+ */
 public interface RepeatingResultContext extends Termination {
+	/**
+	 * Defines that the given result will be expected.
+	 *
+	 * @param result The expected result.
+	 * @return A context that allows to define additional expected results.
+	 */
 	RepeatingResultContext andThen(Result result);
 
+	/**
+	 * Defines that the result referenced by the given name will be expected.
+	 *
+	 * @param resultName The name of the referenced expected result.
+	 * @return A context that allows to define additional expected results.
+	 */
 	RepeatingResultContext andThen(String resultName);
 }

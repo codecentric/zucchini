@@ -16,8 +16,23 @@
 
 package de.codecentric.zucchini.bdd.dsl;
 
+/**
+ * Defines the part of the DSL that allows the definition of the first result.
+ */
 public interface FirstResultContext {
+	/**
+	 * Defines that the given result will be expected.
+	 *
+	 * @param result The expected result.
+	 * @return A context that allows to define additional expected results.
+	 */
 	RepeatingResultContext then(Result result);
 
+	/**
+	 * Defines that the result referenced by the given name will be expected.
+	 *
+	 * @param resultName The name of the referenced expected result.
+	 * @return A context that allows to define additional expected results.
+	 */
 	RepeatingResultContext then(String resultName);
 }

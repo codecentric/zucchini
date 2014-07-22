@@ -16,6 +16,9 @@
 
 package de.codecentric.zucchini.bdd.dsl;
 
+/**
+ * A result is a statement that defines the expected outcome of an execution.
+ */
 public interface Result extends Statement {
 	void expect();
 }

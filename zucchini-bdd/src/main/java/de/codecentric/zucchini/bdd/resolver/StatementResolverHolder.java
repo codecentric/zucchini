@@ -16,23 +16,39 @@
 
 package de.codecentric.zucchini.bdd.resolver;
 
+/**
+ * The statement resolver holder is used to define a {@link de.codecentric.zucchini.bdd.resolver.StatementResolver}
+ * which is used to resolve statements that are referenced by their name.
+ * <p/>
+ * If no statement resolver is registered, the {@link de.codecentric.zucchini.bdd.resolver.SimpleStatementResolver} will
+ * be used which should suit most purposes.
+ */
 public class StatementResolverHolder {
-
 	private static final ThreadLocal<StatementResolver> factResolver = new ThreadLocal<StatementResolver>();
 
 	static {
 		setFactResolver(new SimpleStatementResolver());
 	}
 
+	/**
+	 * Returns the statement resolver of the current thread.
+	 *
+	 * @return The statement resolver of the current thread.
+	 */
 	public static StatementResolver getStatementResolver() {
 		return factResolver.get();
 	}
 
+	/**
+	 * Sets the statement resolver for the current thread.
+	 *
+	 * @param statementResolver The statement resolver for the current thread.
+	 */
+	@SuppressWarnings("WeakerAccess")
 	public static void setFactResolver(StatementResolver statementResolver) {
 		if (statementResolver == null) {
 			throw new NullPointerException("The statement resolver must not be null.");
 		}
 		StatementResolverHolder.factResolver.set(statementResolver);
 	}
-
 }

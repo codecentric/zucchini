@@ -24,20 +24,32 @@ import de.codecentric.zucchini.bdd.dsl.Step;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * This is the built-in statement resolver.
+ */
 public class SimpleStatementResolver implements StatementResolver {
-	private Map<Class<? extends Statement>, Map<String, Statement>> statements = new HashMap<Class<? extends Statement>, Map<String, Statement>>();
+	private final Map<Class<? extends Statement>, Map<String, Statement>> statements = new HashMap<Class<? extends Statement>, Map<String, Statement>>();
 
+	/**
+	 * Initializes the statement resolver.
+	 */
 	public SimpleStatementResolver() {
 		statements.put(Fact.class, new HashMap<String, Statement>());
 		statements.put(Step.class, new HashMap<String, Statement>());
 		statements.put(Result.class, new HashMap<String, Statement>());
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void addStatement(String statementName, Statement statement, Class<? extends Statement> type) {
 		statements.get(type).put(statementName, statement);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public <T extends Statement> T resolveStatement(String statementName, Class<T> type) {
 		if (statementName == null) {

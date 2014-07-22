@@ -18,8 +18,32 @@ package de.codecentric.zucchini.bdd.resolver;
 
 import de.codecentric.zucchini.bdd.dsl.Statement;
 
+/**
+ * A statement resolver can be used to register statements globally so that they can be referenced by name.
+ */
 public interface StatementResolver {
+	/**
+	 * Adds a statement to the registry.
+	 * <p/>
+	 * Registered statements can be resolved with {@code resolveStatement()}.
+	 *
+	 * @param statementName The name used to reference the statement afterwards.
+	 * @param statement     The statement that shall be registered.
+	 * @param type          The type of the statement, i.e. {@link de.codecentric.zucchini.bdd.dsl.Fact},
+	 *                      {@link de.codecentric.zucchini.bdd.dsl.Step},
+	 *                      {@link de.codecentric.zucchini.bdd.dsl.Result}, or their subclasses.
+	 */
 	void addStatement(String statementName, Statement statement, Class<? extends Statement> type);
 
+	/**
+	 * Resolves a statement using its name and the type of the statement.
+	 *
+	 * @param statementName The name used to reference the statement.
+	 * @param type          The type of the statement, i.e. {@link de.codecentric.zucchini.bdd.dsl.Fact},
+	 *                      {@link de.codecentric.zucchini.bdd.dsl.Step},
+	 *                      {@link de.codecentric.zucchini.bdd.dsl.Result}, or their subclasses.
+	 * @param <T>           The result type equates to the parameter {@code type}.
+	 * @return The resolved statement.
+	 */
 	<T extends Statement> T resolveStatement(String statementName, Class<T> type);
 }

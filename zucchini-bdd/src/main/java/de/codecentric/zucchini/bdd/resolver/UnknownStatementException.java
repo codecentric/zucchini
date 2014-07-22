@@ -16,6 +16,11 @@
 
 package de.codecentric.zucchini.bdd.resolver;
 
+/**
+ * This exception is thrown by {@link de.codecentric.zucchini.bdd.resolver.StatementResolver} implementations in case
+ * a statement is referenced which has not been registered.
+ */
+@SuppressWarnings("WeakerAccess")
 public class UnknownStatementException extends RuntimeException {
 	public UnknownStatementException(String message) {
 		super(message);

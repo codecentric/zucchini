@@ -18,16 +18,36 @@ package de.codecentric.zucchini.bdd.dsl.impl;
 
 import de.codecentric.zucchini.bdd.ExecutionContext;
 import de.codecentric.zucchini.bdd.dsl.Fact;
-import de.codecentric.zucchini.bdd.dsl.FirstFactContext;
 import de.codecentric.zucchini.bdd.dsl.RepeatingFactContext;
 import de.codecentric.zucchini.bdd.dsl.impl.facts.DelegatingFact;
 
-public class ScenarioBuilder implements FirstFactContext {
+/**
+ * The scenario builder is the entry point of the DSL and allows the definition of the first fact.
+ */
+public class ScenarioBuilder {
+	/**
+	 * Defines that the given fact will be established.
+	 *
+	 * @param fact The fact that will be established.
+	 * @return A context that allows to define additional facts that will be established.
+	 */
 	public static RepeatingFactContext given(Fact fact) {
 		return new ConnectedRepeatingFactContext(new ExecutionContext().addFact(fact));
 	}
 
+	/**
+	 * Defines that the fact referenced by the given name will be established.
+	 *
+	 * @param factName The name of the referenced fact that will be established.
+	 * @return A context that allows to define additional facts that will be established.
+	 */
 	public static RepeatingFactContext given(String factName) {
 		return given(new DelegatingFact(factName));
+	}
+
+	/**
+	 * Prevents the initialization of the scenario builder.
+	 */
+	private ScenarioBuilder() {
 	}
 }

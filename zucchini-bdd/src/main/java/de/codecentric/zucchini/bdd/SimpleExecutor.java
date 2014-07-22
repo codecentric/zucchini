@@ -16,19 +16,8 @@
 
 package de.codecentric.zucchini.bdd;
 
+/**
+ * This is a simple executor that does nothing but executing simple facts, steps, and results.
+ */
 public class SimpleExecutor extends AbstractExecutor {
-	@Override
-	protected void initialize() {
-		// Intentionally left blank.
-	}
-
-	@Override
-	protected void shutdown() {
-		// Intentionally left blank.
-	}
-
-	@Override
-	protected void failOnInvalidContext(ExecutionContext executionContext) {
-		// Intentionally left blank.
-	}
 }

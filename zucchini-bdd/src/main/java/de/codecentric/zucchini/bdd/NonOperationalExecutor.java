@@ -19,10 +19,19 @@ package de.codecentric.zucchini.bdd;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * This is a dummy {@link de.codecentric.zucchini.bdd.Executor} which does nothing but writing a warning to the log.
+ * <p/>
+ * You should manually set an executor using {@code ExecutorHolder.setExecutor()}.
+ */
 public class NonOperationalExecutor implements Executor {
-
 	private static final Logger logger = LoggerFactory.getLogger(NonOperationalExecutor.class);
 
+	/**
+	 * This method only prints a warning.
+	 *
+	 * @param executionContext The execution context defining facts, steps, and results.
+	 */
 	@Override
 	public void execute(ExecutionContext executionContext) {
 		logger.warn("No executor has been defined. See ExecutorHolder.setExecutor() for more information.");

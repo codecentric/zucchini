@@ -16,6 +16,9 @@
 
 package de.codecentric.zucchini.bdd.dsl;
 
+/**
+ * A step is a statement that defines what needs to be done during the execution.
+ */
 public interface Step extends Statement {
 	void go();
 }

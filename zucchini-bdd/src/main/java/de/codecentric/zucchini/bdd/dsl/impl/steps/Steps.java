@@ -18,8 +18,19 @@ package de.codecentric.zucchini.bdd.dsl.impl.steps;
 
 import de.codecentric.zucchini.bdd.dsl.Step;
 
+/**
+ * This utility class provides methods that return pre-configured steps.
+ */
 public class Steps {
+	/**
+	 * Returns a non-operational step.
+	 *
+	 * @return A non-operational step.
+	 */
 	public static Step noOperation() {
 		return new NonOperationalStep();
+	}
+
+	private Steps() {
 	}
 }

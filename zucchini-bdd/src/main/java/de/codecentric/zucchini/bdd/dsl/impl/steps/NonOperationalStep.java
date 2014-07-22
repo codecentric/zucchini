@@ -18,7 +18,13 @@ package de.codecentric.zucchini.bdd.dsl.impl.steps;
 
 import de.codecentric.zucchini.bdd.dsl.Step;
 
+/**
+ * A non-operational step is a dummy step that does nothing.
+ */
 public class NonOperationalStep implements Step {
+	/**
+	 * This method does nothing.
+	 */
 	@Override
 	public void go() {
 		// Intentionally left blank.

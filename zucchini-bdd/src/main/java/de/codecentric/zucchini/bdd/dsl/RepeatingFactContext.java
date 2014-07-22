@@ -16,8 +16,23 @@
 
 package de.codecentric.zucchini.bdd.dsl;
 
+/**
+ * Defines the part of the DSL that allows the definition of additional facts or the first step.
+ */
 public interface RepeatingFactContext extends FirstStepContext {
+	/**
+	 * Defines that the given fact will be established.
+	 *
+	 * @param fact The fact that will be established.
+	 * @return A context that allows to define additional facts that will be established.
+	 */
 	RepeatingFactContext andGiven(Fact fact);
 
+	/**
+	 * Defines that the fact referenced by the given name will be established.
+	 *
+	 * @param factName The name of the referenced fact that will be established.
+	 * @return A context that allows to define additional facts that will be established.
+	 */
 	RepeatingFactContext andGiven(String factName);
 }
