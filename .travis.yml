@@ -3,4 +3,18 @@ jdk:
   - oraclejdk7
   - oraclejdk8
   - openjdk7
+env:
+  matrix:
+    - BROWSER=Chrome-stable ARGS='-x -b Chrome -u'
+    - BROWSER=Chrome-beta ARGS='-x -b Chrome -u'
+    - BROWSER=Chrome-unstable ARGS='-x -b Chrome -u'
+    - BROWSER=Chrome-unstable ARGS='-x -b Chrome -u --flag=--enable-experimental-web-platform-features'
+before_install:
+  - "wget https://raw.githubusercontent.com/web-animations/web-animations-js/master/.travis-setup.sh"
+  - "chmod 777 ./.travis-setup.sh"
+  - "sudo ./.travis-setup.sh"
+  - "export DISPLAY=:99.0"
+  - "Xvfb :99.0 -extension RANDR > /dev/null &"
+  - "WEBDRIVER_SYNC_ENABLE_SELENIUM_STDOUT=true"
+  - "WEBDRIVER_SYNC_ENABLE_SELENIUM_STDERR=true"
 script: "./run-tests.sh"
