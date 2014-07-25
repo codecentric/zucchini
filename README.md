@@ -3,6 +3,10 @@ Zucchini
 
 Zucchini is a BDD-style testing library that integrates well with JUnit and other testing frameworks.
 
+## Getting Started
+
+You might want to take a look at the blog post [Getting Started with Zucchini](https://blog.codecentric.de/en/2014/07/getting-started-zucchini/).
+
 ## Installation
 
 ### Using Maven
