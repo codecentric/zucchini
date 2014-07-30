@@ -58,11 +58,11 @@ public class SelectStep extends AbstractWebStep {
         INDEX
     }
 
-    private By element;
+    private final By element;
 
     private Object optionSelector;
 
-    private OptionSelectorType optionSelectorType;
+    private final OptionSelectorType optionSelectorType;
 
     /**
      * Initializes a select step.
@@ -104,13 +104,20 @@ public class SelectStep extends AbstractWebStep {
     @Override
     public void setVariables(Map<String, String> variables) {
         injectVariables(variables, element);
-        
-        // This is valid:
-        // {@code select(element(ById.class, "element-id"})).index(intVar("element-index"))}
-        // and it will be resolved to 
-        if (optionSelector instanceof StringVariable || optionSelector instanceof IntegerVariable) {
-            Variable variable = (Variable) optionSelector;
-            optionSelector = variable.convert(variables.get(variable.getName()));
+
+        /**
+         * This is valid:
+         * <code>
+         *     select(element(ById.class, "element-id"})).index(intVar("element-index"))
+         * </code>
+         * and it will be resolved to
+         */
+        if (optionSelector instanceof StringVariable) {
+            Variable<String> variable = (StringVariable) optionSelector;
+            optionSelector = variable.getConvertedValue(variables);
+        } else if (optionSelector instanceof IntegerVariable) {
+            Variable<Integer> variable = (IntegerVariable) optionSelector;
+            optionSelector = variable.getConvertedValue(variables);
         }
     }
 }

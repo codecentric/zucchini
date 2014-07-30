@@ -42,6 +42,7 @@ public abstract class AbstractWebStep implements WebStep, VariablesAware {
      *
      * @return An instance of the web driver of the current thread.
      */
+    @SuppressWarnings("WeakerAccess")
     protected final WebDriver getWebDriver() {
         return webDriver;
     }
@@ -56,6 +57,7 @@ public abstract class AbstractWebStep implements WebStep, VariablesAware {
      * @param variables The variables that will be injected.
      * @param element The element.
      */
+    @SuppressWarnings("WeakerAccess")
     protected final void injectVariables(Map<String, String> variables, By element) {
         if (element instanceof VariablesAware) {
             ((VariablesAware) element).setVariables(variables);

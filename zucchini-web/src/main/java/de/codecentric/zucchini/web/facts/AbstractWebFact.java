@@ -39,7 +39,8 @@ public abstract class AbstractWebFact implements WebFact, VariablesAware {
 	 *
 	 * @return An instance of the web driver of the current thread.
 	 */
-	protected final WebDriver getWebDriver() {
+	@SuppressWarnings("WeakerAccess")
+    protected final WebDriver getWebDriver() {
 		return webDriver;
 	}
 }

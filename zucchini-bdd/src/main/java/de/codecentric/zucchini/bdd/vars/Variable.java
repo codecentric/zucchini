@@ -16,8 +16,33 @@
 
 package de.codecentric.zucchini.bdd.vars;
 
+import java.util.Map;
+
+/**
+ * This interface represents all kinds of variables that can be injected into
+ * {@link de.codecentric.zucchini.bdd.dsl.Statement statements}.
+ * @param <T> The actual type of the variable.
+ */
 public interface Variable<T> {
+    /**
+     * Returns the name of the variable.
+     * @return The name of the variable.
+     */
     String getName();
 
+    /**
+     * Converts the given value to a representation according to the type of the variable.
+     * 
+     * @param value The value that shall be converted.
+     * @return A representation of the given value.
+     */
     T convert(String value);
+
+    /**
+     * Retrieves the value of the variable from the given variable value map, converts it and returns the result.
+     * 
+     * @param variables A map of variable names and values.
+     * @return A representation fo the variable value.
+     */
+    T getConvertedValue(Map<String, String> variables);
 }

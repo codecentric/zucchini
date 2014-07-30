@@ -21,11 +21,22 @@ import de.codecentric.zucchini.web.pageobjects.PageObject;
 
 import static de.codecentric.zucchini.web.pageobjects.SimplePage.url;
 
+/**
+ * A variable representing a {@link de.codecentric.zucchini.web.pageobjects.PageObject}.
+ */
 public class PageObjectVariable extends AbstractVariable<PageObject> {
+    /**
+     * Initializes a page object variable.
+     *
+     * @param name The name of the variable.
+     */
     public PageObjectVariable(String name) {
         super(name);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public PageObject convert(String value) {
         return url(value);

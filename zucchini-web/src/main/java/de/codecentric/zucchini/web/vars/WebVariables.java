@@ -19,7 +19,16 @@ package de.codecentric.zucchini.web.vars;
 import de.codecentric.zucchini.bdd.vars.Variable;
 import de.codecentric.zucchini.web.pageobjects.PageObject;
 
+/**
+ * This utility class provides shorthand methods used as web-specific variable placeholders.
+ */
 public class WebVariables {
+    /**
+     * Returns a variable that contains a {@link de.codecentric.zucchini.web.pageobjects.PageObject}.
+     *
+     * @param variableName The name of the variable.
+     * @return A variable that contains a stirng.
+     */
     public static Variable<PageObject> pageVar(String variableName) {
         return new PageObjectVariable(variableName);
     }

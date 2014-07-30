@@ -31,8 +31,6 @@ import static de.codecentric.zucchini.bdd.dsl.impl.results.Results.noResult;
 import static de.codecentric.zucchini.bdd.dsl.impl.steps.Steps.noOperation;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Matchers.anyMap;
-import static org.mockito.Matchers.anyMapOf;
 import static org.mockito.Mockito.*;
 
 public class VariableStatementResolverTest {
@@ -102,7 +100,7 @@ public class VariableStatementResolverTest {
         assertTrue(result2 == variableStatementResolver.resolveStatement("a x c", Result.class));
         assertTrue(result3 == variableStatementResolver.resolveStatement("a b x", Result.class));
     }
-    
+
     @Test
     public void testInjectVariables() {
         VariableAwareFact factMock = mock(VariableAwareFact.class);
@@ -113,7 +111,7 @@ public class VariableStatementResolverTest {
         verify(factMock, times(1)).setVariables(expectedVariables);
         verifyNoMoreInteractions(factMock);
     }
-    
+
     private static class VariableAwareFact implements Fact, VariablesAware {
         @Override
         public void establish() {

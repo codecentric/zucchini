@@ -25,7 +25,8 @@ public class NonOperationalResult implements Result {
 	/**
 	 * This method does nothing.
 	 */
-	@Override
+	@SuppressWarnings("EmptyMethod")
+    @Override
 	public void expect() {
 		// Intentionally left blank.
 	}

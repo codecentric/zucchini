@@ -16,19 +16,46 @@
 
 package de.codecentric.zucchini.bdd.vars;
 
+/**
+ * This utility class provides shorthand methods used as variable placeholders.
+ */
 public class Variables {
+    /**
+     * Returns a variable that contains a {@link java.lang.String}.
+     *
+     * @param variableName The name of the variable.
+     * @return A variable that contains a stirng.
+     */
     public static Variable<String> stringVar(String variableName) {
         return new StringVariable(variableName);
     }
 
+    /**
+     * Returns a variable that contains a {@link java.lang.CharSequence} array.
+     *
+     * @param variableName The name of the variable.
+     * @return A variable that contains a {@link java.lang.CharSequence} array.
+     */
     public static Variable<CharSequence[]> charSequenceVar(String variableName) {
-        return new CharSequenceVariable(variableName);
+        return new CharSequenceArrayVariable(variableName);
     }
 
+    /**
+     * Returns a variable that contains an {@link java.lang.Integer}.
+     *
+     * @param variableName The name of the variable.
+     * @return A variable that contains an {@link java.lang.Integer}.
+     */
     public static Variable<Integer> intVar(String variableName) {
         return new IntegerVariable(variableName);
     }
 
+    /**
+     * Returns a variable that contains an {@link java.lang.Long}.
+     *
+     * @param variableName The name of the variable.
+     * @return A variable that contains an {@link java.lang.Long}.
+     */
     public static Variable<Long> longVar(String variableName) {
         return new LongVariable(variableName);
     }

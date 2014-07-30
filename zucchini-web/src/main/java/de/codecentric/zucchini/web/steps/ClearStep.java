@@ -33,7 +33,7 @@ import static de.codecentric.zucchini.web.util.WebAssert.findElementOrFail;
 public class ClearStep extends AbstractWebStep {
     private static final Logger logger = LoggerFactory.getLogger(ClearStep.class);
 
-    private By element;
+    private final By element;
 
     /**
      * Initializes a clear step.

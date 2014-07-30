@@ -16,7 +16,18 @@
 
 package de.codecentric.zucchini.bdd.resolver.token;
 
+/**
+ * A variable token represents a part of a statement name that is used as a placeholder.
+ *
+ * {@link de.codecentric.zucchini.bdd.resolver.token.LiteralToken Literals} are used to describe variable values.
+ */
+@SuppressWarnings("WeakerAccess")
 public class VariableToken extends AbstractToken {
+    /**
+     * Initializes a variable token.
+     *
+     * @param text The token text.
+     */
     public VariableToken(String text) {
         super(text);
     }

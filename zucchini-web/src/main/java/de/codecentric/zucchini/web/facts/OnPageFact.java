@@ -96,12 +96,13 @@ public class OnPageFact extends AbstractWebFact {
     @Override
     public void setVariables(Map<String, String> variables) {
         if (pageObjectVariable != null) {
-            pageObject = pageObjectVariable.convert(variables.get(pageObjectVariable.getName()));
+            pageObject = pageObjectVariable.getConvertedValue(variables);
         }
     }
 
     private void initializePage() {
         if (!isInitialized) {
+            isInitialized = true;
             if (pageObject != null) {
                 PageFactory.initElements(getWebDriver(), pageObject);
             } else if (pageObjectClass != null) {

@@ -29,7 +29,7 @@ import static de.codecentric.zucchini.web.util.WebAssert.findElementOrFail;
  * {@link org.openqa.selenium.By} is a read-only input.
  */
 public class InputReadOnlyResult extends AbstractWebResult {
-	private By element;
+	private final By element;
 
 	/**
 	 * Initializes an input read-only result.

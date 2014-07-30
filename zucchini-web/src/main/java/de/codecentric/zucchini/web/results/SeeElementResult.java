@@ -27,7 +27,7 @@ import static de.codecentric.zucchini.web.util.WebAssert.findElementOrFail;
  * {@link org.openqa.selenium.By} is present on a page.
  */
 public class SeeElementResult extends AbstractWebResult {
-	private By element;
+	private final By element;
 
 	/**
 	 * Initializes a see element result.

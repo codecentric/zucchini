@@ -14,17 +14,15 @@
  * limitations under the License.
  */
 
-package de.codecentric.zucchini.bdd.vars;
+package de.codecentric.zucchini.bdd.resolver.token;
 
-import de.codecentric.zucchini.bdd.AbstractExecutor;
-
-public class CharSequenceVariable extends AbstractVariable<CharSequence[]> {
-    public CharSequenceVariable(String variableName) {
-        super(variableName);
-    }
-
-    @Override
-    public CharSequence[] convert(String value) {
-        return value.split("");
+/**
+ * This exception is thrown in case {@link TokenList#detectVariableValues(TokenList)} works on an incompatible
+ * {@link de.codecentric.zucchini.bdd.resolver.token.TokenList}.
+ */
+@SuppressWarnings("WeakerAccess")
+public class VariableValueDetectionException extends RuntimeException {
+    public VariableValueDetectionException(String message) {
+        super(message);
     }
 }

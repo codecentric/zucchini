@@ -29,7 +29,7 @@ import static de.codecentric.zucchini.web.util.WebAssert.findElementOrFail;
  * {@link org.openqa.selenium.By} is a disabled input.
  */
 public class InputDisabledResult extends AbstractWebResult {
-	private By element;
+	private final By element;
 
 	/**
 	 * Initializes an input disabled result.

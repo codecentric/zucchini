@@ -16,11 +16,22 @@
 
 package de.codecentric.zucchini.bdd.vars;
 
+/**
+ * A variable representing a {@link java.lang.Long}.
+ */
 public class LongVariable extends AbstractVariable<Long> {
+    /**
+     * Initializes a long variable.
+     *
+     * @param name The name of the variable.
+     */
     public LongVariable(String name) {
         super(name);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Long convert(String value) {
         return Long.parseLong(value);

@@ -49,7 +49,7 @@ public class TokenListTest {
     }
 
     @Test
-    public void testEqualsWithLiteralsAndVariablesOnSamePosition() {
+    public void testEqualsWithLiteralsAndVariablesAtSamePosition() {
         TokenList tokens1 = new TokenList();
         tokens1.add(new LiteralToken("a"));
         tokens1.add(new VariableToken("b"));
@@ -62,7 +62,7 @@ public class TokenListTest {
     }
 
     @Test
-    public void testEqualsWithLiteralsAndVariablesOnDifferentPosition() {
+    public void testNotEqualsWithLiteralsAndVariablesAtDifferentPosition() {
         TokenList tokens1 = new TokenList();
         tokens1.add(new VariableToken("a"));
         tokens1.add(new LiteralToken("b"));
@@ -71,7 +71,7 @@ public class TokenListTest {
         tokens2.add(new LiteralToken("a"));
         tokens2.add(new VariableToken("b"));
         tokens2.add(new VariableToken("c"));
-        assertEquals(tokens1, tokens2);
+        assertNotEquals(tokens1, tokens2);
     }
 
     @Test
@@ -105,7 +105,7 @@ public class TokenListTest {
         TokenList tokens1 = new TokenList();
         tokens1.add(new VariableToken("a"));
         tokens1.add(new VariableToken("b"));
-        tokens1.add(new VariableToken("c"));
+        tokens1.add(new LiteralToken("c"));
         TokenList tokens2 = new TokenList();
         tokens2.add(new VariableToken("a"));
         tokens2.add(new VariableToken("b"));

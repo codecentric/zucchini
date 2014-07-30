@@ -16,18 +16,39 @@
 
 package de.codecentric.zucchini.bdd.vars;
 
-public abstract class AbstractVariable<T> implements Variable<T> {
-    private String name;
+import java.util.Map;
 
-    public AbstractVariable(String name) {
+public abstract class AbstractVariable<T> implements Variable<T> {
+    private final String name;
+
+    /**
+     * Initializes a variable with the specified name.
+     *
+     * @param name The name of the variable.
+     */
+    protected AbstractVariable(String name) {
         this.name = name;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getName() {
         return name;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public abstract T convert(String value);
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public T getConvertedValue(Map<String, String> variables) {
+        return convert(variables.get(getName()));
+    }
 }

@@ -16,11 +16,22 @@
 
 package de.codecentric.zucchini.bdd.vars;
 
+/**
+ * A variable representing a {@link java.lang.String}.
+ */
 public class StringVariable extends AbstractVariable<String> {
+    /**
+     * Initializes a string variable.
+     *
+     * @param name The name of the variable.
+     */
     public StringVariable(String name) {
         super(name);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String convert(String value) {
         return value;

@@ -14,20 +14,14 @@
  * limitations under the License.
  */
 
-package de.codecentric.zucchini.bdd.dsl.impl.steps;
-
-import de.codecentric.zucchini.bdd.dsl.Step;
+package de.codecentric.zucchini.bdd.resolver.token;
 
 /**
- * A non-operational step is a dummy step that does nothing.
+ * This exception is thrown during the tokenization of statement names, e.g. for syntax errors.
  */
-public class NonOperationalStep implements Step {
-	/**
-	 * This method does nothing.
-	 */
-	@SuppressWarnings("EmptyMethod")
-    @Override
-	public void go() {
-		// Intentionally left blank.
-	}
+@SuppressWarnings("WeakerAccess")
+public class TokenizerException extends RuntimeException {
+    public TokenizerException(String message) {
+        super(message);
+    }
 }

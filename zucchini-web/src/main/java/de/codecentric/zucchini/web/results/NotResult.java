@@ -38,7 +38,7 @@ import static com.thoughtworks.selenium.SeleneseTestBase.fail;
 public class NotResult extends AbstractWebResult {
     private static final Logger logger = LoggerFactory.getLogger(NotResult.class);
 
-    private WebResult webResult;
+    private final WebResult webResult;
 
     /**
      * Initializes a not result.

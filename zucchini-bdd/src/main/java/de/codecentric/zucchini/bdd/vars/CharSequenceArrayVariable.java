@@ -14,20 +14,26 @@
  * limitations under the License.
  */
 
-package de.codecentric.zucchini.bdd.dsl.impl.steps;
-
-import de.codecentric.zucchini.bdd.dsl.Step;
+package de.codecentric.zucchini.bdd.vars;
 
 /**
- * A non-operational step is a dummy step that does nothing.
+ * A variable representing an array of {@link java.lang.CharSequence CharSequence}s.
  */
-public class NonOperationalStep implements Step {
-	/**
-	 * This method does nothing.
-	 */
-	@SuppressWarnings("EmptyMethod")
+public class CharSequenceArrayVariable extends AbstractVariable<CharSequence[]> {
+    /**
+     * Initializes a char sequence array variable.
+     *
+     * @param name The name of the variable.
+     */
+    public CharSequenceArrayVariable(String name) {
+        super(name);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
-	public void go() {
-		// Intentionally left blank.
-	}
+    public CharSequence[] convert(String value) {
+        return value.split("");
+    }
 }

@@ -22,7 +22,7 @@ import org.junit.Rule;
 
 public class WebRuleWithCustomWebDriverExecutorDriverProviderTest extends ZucchiniWebRuleTestBase {
 	@Rule
-	public WebDriverExecutorRule webRuleWithCustomWebDriverExecutorDriverProvider = new WebDriverExecutorRule(new ChromeDriverProvider());
+	public final WebDriverExecutorRule webRuleWithCustomWebDriverExecutorDriverProvider = new WebDriverExecutorRule(new ChromeDriverProvider());
 
 	@Override
 	public WebDriverExecutor getWebDriverExecutor() {

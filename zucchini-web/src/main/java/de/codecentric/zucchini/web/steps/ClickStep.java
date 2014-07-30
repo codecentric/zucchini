@@ -33,7 +33,7 @@ import static de.codecentric.zucchini.web.util.WebAssert.findElementOrFail;
 public class ClickStep extends AbstractWebStep {
     private static final Logger logger = LoggerFactory.getLogger(ClickStep.class);
 
-    private By element;
+    private final By element;
 
     /**
      * Initializes a click step.

@@ -26,10 +26,6 @@ import java.util.Map;
 
 import static de.codecentric.zucchini.web.util.WebAssert.findElementOrFail;
 
-<<<<<<<HEAD
-        =======
-        >>>>>>>Issue #8:Added support for variable substitution.
-
 /**
  * A type into step types keys (text or a key combination) into a specific
  * {@link org.openqa.selenium.WebElement element} described by {@link org.openqa.selenium.By}.
@@ -42,7 +38,7 @@ public class TypeIntoStep extends AbstractWebStep {
 
     private CharSequence[] keys;
     private Variable<CharSequence[]> keysVariable;
-    private By element;
+    private final By element;
 
     /**
      * Initializes a type into step.
@@ -75,11 +71,14 @@ public class TypeIntoStep extends AbstractWebStep {
         findElementOrFail(getWebDriver(), element).sendKeys(keys);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setVariables(Map<String, String> variables) {
         injectVariables(variables, element);
         if (keysVariable != null) {
-            keys = keysVariable.convert(variables.get(keysVariable.getName()));
+            keys = keysVariable.getConvertedValue(variables);
         }
     }
 }

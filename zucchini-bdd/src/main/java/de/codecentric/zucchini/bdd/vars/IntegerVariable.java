@@ -16,11 +16,22 @@
 
 package de.codecentric.zucchini.bdd.vars;
 
+/**
+ * A variable representing an {@link java.lang.Integer}.
+ */
 public class IntegerVariable extends AbstractVariable<Integer> {
+    /**
+     * Initializes an integer variable.
+     *
+     * @param name The name of the variable.
+     */
     public IntegerVariable(String name) {
         super(name);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Integer convert(String value) {
         return Integer.parseInt(value);

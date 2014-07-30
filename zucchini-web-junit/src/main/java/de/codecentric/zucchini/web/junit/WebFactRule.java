@@ -30,7 +30,7 @@ import org.junit.runners.model.Statement;
  */
 public class WebFactRule implements TestRule {
 	private final String factName;
-	private Fact fact;
+	private final Fact fact;
 
 	/**
 	 * Initializes a web fact rule that registers the given {@link de.codecentric.zucchini.web.facts.WebFact web fact}

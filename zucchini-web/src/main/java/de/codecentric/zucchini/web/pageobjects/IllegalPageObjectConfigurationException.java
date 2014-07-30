@@ -21,6 +21,7 @@ package de.codecentric.zucchini.web.pageobjects;
  * {@link de.codecentric.zucchini.web.pageobjects.PageObject#open()} is called on a page object that is derived from
  * {@link de.codecentric.zucchini.web.pageobjects.AbstractPageObject}.
  */
+@SuppressWarnings("WeakerAccess")
 public class IllegalPageObjectConfigurationException extends RuntimeException {
 	public IllegalPageObjectConfigurationException(String message) {
 		super(message);

@@ -28,7 +28,7 @@ package de.codecentric.zucchini.web.pageobjects;
  * </code>
  */
 public class SimplePage extends AbstractPageObject {
-	private String url;
+	private final String url;
 
 	/**
 	 * Provides a shorthand that integrates well into the DSL.
@@ -45,7 +45,8 @@ public class SimplePage extends AbstractPageObject {
 	 *
 	 * @param url The URL of the page object.
 	 */
-	public SimplePage(String url) {
+	@SuppressWarnings("WeakerAccess")
+    public SimplePage(String url) {
 		this.url = url;
 	}
 

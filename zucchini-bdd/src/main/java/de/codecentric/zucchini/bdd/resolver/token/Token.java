@@ -16,6 +16,21 @@
 
 package de.codecentric.zucchini.bdd.resolver.token;
 
+/**
+ * This interface describes a part of a statement name that is either a
+ * {@link de.codecentric.zucchini.bdd.resolver.token.VariableToken variable} or a
+ * {@link de.codecentric.zucchini.bdd.resolver.token.LiteralToken literal}.
+ *
+ * @see de.codecentric.zucchini.bdd.resolver.token.AbstractToken
+ * @see de.codecentric.zucchini.bdd.resolver.token.VariableToken
+ * @see de.codecentric.zucchini.bdd.resolver.token.LiteralToken
+ */
+@SuppressWarnings("WeakerAccess")
 public interface Token {
+    /**
+     * Returns the token text.
+     * 
+     * @return The token text.
+     */
     String getText();
 }

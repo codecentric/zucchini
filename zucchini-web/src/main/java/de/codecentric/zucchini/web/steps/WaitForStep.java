@@ -36,8 +36,7 @@ public class WaitForStep extends AbstractWebStep {
 
 	private static final long DEFAULT_TIMEOUT = 10;
 
-	private By element;
-
+	private final By element;
 	private long timeout;
     private Variable<Long> timeoutVariable;
 
@@ -67,6 +66,7 @@ public class WaitForStep extends AbstractWebStep {
      * @param element The element for which shall be waited.
      * @param timeoutVariable A variable that contains the wait timeout in seconds.
      */
+    @SuppressWarnings("WeakerAccess")
     public WaitForStep(By element, Variable<Long> timeoutVariable) {
         this.element = element;
         this.timeoutVariable = timeoutVariable;
@@ -124,11 +124,14 @@ public class WaitForStep extends AbstractWebStep {
 		}
 	}
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setVariables(Map<String, String> variables) {
         injectVariables(variables, element);
         if (timeoutVariable != null) {
-            timeout = timeoutVariable.convert(variables.get(timeoutVariable.getName()));
+            timeout = timeoutVariable.getConvertedValue(variables);
         }
     }
 }

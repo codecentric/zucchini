@@ -55,10 +55,13 @@ public class SeeResult extends AbstractWebResult {
         assertTrue(String.format("Page should contain \"%s\" but it does not.", text), getWebDriver().getPageSource().contains(text));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setVariables(Map<String, String> variables) {
         if (textVariable != null) {
-            text = textVariable.convert(variables.get(textVariable.getName()));
+            text = textVariable.getConvertedValue(variables);
         }
     }
 }

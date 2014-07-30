@@ -16,35 +16,77 @@
 
 package de.codecentric.zucchini.bdd.resolver.token;
 
+/**
+ * Defines common methods that both {@link de.codecentric.zucchini.bdd.resolver.token.LiteralToken} and
+ * {@link de.codecentric.zucchini.bdd.resolver.token.VariableToken} need.
+ */
 abstract class AbstractToken implements Token {
     private String text;
 
-    public AbstractToken(String text) {
+    /**
+     * Initializes a token with the specified text.
+     *
+     * @param text The token text.
+     */
+    AbstractToken(String text) {
+        if (text == null) {
+            throw new IllegalArgumentException("The text of a token must not be null.");
+        }
         this.text = text;
     }
 
+    /**
+     * Returns the text of the token.
+     * 
+     * This is either (for {@link de.codecentric.zucchini.bdd.resolver.token.VariableToken}) the variable name or (for
+     * {@link de.codecentric.zucchini.bdd.resolver.token.LiteralToken}) a literal. Literals can be variable values.
+     * 
+     * @return The text of the token.
+     */
     @Override
     public final String getText() {
         return text;
     }
 
+    /**
+     * Checks whether this token equals the given object.
+     * 
+     * @param o The object that is compared to this token.
+     * @return {@literal true} if this token and the given object are equal, and {@literal false} otherwise.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof AbstractToken)) {
+        if (!(o instanceof Token)) {
             return false;
         }
 
-        AbstractToken that = (AbstractToken) o;
+        Token that = (Token) o;
 
-        return text != null ? text.equals(that.text) : that.text == null;
-
+        return text != null ? text.equals(that.getText()) : that.getText() == null;
     }
 
+    /**
+     * Returns a hash code that reflects the text of the token.
+     *
+     * @return A hash code that reflects the text of the token.
+     */
     @Override
     public int hashCode() {
         return text != null ? text.hashCode() : 0;
+    }
+
+    /**
+     * Returns a human-readable representation of a token.
+     *
+     * @return A human-readable representation of a token.
+     */
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName() + "{" +
+                "text='" + text + '\'' +
+                '}';
     }
 }

@@ -18,6 +18,17 @@ package de.codecentric.zucchini.bdd.dsl;
 
 import java.util.Map;
 
+/**
+ * Classes that implement this interface are aware of variables.
+ */
 public interface VariablesAware {
+    /**
+     * Sets variables.
+     *
+     * This method will be automatically called for {@link de.codecentric.zucchini.bdd.dsl.Statement Statements} that
+     * implement this interface.
+     *
+     * @param variables The variables.
+     */
     void setVariables(Map<String, String> variables);
 }

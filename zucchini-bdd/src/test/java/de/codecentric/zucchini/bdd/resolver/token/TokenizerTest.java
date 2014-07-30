@@ -70,57 +70,57 @@ public class TokenizerTest {
         assertToken(LiteralToken.class, "at codecentric", tokens.get(2));
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test(expected = TokenizerException.class)
     public void testTokenizeInvalid1() {
         tokenizer.tokenize("${");
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test(expected = TokenizerException.class)
     public void testTokenizeInvalid2() {
         tokenizer.tokenize("}");
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test(expected = TokenizerException.class)
     public void testTokenizeInvalid3() {
         tokenizer.tokenize("${}");
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test(expected = TokenizerException.class)
     public void testTokenizeInvalid4() {
         tokenizer.tokenize("${${");
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test(expected = TokenizerException.class)
     public void testTokenizeInvalid5() {
         tokenizer.tokenize("}${");
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test(expected = TokenizerException.class)
     public void testTokenizeInvalid6() {
         tokenizer.tokenize("${a b}");
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test(expected = TokenizerException.class)
     public void testTokenizeInvalid7() {
         tokenizer.tokenize("${b}}");
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test(expected = TokenizerException.class)
     public void testTokenizeInvalid8() {
         tokenizer.tokenize("${1}");
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test(expected = TokenizerException.class)
     public void testTokenizeInvalid9() {
         tokenizer.tokenize("${.}");
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test(expected = TokenizerException.class)
     public void testTokenizeInvalid10() {
         tokenizer.tokenize("${-}");
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test(expected = TokenizerException.class)
     public void testTokenizeInvalid11() {
         tokenizer.tokenize("${_}");
     }
@@ -144,6 +144,86 @@ public class TokenizerTest {
         TokenList tokensWithVariable = tokenizer.tokenize("Magic happens \"${here}\" and \"${somewhere_else}\".");
         TokenList tokensWithLiteralsOnly = tokenizer.tokenize("Magic happens \"at codecentric\" and Narnia.");
         assertEquals(tokensWithVariable, tokensWithLiteralsOnly);
+    }
+
+    @Test(expected = TokenizerException.class)
+    public void testVariableDuplication() {
+        tokenizer.tokenize("${var} ${var}");
+    }
+
+    @Test
+    public void testCustomTokenizerWithDoubleCurlyBracesAndSingleQuote() {
+        Tokenizer customTokenizer = new Tokenizer("{{", "}}", "'");
+        TokenList tokens = customTokenizer.tokenize("Magic happens '{{here}}'");
+        assertEquals(3, tokens.size());
+        assertToken(LiteralToken.class, "Magic", tokens.get(0));
+        assertToken(LiteralToken.class, "happens", tokens.get(1));
+        assertToken(VariableToken.class, "here", tokens.get(2));
+    }
+
+    @Test
+    public void testCustomTokenizerWithPercentageAndAtSign() {
+        Tokenizer customTokenizer = new Tokenizer("%((", "))", "@");
+        TokenList tokens = customTokenizer.tokenize("Magic happens @%((here))@");
+        assertEquals(3, tokens.size());
+        assertToken(LiteralToken.class, "Magic", tokens.get(0));
+        assertToken(LiteralToken.class, "happens", tokens.get(1));
+        assertToken(VariableToken.class, "here", tokens.get(2));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testCustomTokenizerWithInvalidSettings1() {
+        new Tokenizer("", "a", "b");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testCustomTokenizerWithInvalidSettings2() {
+        new Tokenizer("a", "b", "");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testCustomTokenizerWithInvalidSettings3() {
+        new Tokenizer("a", "", "b");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testCustomTokenizerWithInvalidSettings4() {
+        new Tokenizer(null, "a", "b");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testCustomTokenizerWithInvalidSettings5() {
+        new Tokenizer("a", null, "b");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testCustomTokenizerWithInvalidSettings6() {
+        new Tokenizer("a", "b", null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testCustomTokenizerWithInvalidSettings7() {
+        new Tokenizer("a", "a", "b");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testCustomTokenizerWithInvalidSettings8() {
+        new Tokenizer("a", "b", "b");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testCustomTokenizerWithInvalidSettings9() {
+        new Tokenizer("a", "b", "a");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testTokenizeNull() {
+        tokenizer.tokenize(null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testTokenizeEmptyString() {
+        tokenizer.tokenize("");
     }
 
     private void assertToken(Class<? extends Token> tokenType, String expectedText, Token token) {

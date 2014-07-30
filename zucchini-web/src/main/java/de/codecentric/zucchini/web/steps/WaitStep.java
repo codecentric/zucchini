@@ -27,19 +27,19 @@ import java.util.Map;
  * A wait step waits for while, hence it gives a page time to load or run JavaScript.
  */
 public class WaitStep extends AbstractWebStep {
-	private static final Logger logger = LoggerFactory.getLogger(WaitStep.class);
+    private static final Logger logger = LoggerFactory.getLogger(WaitStep.class);
 
-	private static final long DEFAULT_SLEEP_TIME = 10000;
+    private static final long DEFAULT_SLEEP_TIME = 10000;
 
-	private long sleepTime;
+    private long sleepTime;
     private Variable<Long> sleepTimeVariable;
 
     /**
-	 * Initializes a wait step with a sleep time of 10 seconds.
-	 */
-	public WaitStep() {
-		this.sleepTime = DEFAULT_SLEEP_TIME;
-	}
+     * Initializes a wait step with a sleep time of 10 seconds.
+     */
+    public WaitStep() {
+        this.sleepTime = DEFAULT_SLEEP_TIME;
+    }
 
     /**
      * Initializes a wait time.
@@ -55,6 +55,7 @@ public class WaitStep extends AbstractWebStep {
      *
      * @param sleepTimeVariable The wait timeout in milliseconds.
      */
+    @SuppressWarnings("WeakerAccess")
     public WaitStep(Variable<Long> sleepTimeVariable) {
         this.sleepTimeVariable = sleepTimeVariable;
     }
@@ -107,23 +108,26 @@ public class WaitStep extends AbstractWebStep {
         return this;
     }
 
-	/**
-	 * Waits for the specified sleep time.
-	 */
-	@Override
-	public void go() {
-		logger.info("Waiting {} seconds...", sleepTime);
-		try {
-			Thread.sleep(sleepTime);
-		} catch (InterruptedException e) {
-			throw new ExecutionException("Thread could not sleep.", e);
-		}
-	}
+    /**
+     * Waits for the specified sleep time.
+     */
+    @Override
+    public void go() {
+        logger.info("Waiting {} seconds...", sleepTime);
+        try {
+            Thread.sleep(sleepTime);
+        } catch (InterruptedException e) {
+            throw new ExecutionException("Thread could not sleep.", e);
+        }
+    }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setVariables(Map<String, String> variables) {
         if (sleepTimeVariable != null) {
-            sleepTime = sleepTimeVariable.convert(variables.get(sleepTimeVariable.getName()));
+            sleepTime = sleepTimeVariable.getConvertedValue(variables);
         }
     }
 }

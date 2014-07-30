@@ -26,7 +26,7 @@ import java.util.Map;
 public class VariableStatementResolver implements StatementResolver {
     private final Map<Class<? extends Statement>, Map<TokenList, Statement>> statements = new HashMap<Class<? extends Statement>, Map<TokenList, Statement>>();
 
-    private Tokenizer tokenizer = new Tokenizer();
+    private final Tokenizer tokenizer = new Tokenizer();
 
     /**
      * Initializes the statement resolver.

@@ -25,16 +25,19 @@ public class Tokenizer {
     /**
      * The default variable prefix string is "${".
      */
+    @SuppressWarnings("WeakerAccess")
     public static final String DEFAULT_PREFIX = "${";
 
     /**
      * The default variable suffix string is "}".
      */
+    @SuppressWarnings("WeakerAccess")
     public static final String DEFAULT_SUFFIX = "}";
 
     /**
      * The default escape character is "\"".
      */
+    @SuppressWarnings("WeakerAccess")
     public static final String DEFAULT_ESCAPE_CHARACTER = "\"";
 
     /**
@@ -89,12 +92,33 @@ public class Tokenizer {
      * @param escapeCharacter The escape character.
      */
     public Tokenizer(String prefix, String suffix, String escapeCharacter) {
+        if (prefix == null || prefix.isEmpty()) {
+            throw new IllegalArgumentException("The variable prefix must not be null or empty.");
+        }
+        if (suffix == null || suffix.isEmpty()) {
+            throw new IllegalArgumentException("The variable suffix must not be null or empty.");
+        }
+        if (escapeCharacter == null || escapeCharacter.isEmpty()) {
+            throw new IllegalArgumentException("The escape chracter must not be null or empty.");
+        }
+        if (prefix.equals(suffix)) {
+            throw new IllegalArgumentException("Variable prefix and suffix must not be equal.");
+        }
+        if (prefix.equals(escapeCharacter)) {
+            throw new IllegalArgumentException("Variable prefix and escape character must not be equal.");
+        }
+        if (suffix.equals(escapeCharacter)) {
+            throw new IllegalArgumentException("Variable suffix and escape character must not be equal.");
+        }
         this.prefix = prefix;
         this.suffix = suffix;
         this.escapeCharacter = escapeCharacter;
     }
 
     public TokenList tokenize(String statementName) {
+        if (statementName == null || statementName.isEmpty()) {
+            throw new IllegalArgumentException("The statement name must not be null or empty.");
+        }
         String splitCriterion = String.format(SPLIT_TOKEN_PATTERN_TEMPLATE, Pattern.quote(prefix), Pattern.quote(suffix));
         String[] splittedStatementName = statementName.split(splitCriterion);
         return findTokens(splittedStatementName);
@@ -103,8 +127,8 @@ public class Tokenizer {
     /**
      * Finds tokens within the splitted statement name.
      *
-     * @param splittedStatementName
-     * @return
+     * @param splittedStatementName The statement name splitted by variable prefix and suffix.
+     * @return Tokens describing the statement name.
      */
     private TokenList findTokens(String[] splittedStatementName) {
         TokenList mergedTokens = new TokenList();
@@ -117,7 +141,7 @@ public class Tokenizer {
             if (prefix.equals(cleanedToken)) {
                 // Situation: "${${"
                 if (inVariableContext) {
-                    throw new RuntimeException("Syntax error: Nested variables are not supported.");
+                    throw new TokenizerException("Syntax error: Nested variables are not supported.");
                 }
 
                 // The next token should be the variable name. Remember this!
@@ -132,14 +156,17 @@ public class Tokenizer {
 
                     // Situation: "${}"
                     if (variable == null) {
-                        throw new RuntimeException("Syntax error: Found } after ${ but didn't find a variable name.");
+                        throw new TokenizerException(String.format("Syntax error: Found %s after %s but didn't find a variable name.", prefix, suffix));
                     }
 
                     // Check whether the variable contains forbidden characters.
                     if (!variable.matches(VARIABLE_PATTERN)) {
-                        throw new RuntimeException(String.format("Syntax error: Found variable with name \"%s\" which does not match %s.", variable, VARIABLE_PATTERN));
+                        throw new TokenizerException(String.format("Syntax error: Found variable with name \"%s\" which does not match %s.", variable, VARIABLE_PATTERN));
                     }
 
+                    if (mergedTokens.containsVariableWithName(variable)) {
+                        throw new TokenizerException(String.format("Variable duplication error: Found variable with name \"%s\" twice.", variable));
+                    }
                     mergedTokens.add(new VariableToken(variable));
                     variable = null;
                 } else {
@@ -151,7 +178,7 @@ public class Tokenizer {
                 // Are we parsing the end of a variable?                
             } else if (suffix.equals(cleanedToken)) {
                 // Situation: "}"
-                throw new RuntimeException("Syntax error: Found } before ${.");
+                throw new TokenizerException(String.format("Syntax error: Found %s before %s.", suffix, prefix));
                 // Are we parsing a literal token?
             } else if (!cleanedToken.isEmpty()) {
                 // A token may consist of multiple literals, e.g. "a-b" is considered as the two distinct literals "a"
@@ -161,8 +188,8 @@ public class Tokenizer {
         }
 
         // Situation: "${var"
-        if (inVariableContext && variable != null) {
-            throw new RuntimeException("Syntax error: Missing }.");
+        if (inVariableContext) {
+            throw new TokenizerException(String.format("Syntax error: Missing %s.", suffix));
         }
 
         return mergedTokens;
@@ -176,8 +203,8 @@ public class Tokenizer {
      * - "a-" => "a"
      * - "\"a b c\"" => "a b c"
      *
-     * @param token
-     * @return
+     * @param token A raw token that may contain multiple literals.
+     * @return Literal tokens that have been found in the specified token.
      */
     private List<Token> parseLiteral(String token) {
         List<Token> tokens = new ArrayList<Token>();
@@ -194,8 +221,8 @@ public class Tokenizer {
     /**
      * Remove leading and trailing non-alphanumeric characters.
      *
-     * @param string
-     * @return
+     * @param string The string.
+     * @return The given string without leading and trailing non-alphanumerical characters.
      */
     private String trimSpecialCharacters(String string) {
         return string.replaceAll(TRIM_SPECIAL_CHARACTERS_PATTERN, "$1");

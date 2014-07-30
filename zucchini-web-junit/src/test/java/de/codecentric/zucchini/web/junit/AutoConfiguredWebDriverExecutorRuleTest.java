@@ -21,7 +21,7 @@ import org.junit.Rule;
 
 public class AutoConfiguredWebDriverExecutorRuleTest extends ZucchiniWebRuleTestBase {
 	@Rule
-	public WebDriverExecutorRule autoConfiguredWebDriverExecutorRule = new WebDriverExecutorRule();
+	public final WebDriverExecutorRule autoConfiguredWebDriverExecutorRule = new WebDriverExecutorRule();
 
 	@Override
 	public WebDriverExecutor getWebDriverExecutor() {

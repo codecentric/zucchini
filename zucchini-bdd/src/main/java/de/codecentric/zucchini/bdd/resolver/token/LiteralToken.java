@@ -16,7 +16,19 @@
 
 package de.codecentric.zucchini.bdd.resolver.token;
 
+/**
+ * A literal token represents a part of a statement name that is not a
+ * {@link de.codecentric.zucchini.bdd.resolver.token.VariableToken variable}.
+ *
+ * Literal tokens may represent variable values.
+ */
+@SuppressWarnings("WeakerAccess")
 public class LiteralToken extends AbstractToken {
+    /**
+     * Initializes a literal token.
+     *
+     * @param text The token text.
+     */
     public LiteralToken(String text) {
         super(text);
     }

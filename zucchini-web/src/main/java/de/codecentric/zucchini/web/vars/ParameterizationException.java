@@ -14,20 +14,14 @@
  * limitations under the License.
  */
 
-package de.codecentric.zucchini.bdd.dsl.impl.steps;
+package de.codecentric.zucchini.web.vars;
 
-import de.codecentric.zucchini.bdd.dsl.Step;
+public class ParameterizationException extends RuntimeException {
+    public ParameterizationException(String message) {
+        super(message);
+    }
 
-/**
- * A non-operational step is a dummy step that does nothing.
- */
-public class NonOperationalStep implements Step {
-	/**
-	 * This method does nothing.
-	 */
-	@SuppressWarnings("EmptyMethod")
-    @Override
-	public void go() {
-		// Intentionally left blank.
-	}
+    public ParameterizationException(String message, Exception cause) {
+        super(message, cause);
+    }
 }

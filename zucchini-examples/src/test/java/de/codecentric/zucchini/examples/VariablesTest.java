@@ -23,8 +23,7 @@ import de.codecentric.zucchini.web.junit.WebFactRule;
 import de.codecentric.zucchini.web.junit.WebResultRule;
 import de.codecentric.zucchini.web.junit.WebStepRule;
 import de.codecentric.zucchini.web.provider.ChromeDriverProvider;
-import org.junit.Before;
-import org.junit.BeforeClass;
+import org.junit.AfterClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -40,57 +39,62 @@ import static de.codecentric.zucchini.web.vars.ParameterizedBy.element;
 import static de.codecentric.zucchini.web.vars.WebVariables.pageVar;
 
 public class VariablesTest {
-	@Rule
-	public WebDriverExecutorRule webDriverExecutorRule = new WebDriverExecutorRule(new ChromeDriverProvider());
+    @Rule
+    public WebDriverExecutorRule webDriverExecutorRule = new WebDriverExecutorRule(new ChromeDriverProvider());
 
-	@Rule
-	public WebFactRule onCodecentricRule = new WebFactRule(
+    @Rule
+    public WebFactRule onCodecentricRule = new WebFactRule(
             "I am on \"${url}\"",
             onPage(pageVar("url"))
     );
 
-	@Rule
-	public WebStepRule searchCodecentricRule = new WebStepRule(
+    @Rule
+    public WebStepRule searchCodecentricRule = new WebStepRule(
             "I type ${text} into the input field with the name ${name}",
             type(charSequenceVar("text")).into(element(By.ByName.class, "name"))
     );
 
-	@Rule
-	public WebStepRule submitSearchRule = new WebStepRule(
+    @Rule
+    public WebStepRule submitSearchRule = new WebStepRule(
             "I submit the input field with the name ${name}", submit(element(By.ByName.class, "name"))
     );
 
-	@Rule
-	public WebResultRule seeCodecentricOnPageRule = new WebResultRule(
+    @Rule
+    public WebResultRule seeCodecentricOnPageRule = new WebResultRule(
             "I see \"${text}\" on the page", see(stringVar("text"))
     );
 
-	@Rule
-	public WebFactRule preparedFactRule = new WebFactRule(
+    @Rule
+    public WebFactRule preparedFactRule = new WebFactRule(
             "Open ${url}, type ${text} into ${name} and expect the same text.",
             given(onPage(pageVar("url")))
-			.when(type(charSequenceVar("text")).into(element(By.ByName.class, "name")))
-			.andWhen(submit(element(By.ByName.class, "name")))
-			.then(see(stringVar("text")))
-			.asFact()
+                    .when(type(charSequenceVar("text")).into(element(By.ByName.class, "name")))
+                    .andWhen(submit(element(By.ByName.class, "name")))
+                    .then(see(stringVar("text")))
+                    .asFact()
     );
 
-    @BeforeClass
-    public static void setUp() throws Exception {
+    /**
+     * Reset the variable statement resolver so that statements registered within this test class are removed.
+     *
+     * Usually, this is not necessary.
+     */
+    @AfterClass
+    public static void tearDown() {
         StatementResolverHolder.setStatementResolver(new VariableStatementResolver());
     }
 
     @Test
-	public void testRules() {
-		given("I am on \"http://www.codecentric.de\"")
-				.when("I type codecentric into the input field with the name s")
-				.andWhen("I submit the input field with the name s")
-				.then("I see \"codecentric\" on the page")
-				.end();
-	}
+    public void testRules() {
+        given("I am on \"http://www.codecentric.de\"")
+                .when("I type codecentric into the input field with the name s")
+                .andWhen("I submit the input field with the name s")
+                .then("I see \"codecentric\" on the page")
+                .end();
+    }
 
-	@Test
-	public void testPreparedRules() {
-		given("Open \"http://www.codecentric.de\", type codecentric into s and expect the same text.").end();
-	}
+    @Test
+    public void testPreparedRules() {
+        given("Open \"http://www.codecentric.de\", type codecentric into s and expect the same text.").end();
+    }
 }

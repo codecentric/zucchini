@@ -30,9 +30,9 @@ import java.util.Map;
  * @see de.codecentric.zucchini.web.steps.WebSteps#type(java.lang.CharSequence[])
  */
 public class TypeStep extends AbstractWebStep {
-	private static final Logger logger = LoggerFactory.getLogger(TypeStep.class);
+    private static final Logger logger = LoggerFactory.getLogger(TypeStep.class);
 
-	private CharSequence[] keys;
+    private CharSequence[] keys;
     private Variable<CharSequence[]> keysVariable;
 
     /**
@@ -40,6 +40,7 @@ public class TypeStep extends AbstractWebStep {
      *
      * @param keys The keys that shall be typed.
      */
+    @SuppressWarnings("WeakerAccess")
     public TypeStep(CharSequence... keys) {
         this.keys = keys;
     }
@@ -49,6 +50,7 @@ public class TypeStep extends AbstractWebStep {
      *
      * @param keysVariable The variable that contains the keys that shall be typed.
      */
+    @SuppressWarnings("WeakerAccess")
     public TypeStep(Variable<CharSequence[]> keysVariable) {
         this.keysVariable = keysVariable;
     }
@@ -61,19 +63,22 @@ public class TypeStep extends AbstractWebStep {
         return keysVariable;
     }
 
-	/**
-	 * Types the keys.
-	 */
-	@Override
-	public void go() {
-		logger.info("Typing \"{}\"...", keys);
-		new Actions(getWebDriver()).sendKeys(Keys.ENTER);
-	}
+    /**
+     * Types the keys.
+     */
+    @Override
+    public void go() {
+        logger.info("Typing \"{}\"...", (Object) keys);
+        new Actions(getWebDriver()).sendKeys(Keys.ENTER);
+    }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setVariables(Map<String, String> variables) {
         if (keysVariable != null) {
-            keys = keysVariable.convert(variables.get(keysVariable.getName()));
+            keys = keysVariable.getConvertedValue(variables);
         }
     }
 }
