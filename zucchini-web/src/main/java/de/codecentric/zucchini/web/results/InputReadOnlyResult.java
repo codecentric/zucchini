@@ -19,6 +19,8 @@ package de.codecentric.zucchini.web.results;
 
 import org.openqa.selenium.By;
 
+import java.util.Map;
+
 import static de.codecentric.zucchini.bdd.util.Assert.assertNotNull;
 import static de.codecentric.zucchini.web.util.WebAssert.findElementOrFail;
 
@@ -45,4 +47,9 @@ public class InputReadOnlyResult extends AbstractWebResult {
 	public void expect() {
 		assertNotNull("Element should be read-only but it is not.", findElementOrFail(getWebDriver(), element).getAttribute("readonly"));
 	}
+
+    @Override
+    public void setVariables(Map<String, String> variables) {
+        injectVariables(variables, element);
+    }
 }

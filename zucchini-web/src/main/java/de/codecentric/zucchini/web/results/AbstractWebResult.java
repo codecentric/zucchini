@@ -16,13 +16,17 @@
 
 package de.codecentric.zucchini.web.results;
 
+import de.codecentric.zucchini.bdd.dsl.VariablesAware;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+
+import java.util.Map;
 
 /**
  * The abstract web result simplifies the usage implementation of
  * {@link de.codecentric.zucchini.web.results.WebResult web results} by providing common methods.
  */
-public abstract class AbstractWebResult implements WebResult {
+public abstract class AbstractWebResult implements WebResult, VariablesAware {
 	private WebDriver webDriver;
 
 	/**
@@ -41,4 +45,20 @@ public abstract class AbstractWebResult implements WebResult {
 	protected final WebDriver getWebDriver() {
 		return webDriver;
 	}
+
+    /**
+     * This method can be used to inject variables into {@link org.openqa.selenium.By} instances that implement
+     * {@link de.codecentric.zucchini.bdd.dsl.VariablesAware}.
+     *
+     * If the element does not implement {@link de.codecentric.zucchini.bdd.dsl.VariablesAware}, then no injection will
+     * occur.
+     *
+     * @param variables The variables that will be injected.
+     * @param element The element.
+     */
+    protected final void injectVariables(Map<String, String> variables, By element) {
+        if (element instanceof VariablesAware) {
+            ((VariablesAware) element).setVariables(variables);
+        }
+    }
 }

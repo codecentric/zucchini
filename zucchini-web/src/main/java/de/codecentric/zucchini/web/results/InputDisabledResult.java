@@ -19,6 +19,8 @@ package de.codecentric.zucchini.web.results;
 
 import org.openqa.selenium.By;
 
+import java.util.Map;
+
 import static de.codecentric.zucchini.bdd.util.Assert.assertNotNull;
 import static de.codecentric.zucchini.web.util.WebAssert.findElementOrFail;
 
@@ -45,4 +47,9 @@ public class InputDisabledResult extends AbstractWebResult {
 	public void expect() {
 		assertNotNull("Element should be disabled but it is not.", findElementOrFail(getWebDriver(), element).getAttribute("disabled"));
 	}
+
+    @Override
+    public void setVariables(Map<String, String> variables) {
+        injectVariables(variables, element);
+    }
 }

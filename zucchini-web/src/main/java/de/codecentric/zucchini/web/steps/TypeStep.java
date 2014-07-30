@@ -16,10 +16,13 @@
 
 package de.codecentric.zucchini.web.steps;
 
+import de.codecentric.zucchini.bdd.vars.Variable;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.interactions.Actions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Map;
 
 /**
  * A type into step types keys (text or a key combination).
@@ -30,19 +33,33 @@ public class TypeStep extends AbstractWebStep {
 	private static final Logger logger = LoggerFactory.getLogger(TypeStep.class);
 
 	private CharSequence[] keys;
+    private Variable<CharSequence[]> keysVariable;
 
-	/**
-	 * Initializes a type step.
-	 *
-	 * @param keys The keys that shall be typed.
-	 */
-	public TypeStep(CharSequence... keys) {
-		this.keys = keys;
-	}
+    /**
+     * Initializes a type step.
+     *
+     * @param keys The keys that shall be typed.
+     */
+    public TypeStep(CharSequence... keys) {
+        this.keys = keys;
+    }
 
-	CharSequence[] getKeys() {
-		return keys;
-	}
+    /**
+     * Initializes a type step.
+     *
+     * @param keysVariable The variable that contains the keys that shall be typed.
+     */
+    public TypeStep(Variable<CharSequence[]> keysVariable) {
+        this.keysVariable = keysVariable;
+    }
+
+    CharSequence[] getKeys() {
+        return keys;
+    }
+
+    Variable<CharSequence[]> getKeysVariable() {
+        return keysVariable;
+    }
 
 	/**
 	 * Types the keys.
@@ -52,4 +69,11 @@ public class TypeStep extends AbstractWebStep {
 		logger.info("Typing \"{}\"...", keys);
 		new Actions(getWebDriver()).sendKeys(Keys.ENTER);
 	}
+
+    @Override
+    public void setVariables(Map<String, String> variables) {
+        if (keysVariable != null) {
+            keys = keysVariable.convert(variables.get(keysVariable.getName()));
+        }
+    }
 }

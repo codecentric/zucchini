@@ -16,11 +16,14 @@
 
 package de.codecentric.zucchini.web.steps;
 
+import de.codecentric.zucchini.bdd.vars.Variable;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Map;
 
 import static de.codecentric.zucchini.bdd.util.Assert.fail;
 
@@ -36,8 +39,9 @@ public class WaitForStep extends AbstractWebStep {
 	private By element;
 
 	private long timeout;
+    private Variable<Long> timeoutVariable;
 
-	/**
+    /**
 	 * Initializes a wait for step with a timeout of 10 seconds.
 	 *
 	 * @param element The element for which shall be waited.
@@ -46,35 +50,65 @@ public class WaitForStep extends AbstractWebStep {
 		this(element, DEFAULT_TIMEOUT);
 	}
 
-	/**
-	 * Initializes a wait for step.
-	 *
-	 * @param element The element for which shall be waited.
-	 * @param timeout The wait timeout in seconds.
-	 */
-	public WaitForStep(By element, long timeout) {
-		this.element = element;
-		this.timeout = timeout;
-	}
+    /**
+     * Initializes a wait for step.
+     *
+     * @param element The element for which shall be waited.
+     * @param timeout The wait timeout in seconds.
+     */
+    public WaitForStep(By element, long timeout) {
+        this.element = element;
+        this.timeout = timeout;
+    }
 
-	/**
-	 * This method is a convenience method that integrates well into the DSL.
-	 *
-	 * For example:
-	 * <code>
-	 * given(...)
-	 * .when(waitFor(...).withTimeout(5))
-	 * .then(...)
-	 * .end();
-	 * </code>
-	 *
-	 * @param timeout The wait timeout in seconds.
-	 * @return A wait for step with the specified timeout.
-	 */
-	public WaitForStep withTimeout(long timeout) {
-		this.timeout = timeout;
-		return this;
-	}
+    /**
+     * Initializes a wait for step.
+     *
+     * @param element The element for which shall be waited.
+     * @param timeoutVariable A variable that contains the wait timeout in seconds.
+     */
+    public WaitForStep(By element, Variable<Long> timeoutVariable) {
+        this.element = element;
+        this.timeoutVariable = timeoutVariable;
+    }
+
+    /**
+     * This method is a convenience method that integrates well into the DSL.
+     *
+     * For example:
+     * <code>
+     * given(...)
+     * .when(waitFor(...).withTimeout(5))
+     * .then(...)
+     * .end();
+     * </code>
+     *
+     * @param timeout The wait timeout in seconds.
+     * @return A wait for step with the specified timeout.
+     */
+    public WaitForStep withTimeout(long timeout) {
+        this.timeout = timeout;
+        return this;
+    }
+
+    /**
+     * This method is a convenience method that integrates well into the DSL.
+     *
+     * For example:
+     * <code>
+     * given(...)
+     * .when(waitFor(...).withTimeout(longVar("timeout")))
+     * .then(...)
+     * .end();
+     * </code>
+     *
+     * @param timeoutVariable A variable that contains the wait timeout in seconds.
+     * @return A wait for step with the specified timeout.
+     */
+    public WaitForStep withTimeout(Variable<Long> timeoutVariable) {
+        this.timeoutVariable = timeoutVariable;
+        return this;
+    }
 
 	/**
 	 * Waits for the element.
@@ -89,4 +123,12 @@ public class WaitForStep extends AbstractWebStep {
 			fail(String.format("Element %s did not appear within %d seconds.", element, timeout), e);
 		}
 	}
+
+    @Override
+    public void setVariables(Map<String, String> variables) {
+        injectVariables(variables, element);
+        if (timeoutVariable != null) {
+            timeout = timeoutVariable.convert(variables.get(timeoutVariable.getName()));
+        }
+    }
 }

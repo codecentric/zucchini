@@ -16,22 +16,33 @@
 
 package de.codecentric.zucchini.web.steps;
 
+import de.codecentric.zucchini.bdd.vars.Variable;
 import org.openqa.selenium.By;
 
 /**
  * This utility class provides methods that return pre-configured web steps.
  */
 public class WebSteps {
-	/**
-	 * Returns a {@link de.codecentric.zucchini.web.steps.TypeContext type context}.
-	 *
-	 * @param keys The keys that shall be typed.
-	 * @return a {@link de.codecentric.zucchini.web.steps.TypeContext type context}.
-	 * @see de.codecentric.zucchini.web.steps.TypeStep
-	 */
-	public static TypeContext type(CharSequence... keys) {
-		return new TypeContext(keys);
-	}
+    /**
+     * Returns a {@link de.codecentric.zucchini.web.steps.TypeContext type context}.
+     *
+     * @param keys The keys that shall be typed.
+     * @return a {@link de.codecentric.zucchini.web.steps.TypeContext type context}.
+     * @see de.codecentric.zucchini.web.steps.TypeStep
+     */
+    public static TypeContext type(CharSequence... keys) {
+        return new TypeContext(keys);
+    }
+    /**
+     * Returns a {@link de.codecentric.zucchini.web.steps.TypeContext type context}.
+     *
+     * @param keysVariable A variable that contains the keys that shall be typed.
+     * @return a {@link de.codecentric.zucchini.web.steps.TypeContext type context}.
+     * @see de.codecentric.zucchini.web.steps.TypeStep
+     */
+    public static TypeContext type(Variable<CharSequence[]> keysVariable) {
+        return new TypeContext(keysVariable);
+    }
 
 	/**
 	 * Returns a non-operational web step.

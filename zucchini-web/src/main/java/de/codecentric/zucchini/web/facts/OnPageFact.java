@@ -16,11 +16,13 @@
 
 package de.codecentric.zucchini.web.facts;
 
+import de.codecentric.zucchini.bdd.vars.Variable;
 import de.codecentric.zucchini.web.pageobjects.PageObject;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Map;
 
 /**
  * The on page fact is used to navigate to a page described by a
@@ -31,69 +33,83 @@ import org.slf4j.LoggerFactory;
  *
  * @see <a href="https://code.google.com/p/selenium/wiki/PageFactory">Selenium PageFactory</a>
  */
-public class OnPageFact implements WebFact {
-	private static final Logger logger = LoggerFactory.getLogger(OnPageFact.class);
+public class OnPageFact extends AbstractWebFact {
+    private static final Logger logger = LoggerFactory.getLogger(OnPageFact.class);
 
-	private WebDriver webDriver;
+    private PageObject pageObject;
 
-	private PageObject pageObject;
+    private Class<? extends PageObject> pageObjectClass;
 
-	private Class<? extends PageObject> pageObjectClass;
+    private Variable<PageObject> pageObjectVariable;
 
-	private boolean isInitialized = false;
+    private boolean isInitialized = false;
 
-	/**
-	 * Initializes a new on page fact.
-	 *
-	 * @param pageObject The page object.
-	 * @see de.codecentric.zucchini.web.facts.WebFacts#onPage(de.codecentric.zucchini.web.pageobjects.PageObject)
-	 */
-	public OnPageFact(PageObject pageObject) {
-		if (pageObject == null) {
-			throw new NullPointerException("You must specify a valid page object or page object class.");
-		}
-		this.pageObject = pageObject;
-	}
+    /**
+     * Initializes a new on page fact.
+     *
+     * @param pageObject The page object.
+     * @see de.codecentric.zucchini.web.facts.WebFacts#onPage(de.codecentric.zucchini.web.pageobjects.PageObject)
+     */
+    public OnPageFact(PageObject pageObject) {
+        if (pageObject == null) {
+            throw new NullPointerException("You must specify a valid page object.");
+        }
+        this.pageObject = pageObject;
+    }
 
-	/**
-	 * Initializes a new on page fact.
-	 *
-	 * @param pageObjectClass The page object class.
-	 * @see de.codecentric.zucchini.web.facts.WebFacts#onPage(Class)
-	 */
-	public OnPageFact(Class<? extends PageObject> pageObjectClass) {
-		if (pageObjectClass == null) {
-			throw new NullPointerException("You must specify a valid page object or page object class.");
-		}
-		this.pageObjectClass = pageObjectClass;
-	}
+    /**
+     * Initializes a new on page fact.
+     *
+     * @param pageObjectVariable A variable containing the page object.
+     * @see de.codecentric.zucchini.web.facts.WebFacts#onPage(de.codecentric.zucchini.web.pageobjects.PageObject)
+     */
+    public OnPageFact(Variable<PageObject> pageObjectVariable) {
+        if (pageObjectVariable == null) {
+            throw new NullPointerException("You must specify a valid page object variable.");
+        }
+        this.pageObjectVariable = pageObjectVariable;
+    }
 
-	/**
-	 * Opens the page described by the page object of this fact.
-	 */
-	@Override
-	public void establish() {
-		logger.info("Opening page {}...", pageObject);
-		pageObject.open();
-	}
+    /**
+     * Initializes a new on page fact.
+     *
+     * @param pageObjectClass The page object class.
+     * @see de.codecentric.zucchini.web.facts.WebFacts#onPage(Class)
+     */
+    public OnPageFact(Class<? extends PageObject> pageObjectClass) {
+        if (pageObjectClass == null) {
+            throw new NullPointerException("You must specify a valid page object class.");
+        }
+        this.pageObjectClass = pageObjectClass;
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void setWebDriver(WebDriver webDriver) {
-		this.webDriver = webDriver;
-		initializePage();
-		pageObject.setWebDriver(webDriver);
-	}
+    /**
+     * Opens the page described by the page object of this fact.
+     */
+    @Override
+    public void establish() {
+        logger.info("Opening page {}...", pageObject);
+        initializePage();
+        pageObject.open();
+    }
 
-	private void initializePage() {
-		if (!isInitialized) {
-			if (pageObject != null) {
-				PageFactory.initElements(webDriver, pageObject);
-			} else if (pageObjectClass != null) {
-				pageObject = PageFactory.initElements(webDriver, pageObjectClass);
-			}
-		}
-	}
+    @Override
+    public void setVariables(Map<String, String> variables) {
+        if (pageObjectVariable != null) {
+            pageObject = pageObjectVariable.convert(variables.get(pageObjectVariable.getName()));
+        }
+    }
+
+    private void initializePage() {
+        if (!isInitialized) {
+            if (pageObject != null) {
+                PageFactory.initElements(getWebDriver(), pageObject);
+            } else if (pageObjectClass != null) {
+                pageObject = PageFactory.initElements(getWebDriver(), pageObjectClass);
+            }
+            if (pageObject != null) {
+                pageObject.setWebDriver(getWebDriver());
+            }
+        }
+    }
 }

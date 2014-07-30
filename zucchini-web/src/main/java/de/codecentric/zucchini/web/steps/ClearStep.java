@@ -20,6 +20,8 @@ import org.openqa.selenium.By;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Map;
+
 import static de.codecentric.zucchini.web.util.WebAssert.findElementOrFail;
 
 /**
@@ -29,25 +31,33 @@ import static de.codecentric.zucchini.web.util.WebAssert.findElementOrFail;
  * @see WebSteps#clear(org.openqa.selenium.By)
  */
 public class ClearStep extends AbstractWebStep {
-	private static final Logger logger = LoggerFactory.getLogger(ClearStep.class);
+    private static final Logger logger = LoggerFactory.getLogger(ClearStep.class);
 
-	private By element;
+    private By element;
 
-	/**
-	 * Initializes a clear step.
-	 *
-	 * @param element The element that shall be cleared.
-	 */
-	public ClearStep(By element) {
-		this.element = element;
-	}
+    /**
+     * Initializes a clear step.
+     *
+     * @param element The element that shall be cleared.
+     */
+    public ClearStep(By element) {
+        this.element = element;
+    }
 
-	/**
-	 * Clears the {@link org.openqa.selenium.WebElement element} described by {@link org.openqa.selenium.By}.
-	 */
-	@Override
-	public void go() {
-		logger.info("Clearing {}...", element);
-		findElementOrFail(getWebDriver(), element).clear();
-	}
+    /**
+     * Clears the {@link org.openqa.selenium.WebElement element} described by {@link org.openqa.selenium.By}.
+     */
+    @Override
+    public void go() {
+        logger.info("Clearing {}...", element);
+        findElementOrFail(getWebDriver(), element).clear();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setVariables(Map<String, String> variables) {
+        injectVariables(variables, element);
+    }
 }

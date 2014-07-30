@@ -16,8 +16,11 @@
 
 package de.codecentric.zucchini.web.results;
 
+import de.codecentric.zucchini.bdd.dsl.VariablesAware;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Map;
 
 import static com.thoughtworks.selenium.SeleneseTestBase.fail;
 
@@ -33,32 +36,39 @@ import static com.thoughtworks.selenium.SeleneseTestBase.fail;
  * </code>
  */
 public class NotResult extends AbstractWebResult {
-	private static final Logger logger = LoggerFactory.getLogger(NotResult.class);
+    private static final Logger logger = LoggerFactory.getLogger(NotResult.class);
 
-	private WebResult webResult;
+    private WebResult webResult;
 
-	/**
-	 * Initializes a not result.
-	 *
-	 * @param webResult The result which shall be inverted.
-	 */
-	public NotResult(WebResult webResult) {
-		this.webResult = webResult;
-	}
+    /**
+     * Initializes a not result.
+     *
+     * @param webResult The result which shall be inverted.
+     */
+    public NotResult(WebResult webResult) {
+        this.webResult = webResult;
+    }
 
-	/**
-	 * Expects that the specified web result fails.
-	 */
-	@Override
-	public void expect() {
-		try {
-			webResult.setWebDriver(getWebDriver());
-			webResult.expect();
-			fail("Result should fail but it did not.");
-		} catch (Exception e) {
-			logger.debug("Negated failure:", e);
-		} catch (AssertionError e) {
-			logger.debug("Negated failure:", e);
-		}
-	}
+    /**
+     * Expects that the specified web result fails.
+     */
+    @Override
+    public void expect() {
+        try {
+            webResult.setWebDriver(getWebDriver());
+            webResult.expect();
+            fail("Result should fail but it did not.");
+        } catch (Exception e) {
+            logger.debug("Negated failure:", e);
+        } catch (AssertionError e) {
+            logger.debug("Negated failure:", e);
+        }
+    }
+
+    @Override
+    public void setVariables(Map<String, String> variables) {
+        if (webResult instanceof VariablesAware) {
+            ((VariablesAware) webResult).setVariables(variables);
+        }
+    }
 }

@@ -20,6 +20,8 @@ import org.openqa.selenium.By;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Map;
+
 import static de.codecentric.zucchini.web.util.WebAssert.findElementOrFail;
 
 /**
@@ -29,25 +31,33 @@ import static de.codecentric.zucchini.web.util.WebAssert.findElementOrFail;
  * @see WebSteps#click(org.openqa.selenium.By)
  */
 public class ClickStep extends AbstractWebStep {
-	private static final Logger logger = LoggerFactory.getLogger(ClickStep.class);
+    private static final Logger logger = LoggerFactory.getLogger(ClickStep.class);
 
-	private By element;
+    private By element;
 
-	/**
-	 * Initializes a click step.
-	 *
-	 * @param element The element that shall be clicked.
-	 */
-	public ClickStep(By element) {
-		this.element = element;
-	}
+    /**
+     * Initializes a click step.
+     *
+     * @param element The element that shall be clicked.
+     */
+    public ClickStep(By element) {
+        this.element = element;
+    }
 
-	/**
-	 * Clicks the {@link org.openqa.selenium.WebElement element} described by {@link org.openqa.selenium.By}.
-	 */
-	@Override
-	public void go() {
-		logger.info("Clicking {}...", element);
-		findElementOrFail(getWebDriver(), element).click();
-	}
+    /**
+     * Clicks the {@link org.openqa.selenium.WebElement element} described by {@link org.openqa.selenium.By}.
+     */
+    @Override
+    public void go() {
+        logger.info("Clicking {}...", element);
+        findElementOrFail(getWebDriver(), element).click();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setVariables(Map<String, String> variables) {
+        injectVariables(variables, element);
+    }
 }
