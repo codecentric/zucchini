@@ -86,7 +86,7 @@ public class WaitForStep extends AbstractWebStep {
 		try {
 			waiting.until(ExpectedConditions.presenceOfElementLocated(element));
 		} catch (NullPointerException e) {
-			fail(String.format("Element %s did not appear within %d seconds.", element, timeout));
+			fail(String.format("Element %s did not appear within %d seconds.", element, timeout), e);
 		}
 	}
 }

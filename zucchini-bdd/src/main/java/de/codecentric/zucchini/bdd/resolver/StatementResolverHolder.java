@@ -24,10 +24,10 @@ package de.codecentric.zucchini.bdd.resolver;
  * be used which should suit most purposes.
  */
 public class StatementResolverHolder {
-	private static final ThreadLocal<StatementResolver> factResolver = new ThreadLocal<StatementResolver>();
+	private static final ThreadLocal<StatementResolver> STATEMENT_RESOLVER = new ThreadLocal<StatementResolver>();
 
 	static {
-		setFactResolver(new SimpleStatementResolver());
+		setStatementResolver(new SimpleStatementResolver());
 	}
 
 	/**
@@ -36,7 +36,7 @@ public class StatementResolverHolder {
 	 * @return The statement resolver of the current thread.
 	 */
 	public static StatementResolver getStatementResolver() {
-		return factResolver.get();
+		return STATEMENT_RESOLVER.get();
 	}
 
 	/**
@@ -45,10 +45,13 @@ public class StatementResolverHolder {
 	 * @param statementResolver The statement resolver for the current thread.
 	 */
 	@SuppressWarnings("WeakerAccess")
-	public static void setFactResolver(StatementResolver statementResolver) {
+	public static void setStatementResolver(StatementResolver statementResolver) {
 		if (statementResolver == null) {
 			throw new NullPointerException("The statement resolver must not be null.");
 		}
-		StatementResolverHolder.factResolver.set(statementResolver);
+		StatementResolverHolder.STATEMENT_RESOLVER.set(statementResolver);
 	}
+    
+    private StatementResolverHolder() {
+    }
 }

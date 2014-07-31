@@ -30,88 +30,88 @@ import java.util.List;
  * {@link de.codecentric.zucchini.bdd.Executor} implementations will inherit from this class.
  */
 public abstract class AbstractExecutor implements Executor {
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void execute(ExecutionContext executionContext) throws ExecutionException {
-		initialize();
-		try {
-			failOnInvalidContext(executionContext);
-			establishFacts(executionContext.getFacts());
-			goSteps(executionContext.getSteps());
-			expectResults(executionContext.getResults());
-		} finally {
-			shutdown();
-		}
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void execute(ExecutionContext executionContext) {
+        initialize();
+        try {
+            failOnInvalidContext(executionContext);
+            establishFacts(executionContext.getFacts());
+            goSteps(executionContext.getSteps());
+            expectResults(executionContext.getResults());
+        } finally {
+            shutdown();
+        }
+    }
 
-	private void establishFacts(List<Fact> facts) {
-		for (Fact fact : facts) {
-			prepareStatement(fact);
-			fact.establish();
-		}
-	}
+    private void establishFacts(List<Fact> facts) {
+        for (Fact fact : facts) {
+            prepareStatement(fact);
+            fact.establish();
+        }
+    }
 
-	private void goSteps(List<Step> steps) {
-		for (Step step : steps) {
-			prepareStatement(step);
-			step.go();
-		}
-	}
+    private void goSteps(List<Step> steps) {
+        for (Step step : steps) {
+            prepareStatement(step);
+            step.go();
+        }
+    }
 
-	private void expectResults(List<Result> results) {
-		for (Result result : results) {
-			prepareStatement(result);
-			result.expect();
-		}
-	}
+    private void expectResults(List<Result> results) {
+        for (Result result : results) {
+            prepareStatement(result);
+            result.expect();
+        }
+    }
 
-	/**
-	 * This method is meant to be overridden for initialization purposes.
-	 *
-	 * If this method is not overridden, no initialization will occur. This method is called first, right before the
-	 * {@link de.codecentric.zucchini.bdd.ExecutionContext} is validated using {@code failOnInvalidContext()}.
-	 */
-	protected void initialize() {
-		// Intentionally left blank.
-	}
+    /**
+     * This method is meant to be overridden for initialization purposes.
+     *
+     * If this method is not overridden, no initialization will occur. This method is called first, right before the
+     * {@link de.codecentric.zucchini.bdd.ExecutionContext} is validated using {@code failOnInvalidContext()}.
+     */
+    protected void initialize() {
+        // Intentionally left blank.
+    }
 
-	/**
-	 * This method is meant to be overridden for shutdown purposes.
-	 *
-	 * If this method is not overridden, no shutdown will occur. This method is called last, right after the execution
-	 * is completed. This method is called no matter whether the execution failed or not. An exception thrown during the
-	 * execution process does not affect the execution of this method.
-	 */
-	protected void shutdown() {
-		// Intentionally left blank.
-	}
+    /**
+     * This method is meant to be overridden for shutdown purposes.
+     *
+     * If this method is not overridden, no shutdown will occur. This method is called last, right after the execution
+     * is completed. This method is called no matter whether the execution failed or not. An exception thrown during the
+     * execution process does not affect the execution of this method.
+     */
+    protected void shutdown() {
+        // Intentionally left blank.
+    }
 
-	/**
-	 * This method is meant ot be overridden for context validation purposes.
-	 *
-	 * If this method is not overridden, no context validation will occur. This method is called right after
-	 * {@code initialize()}. Implementations can throw any unchecked exception but it is recommended to throw an instance
-	 * of {@link de.codecentric.zucchini.bdd.ExecutionException}.
-	 *
-	 * @param executionContext The context that shall be validated.
-	 */
-	@SuppressWarnings("UnusedParameters")
-	protected void failOnInvalidContext(ExecutionContext executionContext) {
-		// Intentionally left blank.
-	}
+    /**
+     * This method is meant ot be overridden for context validation purposes.
+     *
+     * If this method is not overridden, no context validation will occur. This method is called right after
+     * {@code initialize()}. Implementations can throw any unchecked exception but it is recommended to throw an instance
+     * of {@link de.codecentric.zucchini.bdd.ExecutionException}.
+     *
+     * @param executionContext The context that shall be validated.
+     */
+    @SuppressWarnings("UnusedParameters")
+    protected void failOnInvalidContext(ExecutionContext executionContext) {
+        // Intentionally left blank.
+    }
 
-	/**
-	 * This method is meant to be overridden for statement pre-processing purposes.
-	 *
-	 * If this method is not overridden, no pre-processing of statements will occur. This method is called right before
-	 * a statement is executed.
-	 *
-	 * @param statement The statement that shall be pre-processed.
-	 */
-	@SuppressWarnings("UnusedParameters")
-	protected void prepareStatement(Statement statement) {
-		// Intentionally left blank.
-	}
+    /**
+     * This method is meant to be overridden for statement pre-processing purposes.
+     *
+     * If this method is not overridden, no pre-processing of statements will occur. This method is called right before
+     * a statement is executed.
+     *
+     * @param statement The statement that shall be pre-processed.
+     */
+    @SuppressWarnings("UnusedParameters")
+    protected void prepareStatement(Statement statement) {
+        // Intentionally left blank.
+    }
 }
