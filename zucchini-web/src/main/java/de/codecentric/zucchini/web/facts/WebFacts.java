@@ -63,4 +63,7 @@ public class WebFacts {
 	public static WebFact onPage(Class<? extends PageObject> pageObjectClass) {
 		return new OnPageFact(pageObjectClass);
 	}
+    
+    private WebFacts() {
+    }
 }

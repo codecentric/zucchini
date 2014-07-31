@@ -24,27 +24,30 @@ package de.codecentric.zucchini.bdd;
  * not execute anything.
  */
 public class ExecutorHolder {
-	private static final ThreadLocal<Executor> executor = new ThreadLocal<Executor>();
+    private static final ThreadLocal<Executor> EXECUTOR = new ThreadLocal<Executor>();
 
-	static {
-		setExecutor(new NonOperationalExecutor());
-	}
+    static {
+        setExecutor(new NonOperationalExecutor());
+    }
 
-	/**
-	 * Returns the executor of the current thread.
-	 *
-	 * @return The executor of the current thread.
-	 */
-	public static Executor getExecutor() {
-		return executor.get();
-	}
+    /**
+     * Returns the executor of the current thread.
+     *
+     * @return The executor of the current thread.
+     */
+    public static Executor getExecutor() {
+        return EXECUTOR.get();
+    }
 
-	/**
-	 * Sets the executor for the current thread.
-	 *
-	 * @param executor The executor for the current thread.
-	 */
-	public static void setExecutor(Executor executor) {
-		ExecutorHolder.executor.set(executor);
-	}
+    /**
+     * Sets the executor for the current thread.
+     *
+     * @param executor The executor for the current thread.
+     */
+    public static void setExecutor(Executor executor) {
+        ExecutorHolder.EXECUTOR.set(executor);
+    }
+
+    private ExecutorHolder() {
+    }
 }

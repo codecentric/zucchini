@@ -63,4 +63,7 @@ public class WebResults {
 	public static WebResult not(WebResult webResult) {
 		return new NotResult(webResult);
 	}
+    
+    private WebResults() {
+    }
 }

@@ -38,7 +38,7 @@ public class WebAssert {
 		try {
 			return webDriver.findElement(element);
 		} catch (NoSuchElementException e) {
-			fail("Element should exist but it does not.");
+			fail("Element should exist but it does not.", e);
 		}
 		/**
 		 * Never reached since {@link de.codecentric.zucchini.bdd.util.Assert#fail(String)} fail()} throws

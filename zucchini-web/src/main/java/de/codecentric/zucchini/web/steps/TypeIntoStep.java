@@ -20,6 +20,8 @@ import org.openqa.selenium.By;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Arrays;
+
 import static de.codecentric.zucchini.web.util.WebAssert.findElementOrFail;
 
 /**
@@ -30,28 +32,28 @@ import static de.codecentric.zucchini.web.util.WebAssert.findElementOrFail;
  * @see de.codecentric.zucchini.web.steps.TypeContext#into(org.openqa.selenium.By)
  */
 public class TypeIntoStep extends AbstractWebStep {
-	private static final Logger logger = LoggerFactory.getLogger(TypeIntoStep.class);
+    private static final Logger logger = LoggerFactory.getLogger(TypeIntoStep.class);
 
-	private CharSequence[] keys;
-	private By element;
+    private CharSequence[] keys;
+    private By element;
 
-	/**
-	 * Initializes a type into step.
-	 *
-	 * @param keys    The keys that shall be typed.
-	 * @param element The element in which the keys shall be typed.
-	 */
-	public TypeIntoStep(CharSequence[] keys, By element) {
-		this.keys = keys;
-		this.element = element;
-	}
+    /**
+     * Initializes a type into step.
+     *
+     * @param keys    The keys that shall be typed.
+     * @param element The element in which the keys shall be typed.
+     */
+    public TypeIntoStep(CharSequence[] keys, By element) {
+        this.keys = Arrays.copyOf(keys, keys.length);
+        this.element = element;
+    }
 
-	/**
-	 * Types into the element.
-	 */
-	@Override
-	public void go() {
-		logger.info("Typing \"{}\" into {}...", keys, element);
-		findElementOrFail(getWebDriver(), element).sendKeys(keys);
-	}
+    /**
+     * Types into the element.
+     */
+    @Override
+    public void go() {
+        logger.info("Typing \"{}\" into {}...", keys, element);
+        findElementOrFail(getWebDriver(), element).sendKeys(keys);
+    }
 }
