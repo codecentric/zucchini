@@ -16,8 +16,6 @@
 
 package de.codecentric.zucchini.bdd.resolver.token;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -47,12 +45,12 @@ public class Tokenizer {
 
     /**
      * This pattern describes valid variable names.
-     *
+     * <p/>
      * Examples for valid names:
      * - Abc
      * - abc
      * - a1b
-     *
+     * <p/>
      * Examples for invalid names:
      * - 123
      * - 1ab
@@ -72,10 +70,15 @@ public class Tokenizer {
     private static final String TRIM_SPECIAL_CHARACTERS_PATTERN = "^[^a-zA-Z0-9]*(.*?)[^a-zA-Z0-9]*$";
 
     private final String prefix;
-
     private final String suffix;
-
     private final String escapeCharacter;
+
+    private String variable;
+    private TokenizerState state;
+    private TokenList mergedTokens;
+    private int index;
+    private String[] rawTokens;
+    private String cleanedToken;
 
     /**
      * Initializes a tokenizer.
@@ -92,130 +95,139 @@ public class Tokenizer {
      * @param escapeCharacter The escape character.
      */
     public Tokenizer(String prefix, String suffix, String escapeCharacter) {
-        if (prefix == null || prefix.isEmpty()) {
-            throw new IllegalArgumentException("The variable prefix must not be null or empty.");
-        }
-        if (suffix == null || suffix.isEmpty()) {
-            throw new IllegalArgumentException("The variable suffix must not be null or empty.");
-        }
-        if (escapeCharacter == null || escapeCharacter.isEmpty()) {
-            throw new IllegalArgumentException("The escape chracter must not be null or empty.");
-        }
-        if (prefix.equals(suffix)) {
-            throw new IllegalArgumentException("Variable prefix and suffix must not be equal.");
-        }
-        if (prefix.equals(escapeCharacter)) {
-            throw new IllegalArgumentException("Variable prefix and escape character must not be equal.");
-        }
-        if (suffix.equals(escapeCharacter)) {
-            throw new IllegalArgumentException("Variable suffix and escape character must not be equal.");
-        }
+        assertArgumentsAreValid(prefix, suffix, escapeCharacter);
         this.prefix = prefix;
         this.suffix = suffix;
         this.escapeCharacter = escapeCharacter;
     }
 
-    public TokenList tokenize(String statementName) {
-        if (statementName == null || statementName.isEmpty()) {
-            throw new IllegalArgumentException("The statement name must not be null or empty.");
+    private void assertArgumentsAreValid(final String prefix, final String suffix, final String escapeCharacter) {
+        if (prefix == null || prefix.isEmpty()) {
+            throwArgumentError("The variable prefix must not be null or empty.");
+        } else if (suffix == null || suffix.isEmpty()) {
+            throwArgumentError("The variable suffix must not be null or empty.");
+        } else if (escapeCharacter == null || escapeCharacter.isEmpty()) {
+            throwArgumentError("The escape character must not be null or empty.");
+        } else if (prefix.equals(suffix)) {
+            throwArgumentError("Variable prefix and suffix must not be equal.");
+        } else if (prefix.equals(escapeCharacter)) {
+            throwArgumentError("Variable prefix and escape character must not be equal.");
+        } else if (suffix.equals(escapeCharacter)) {
+            throwArgumentError("Variable suffix and escape character must not be equal.");
         }
-        String splitCriterion = String.format(SPLIT_TOKEN_PATTERN_TEMPLATE, Pattern.quote(prefix), Pattern.quote(suffix));
-        String[] splittedStatementName = statementName.split(splitCriterion);
-        return findTokens(splittedStatementName);
+    }
+
+    public TokenList tokenize(String statementName) {
+        assertStatementIsValid(statementName);
+        String splitCriterion =
+                String.format(SPLIT_TOKEN_PATTERN_TEMPLATE, Pattern.quote(prefix), Pattern.quote(suffix));
+        rawTokens = statementName.split(splitCriterion);
+        findTokens();
+        return mergedTokens;
+    }
+
+    private void assertStatementIsValid(final String statementName) {
+        if (statementName == null || statementName.isEmpty()) {
+            throwArgumentError("The statement name must not be null or empty.");
+        }
     }
 
     /**
-     * Finds tokens within the splitted statement name.
-     *
-     * @param splittedStatementName The statement name splitted by variable prefix and suffix.
-     * @return Tokens describing the statement name.
+     * Finds tokens within the split statement name.
      */
-    private TokenList findTokens(String[] splittedStatementName) {
-        TokenList mergedTokens = new TokenList();
-        boolean inVariableContext = false;
-        String variable = null;
-        for (String token : splittedStatementName) {
-            String cleanedToken = token.trim();
+    private void findTokens() {
+        mergedTokens = new TokenList();
+        variable = null;
+        state = TokenizerState.START;
+        index = -1;
 
-            // Is the token the beginning of a variable?
-            if (prefix.equals(cleanedToken)) {
-                // Situation: "${${"
-                if (inVariableContext) {
-                    throw new TokenizerException("Syntax error: Nested variables are not supported.");
-                }
-
-                // The next token should be the variable name. Remember this!
-                inVariableContext = true;
-            }
-
-            // Are we currently parsing a variable?
-            if (inVariableContext) {
-                if (suffix.equals(cleanedToken)) {
-                    // We are no longer parsing a variable.
-                    inVariableContext = false;
-
-                    // Situation: "${}"
-                    if (variable == null) {
-                        throw new TokenizerException(String.format("Syntax error: Found %s after %s but didn't find a variable name.", prefix, suffix));
-                    }
-
-                    // Check whether the variable contains forbidden characters.
-                    if (!variable.matches(VARIABLE_PATTERN)) {
-                        throw new TokenizerException(String.format("Syntax error: Found variable with name \"%s\" which does not match %s.", variable, VARIABLE_PATTERN));
-                    }
-
-                    if (mergedTokens.containsVariableWithName(variable)) {
-                        throw new TokenizerException(String.format("Variable duplication error: Found variable with name \"%s\" twice.", variable));
-                    }
-                    mergedTokens.add(new VariableToken(variable));
-                    variable = null;
-                } else {
-                    // The previous token was "${", i.e. we are in a variable context and the current token is the
-                    // variable name. The variable is stored and not directly added as a token because we want to make
-                    // sure that the next token is "}".
-                    variable = cleanedToken;
-                }
-                // Are we parsing the end of a variable?                
-            } else if (suffix.equals(cleanedToken)) {
-                // Situation: "}"
-                throw new TokenizerException(String.format("Syntax error: Found %s before %s.", suffix, prefix));
-                // Are we parsing a literal token?
-            } else if (!cleanedToken.isEmpty()) {
-                // A token may consist of multiple literals, e.g. "a-b" is considered as the two distinct literals "a"
-                // and "b". Additionally, literals can be escaped with a quote sign (").
-                mergedTokens.addAll(parseLiteral(cleanedToken));
+        while (index < rawTokens.length) {
+            switch (state) {
+            case START:
+                next(TokenizerState.OUTSIDE_VARIABLE_CONTEXT);
+                break;
+            case OUTSIDE_VARIABLE_CONTEXT:
+                handleTokenOutsideOfVariableContext();
+                break;
+            case INSIDE_VARIABLE_CONTEXT:
+                handleTokenInsideOfVariableContext();
+                break;
+            default:
+                break;
             }
         }
+    }
 
-        // Situation: "${var"
-        if (inVariableContext) {
-            throw new TokenizerException(String.format("Syntax error: Missing %s.", suffix));
+    private void handleTokenInsideOfVariableContext() {
+        if (tokenIsPrefix()) {
+            throwError("Syntax error: Nested variables are not supported.");
         }
 
-        return mergedTokens;
+        if (tokenIsSuffix()) {
+            parseBufferedVariable();
+            next(TokenizerState.OUTSIDE_VARIABLE_CONTEXT);
+        } else {
+            // We are in a variable context and the current token is the
+            // variable name. The variable is stored and not directly added as a token,
+            // because we want to make sure that the next token is "}".
+            bufferVariable();
+            next();
+        }
+    }
+
+    private void handleTokenOutsideOfVariableContext() {
+        if (tokenIsSuffix()) {
+            throwError(String.format("Syntax error: Found %s before %s.", suffix, prefix));
+        }
+
+        if (tokenIsPrefix()) {
+            next(TokenizerState.INSIDE_VARIABLE_CONTEXT);
+        } else if (tokenHasContent()) {
+            parseLiteral(cleanedToken);
+            next(TokenizerState.OUTSIDE_VARIABLE_CONTEXT);
+        } else {
+            next();
+        }
+    }
+
+    private void next() {
+        next(state);
+    }
+
+    private void next(final TokenizerState nextState) {
+        state = nextState;
+
+        if (isLastToken() && state == TokenizerState.INSIDE_VARIABLE_CONTEXT) {
+            throwError(String.format("Syntax error: Missing %s.", suffix));
+        }
+
+        if (++index < rawTokens.length) {
+            cleanedToken = rawTokens[index].trim();
+        }
+    }
+
+    private boolean isLastToken() {
+        return index >= rawTokens.length - 1;
     }
 
     /**
      * This method splits a string into sub tokens so that only alphanumeric and escaped strings become literals.
-     *
+     * <p/>
      * Examples:
      * - "a-b-c" => "a", "b", "c"
      * - "a-" => "a"
      * - "\"a b c\"" => "a b c"
      *
      * @param token A raw token that may contain multiple literals.
-     * @return Literal tokens that have been found in the specified token.
      */
-    private List<Token> parseLiteral(String token) {
-        List<Token> tokens = new ArrayList<Token>();
+    private void parseLiteral(String token) {
         Matcher m = Pattern.compile(String.format(ESCAPED_LITERAL_PATTERN_TEMPLATE, escapeCharacter)).matcher(token);
         while (m.find()) {
-            String cleanedToken = trimSpecialCharacters(m.group(1));
-            if (!cleanedToken.isEmpty()) {
-                tokens.add(new LiteralToken(cleanedToken));
+            cleanedToken = trimSpecialCharacters(m.group(1));
+            if (tokenHasContent()) {
+                mergedTokens.add(new LiteralToken(cleanedToken));
             }
         }
-        return tokens;
     }
 
     /**
@@ -227,4 +239,66 @@ public class Tokenizer {
     private String trimSpecialCharacters(String string) {
         return string.replaceAll(TRIM_SPECIAL_CHARACTERS_PATTERN, "$1");
     }
+
+    private void bufferVariable() {
+        variable = cleanedToken;
+    }
+
+    private void parseBufferedVariable() {
+        assertVariableNameIsValid();
+        mergedTokens.add(new VariableToken(variable));
+        variable = null;
+    }
+
+    private void assertVariableNameIsValid() {
+        if (variable == null) {
+            // Situation: "${}"
+            throwError(String.format("Syntax error: Found %s after %s but didn't find a" +
+                    " variable name.", suffix, prefix));
+        } else if (variableNameContainsForbiddenCharacters()) {
+            throwError(String.format("Syntax error: Found variable with name \"%s\" which does not match %s.",
+                    variable, VARIABLE_PATTERN));
+        } else if (variableNameAlreadyExists()) {
+            throwError(String.format("Variable duplication error: Found variable with name \"%s\" twice.",
+                    variable));
+        }
+    }
+
+    private boolean variableNameContainsForbiddenCharacters() {
+        return !variable.matches(VARIABLE_PATTERN);
+    }
+
+    private boolean variableNameAlreadyExists() {
+        return mergedTokens.containsVariableWithName(variable);
+    }
+
+    private boolean tokenHasContent() {
+        return cleanedToken != null && !cleanedToken.isEmpty();
+    }
+
+    private boolean tokenIsSuffix() {
+        return suffix.equals(cleanedToken);
+    }
+
+    private boolean tokenIsPrefix() {
+        return prefix.equals(cleanedToken);
+    }
+
+    private void throwArgumentError(final String message) {
+        state = TokenizerState.ERROR;
+        throw new IllegalArgumentException(message);
+    }
+
+    private void throwError(final String message) {
+        state = TokenizerState.ERROR;
+        throw new TokenizerException(message);
+    }
 }
+
+enum TokenizerState {
+    START,
+    INSIDE_VARIABLE_CONTEXT,
+    OUTSIDE_VARIABLE_CONTEXT,
+    ERROR
+}
+
