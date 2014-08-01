@@ -24,34 +24,34 @@ package de.codecentric.zucchini.bdd.resolver;
  * be used which should suit most purposes.
  */
 public class StatementResolverHolder {
-	private static final ThreadLocal<StatementResolver> STATEMENT_RESOLVER = new ThreadLocal<StatementResolver>();
+    private static final ThreadLocal<StatementResolver> STATEMENT_RESOLVER = new ThreadLocal<StatementResolver>();
 
-	static {
-		setStatementResolver(new SimpleStatementResolver());
-	}
+    static {
+        setStatementResolver(new VariableStatementResolver());
+    }
 
-	/**
-	 * Returns the statement resolver of the current thread.
-	 *
-	 * @return The statement resolver of the current thread.
-	 */
-	public static StatementResolver getStatementResolver() {
-		return STATEMENT_RESOLVER.get();
-	}
+    /**
+     * Returns the statement resolver of the current thread.
+     *
+     * @return The statement resolver of the current thread.
+     */
+    public static StatementResolver getStatementResolver() {
+        return STATEMENT_RESOLVER.get();
+    }
 
-	/**
-	 * Sets the statement resolver for the current thread.
-	 *
-	 * @param statementResolver The statement resolver for the current thread.
-	 */
-	@SuppressWarnings("WeakerAccess")
-	public static void setStatementResolver(StatementResolver statementResolver) {
-		if (statementResolver == null) {
-			throw new NullPointerException("The statement resolver must not be null.");
-		}
-		StatementResolverHolder.STATEMENT_RESOLVER.set(statementResolver);
-	}
-    
+    /**
+     * Sets the statement resolver for the current thread.
+     *
+     * @param statementResolver The statement resolver for the current thread.
+     */
+    @SuppressWarnings("WeakerAccess")
+    public static void setStatementResolver(StatementResolver statementResolver) {
+        if (statementResolver == null) {
+            throw new NullPointerException("The statement resolver must not be null.");
+        }
+        StatementResolverHolder.STATEMENT_RESOLVER.set(statementResolver);
+    }
+
     private StatementResolverHolder() {
     }
 }

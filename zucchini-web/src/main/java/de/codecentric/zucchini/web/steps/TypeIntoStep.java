@@ -16,11 +16,13 @@
 
 package de.codecentric.zucchini.web.steps;
 
+import de.codecentric.zucchini.bdd.vars.Variable;
 import org.openqa.selenium.By;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
+import java.util.Map;
 
 import static de.codecentric.zucchini.web.util.WebAssert.findElementOrFail;
 
@@ -35,7 +37,8 @@ public class TypeIntoStep extends AbstractWebStep {
     private static final Logger logger = LoggerFactory.getLogger(TypeIntoStep.class);
 
     private CharSequence[] keys;
-    private By element;
+    private Variable<CharSequence[]> keysVariable;
+    private final By element;
 
     /**
      * Initializes a type into step.
@@ -49,11 +52,33 @@ public class TypeIntoStep extends AbstractWebStep {
     }
 
     /**
+     * Initializes a type into step.
+     *
+     * @param keysVariable The variable that contains the keys that shall be typed.
+     * @param element      The element in which the keys shall be typed.
+     */
+    public TypeIntoStep(Variable<CharSequence[]> keysVariable, By element) {
+        this.keysVariable = keysVariable;
+        this.element = element;
+    }
+
+    /**
      * Types into the element.
      */
     @Override
     public void go() {
         logger.info("Typing \"{}\" into {}...", keys, element);
         findElementOrFail(getWebDriver(), element).sendKeys(keys);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setVariables(Map<String, String> variables) {
+        injectVariables(variables, element);
+        if (keysVariable != null) {
+            keys = keysVariable.getConvertedValue(variables);
+        }
     }
 }

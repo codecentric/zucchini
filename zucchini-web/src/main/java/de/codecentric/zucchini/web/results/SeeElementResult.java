@@ -18,6 +18,8 @@ package de.codecentric.zucchini.web.results;
 
 import org.openqa.selenium.By;
 
+import java.util.Map;
+
 import static de.codecentric.zucchini.web.util.WebAssert.findElementOrFail;
 
 /**
@@ -25,7 +27,7 @@ import static de.codecentric.zucchini.web.util.WebAssert.findElementOrFail;
  * {@link org.openqa.selenium.By} is present on a page.
  */
 public class SeeElementResult extends AbstractWebResult {
-	private By element;
+	private final By element;
 
 	/**
 	 * Initializes a see element result.
@@ -43,4 +45,9 @@ public class SeeElementResult extends AbstractWebResult {
 	public void expect() {
 		findElementOrFail(getWebDriver(), element);
 	}
+
+    @Override
+    public void setVariables(Map<String, String> variables) {
+        injectVariables(variables, element);
+    }
 }

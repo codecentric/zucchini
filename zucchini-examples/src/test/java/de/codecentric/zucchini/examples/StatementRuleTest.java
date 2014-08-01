@@ -16,11 +16,14 @@
 
 package de.codecentric.zucchini.examples;
 
+import de.codecentric.zucchini.bdd.resolver.StatementResolverHolder;
+import de.codecentric.zucchini.bdd.resolver.VariableStatementResolver;
 import de.codecentric.zucchini.web.junit.WebDriverExecutorRule;
 import de.codecentric.zucchini.web.junit.WebFactRule;
 import de.codecentric.zucchini.web.junit.WebResultRule;
 import de.codecentric.zucchini.web.junit.WebStepRule;
 import de.codecentric.zucchini.web.provider.ChromeDriverProvider;
+import org.junit.AfterClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -54,6 +57,17 @@ public class StatementRuleTest {
 			.andWhen(submit(By.name("s")))
 			.then(see("codecentric"))
 			.asFact());
+
+
+    /**
+     * Reset the variable statement resolver so that statements registered within this test class are removed.
+     *
+     * Usually, this is not necessary.
+     */
+    @AfterClass
+    public static void tearDown() {
+        StatementResolverHolder.setStatementResolver(new VariableStatementResolver());
+    }
 
 	@Test
 	public void testRules() {

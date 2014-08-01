@@ -16,6 +16,7 @@
 
 package de.codecentric.zucchini.web.facts;
 
+import de.codecentric.zucchini.bdd.vars.Variable;
 import de.codecentric.zucchini.web.pageobjects.PageObject;
 
 /**
@@ -31,26 +32,47 @@ public class WebFacts {
 		return new NonOperationalWebFact();
 	}
 
-	/**
-	 * Returns an {@link de.codecentric.zucchini.web.facts.OnPageFact} for the given page object.
-	 *
-	 * You can use this method in conjunction with the static
-	 * {@link de.codecentric.zucchini.web.pageobjects.SimplePage#url(String) url()} method of
-	 * {@link de.codecentric.zucchini.web.pageobjects.SimplePage}, for example:
-	 *
-	 * <code>
-	 * given(onPage(url("http://www.example.com")))
-	 * .when(...)
-	 * .then(...)
-	 * .end();
-	 * </code>
-	 *
-	 * @param pageObject The page object.
-	 * @return An {@link de.codecentric.zucchini.web.facts.OnPageFact} for the given page object.
-	 */
-	public static WebFact onPage(PageObject pageObject) {
-		return new OnPageFact(pageObject);
-	}
+    /**
+     * Returns an {@link de.codecentric.zucchini.web.facts.OnPageFact} for the given page object.
+     *
+     * You can use this method in conjunction with the static
+     * {@link de.codecentric.zucchini.web.pageobjects.SimplePage#url(String) url()} method of
+     * {@link de.codecentric.zucchini.web.pageobjects.SimplePage}, for example:
+     *
+     * <code>
+     * given(onPage(url("http://www.example.com")))
+     * .when(...)
+     * .then(...)
+     * .end();
+     * </code>
+     *
+     * @param pageObject The page object.
+     * @return An {@link de.codecentric.zucchini.web.facts.OnPageFact} for the given page object.
+     */
+    public static WebFact onPage(PageObject pageObject) {
+        return new OnPageFact(pageObject);
+    }
+
+    /**
+     * Returns an {@link de.codecentric.zucchini.web.facts.OnPageFact} for the given page object.
+     *
+     * You can use this method in conjunction with the static
+     * {@link de.codecentric.zucchini.web.pageobjects.SimplePage#url(String) url()} method of
+     * {@link de.codecentric.zucchini.web.pageobjects.SimplePage}, for example:
+     *
+     * <code>
+     * given(onPage(url("http://www.example.com")))
+     * .when(...)
+     * .then(...)
+     * .end();
+     * </code>
+     *
+     * @param pageObjectVariable A variable that contains the page object.
+     * @return An {@link de.codecentric.zucchini.web.facts.OnPageFact} for the given page object.
+     */
+    public static WebFact onPage(Variable<PageObject> pageObjectVariable) {
+        return new OnPageFact(pageObjectVariable);
+    }
 
 	/**
 	 * Returns an {@link de.codecentric.zucchini.web.facts.OnPageFact} for the given page object class.

@@ -18,12 +18,14 @@ package de.codecentric.zucchini.bdd.dsl.impl.facts;
 
 import de.codecentric.zucchini.bdd.ExecutionContext;
 import de.codecentric.zucchini.bdd.ExecutorHolder;
-import de.codecentric.zucchini.bdd.dsl.ExecutionFact;
+import de.codecentric.zucchini.bdd.dsl.*;
+
+import java.util.Map;
 
 /**
  * {@inheritDoc}
  */
-public class PreparedExecutionFact implements ExecutionFact {
+public class PreparedExecutionFact implements ExecutionFact, VariablesAware {
 	private final ExecutionContext executionContext;
 
 	public PreparedExecutionFact(ExecutionContext executionContext) {
@@ -37,4 +39,23 @@ public class PreparedExecutionFact implements ExecutionFact {
 	public void establish() {
 		ExecutorHolder.getExecutor().execute(executionContext);
 	}
+
+    @Override
+    public void setVariables(Map<String, String> variables) {
+        for (Fact fact : executionContext.getFacts()) {
+            injectVariables(variables, fact);
+        }
+        for (Step step : executionContext.getSteps()) {
+            injectVariables(variables, step);
+        }
+        for (Result result : executionContext.getResults()) {
+            injectVariables(variables, result);
+        }
+    }
+    
+    private void injectVariables(Map<String, String> variables, Statement statement) {
+        if (statement instanceof VariablesAware) {
+            ((VariablesAware)statement).setVariables(variables);
+        }
+    }
 }

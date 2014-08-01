@@ -34,7 +34,7 @@ public class WebAssert {
 	 * @param element   The element.
 	 * @return The found element.
 	 */
-	public static final WebElement findElementOrFail(WebDriver webDriver, By element) {
+	public static WebElement findElementOrFail(WebDriver webDriver, By element) {
 		try {
 			return webDriver.findElement(element);
 		} catch (NoSuchElementException e) {

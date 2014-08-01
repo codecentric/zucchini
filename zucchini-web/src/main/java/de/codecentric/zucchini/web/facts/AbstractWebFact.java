@@ -16,13 +16,14 @@
 
 package de.codecentric.zucchini.web.facts;
 
+import de.codecentric.zucchini.bdd.dsl.VariablesAware;
 import org.openqa.selenium.WebDriver;
 
 /**
  * The abstract web fact simplifies the usage implementation of
  * {@link de.codecentric.zucchini.web.facts.WebFact web facts} by providing common methods.
  */
-public abstract class AbstractWebFact implements WebFact {
+public abstract class AbstractWebFact implements WebFact, VariablesAware {
 	private WebDriver webDriver;
 
 	/**
@@ -38,7 +39,8 @@ public abstract class AbstractWebFact implements WebFact {
 	 *
 	 * @return An instance of the web driver of the current thread.
 	 */
-	protected final WebDriver getWebDriver() {
+	@SuppressWarnings("WeakerAccess")
+    protected final WebDriver getWebDriver() {
 		return webDriver;
 	}
 }

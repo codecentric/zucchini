@@ -16,29 +16,51 @@
 
 package de.codecentric.zucchini.web.steps;
 
+import de.codecentric.zucchini.bdd.dsl.VariablesAware;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+
+import java.util.Map;
 
 /**
  * The abstract web step simplifies the usage implementation of
  * {@link de.codecentric.zucchini.web.steps.WebStep web steps} by providing common methods.
  */
-public abstract class AbstractWebStep implements WebStep {
-	private WebDriver webDriver;
+public abstract class AbstractWebStep implements WebStep, VariablesAware {
+    private WebDriver webDriver;
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public final void setWebDriver(WebDriver webDriver) {
-		this.webDriver = webDriver;
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final void setWebDriver(WebDriver webDriver) {
+        this.webDriver = webDriver;
+    }
 
-	/**
-	 * Returns an instance of the {@link org.openqa.selenium.WebDriver web driver} of the current thread.
-	 *
-	 * @return An instance of the web driver of the current thread.
-	 */
-	protected final WebDriver getWebDriver() {
-		return webDriver;
-	}
+    /**
+     * Returns an instance of the {@link org.openqa.selenium.WebDriver web driver} of the current thread.
+     *
+     * @return An instance of the web driver of the current thread.
+     */
+    @SuppressWarnings("WeakerAccess")
+    protected final WebDriver getWebDriver() {
+        return webDriver;
+    }
+
+    /**
+     * This method can be used to inject variables into {@link org.openqa.selenium.By} instances that implement
+     * {@link de.codecentric.zucchini.bdd.dsl.VariablesAware}.
+     * 
+     * If the element does not implement {@link de.codecentric.zucchini.bdd.dsl.VariablesAware}, then no injection will
+     * occur.
+     * 
+     * @param variables The variables that will be injected.
+     * @param element The element.
+     */
+    @SuppressWarnings("WeakerAccess")
+    protected final void injectVariables(Map<String, String> variables, By element) {
+        if (element instanceof VariablesAware) {
+            ((VariablesAware) element).setVariables(variables);
+        }
+    }
 }

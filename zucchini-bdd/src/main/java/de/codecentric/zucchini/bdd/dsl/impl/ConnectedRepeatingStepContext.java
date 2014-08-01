@@ -22,47 +22,47 @@ import de.codecentric.zucchini.bdd.dsl.RepeatingStepContext;
 import de.codecentric.zucchini.bdd.dsl.Result;
 import de.codecentric.zucchini.bdd.dsl.Step;
 import de.codecentric.zucchini.bdd.dsl.impl.results.DelegatingResult;
-import de.codecentric.zucchini.bdd.resolver.StatementResolverHolder;
+import de.codecentric.zucchini.bdd.dsl.impl.steps.DelegatingStep;
 
 /**
  * Defines the part of the DSL that allows the definition of additional steps and everything that a
  * {@link de.codecentric.zucchini.bdd.dsl.impl.ConnectedTermination} does.
  */
 public class ConnectedRepeatingStepContext extends ConnectedTermination implements RepeatingStepContext {
-	ConnectedRepeatingStepContext(ExecutionContext executionContext) {
-		super(executionContext);
-	}
+    ConnectedRepeatingStepContext(ExecutionContext executionContext) {
+        super(executionContext);
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public RepeatingStepContext andWhen(Step step) {
-		getExecutionContext().addStep(step);
-		return this;
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public RepeatingStepContext andWhen(Step step) {
+        getExecutionContext().addStep(step);
+        return this;
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public RepeatingStepContext andWhen(String stepName) {
-		return andWhen(StatementResolverHolder.getStatementResolver().resolveStatement(stepName, Step.class));
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public RepeatingStepContext andWhen(String stepName) {
+        return andWhen(new DelegatingStep(stepName));
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public RepeatingResultContext then(Result result) {
-		return new ConnectedRepeatingResultContext(getExecutionContext().addResult(result));
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public RepeatingResultContext then(Result result) {
+        return new ConnectedRepeatingResultContext(getExecutionContext().addResult(result));
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public RepeatingResultContext then(String resultName) {
-		return then(new DelegatingResult(resultName));
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public RepeatingResultContext then(String resultName) {
+        return then(new DelegatingResult(resultName));
+    }
 }

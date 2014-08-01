@@ -16,6 +16,7 @@
 
 package de.codecentric.zucchini.web.results;
 
+import de.codecentric.zucchini.bdd.vars.Variable;
 import org.openqa.selenium.By;
 
 /**
@@ -44,15 +45,25 @@ public class WebResults {
 		return new InputContext(element);
 	}
 
-	/**
-	 * Returns a {@link de.codecentric.zucchini.web.results.SeeResult see result}.
-	 *
-	 * @param text The text that shall be expected to be present.
-	 * @return A {@link de.codecentric.zucchini.web.results.SeeResult see result}.
-	 */
-	public static SeeResult see(String text) {
-		return new SeeResult(text);
-	}
+    /**
+     * Returns a {@link de.codecentric.zucchini.web.results.SeeResult see result}.
+     *
+     * @param text The text that shall be expected to be present.
+     * @return A {@link de.codecentric.zucchini.web.results.SeeResult see result}.
+     */
+    public static SeeResult see(String text) {
+        return new SeeResult(text);
+    }
+
+    /**
+     * Returns a {@link de.codecentric.zucchini.web.results.SeeResult see result}.
+     *
+     * @param textVariable A variable containing the text that shall be expected to be present.
+     * @return A {@link de.codecentric.zucchini.web.results.SeeResult see result}.
+     */
+    public static SeeResult see(Variable<String> textVariable) {
+        return new SeeResult(textVariable);
+    }
 
 	/**
 	 * Returns a {@link de.codecentric.zucchini.web.results.NotResult not result}.

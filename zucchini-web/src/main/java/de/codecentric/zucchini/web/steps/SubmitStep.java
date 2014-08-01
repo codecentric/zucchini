@@ -20,6 +20,8 @@ import org.openqa.selenium.By;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Map;
+
 import static de.codecentric.zucchini.web.util.WebAssert.findElementOrFail;
 
 /**
@@ -29,25 +31,30 @@ import static de.codecentric.zucchini.web.util.WebAssert.findElementOrFail;
  * @see WebSteps#submit(org.openqa.selenium.By)
  */
 public class SubmitStep extends AbstractWebStep {
-	private static final Logger logger = LoggerFactory.getLogger(SubmitStep.class);
+    private static final Logger logger = LoggerFactory.getLogger(SubmitStep.class);
 
-	private final By element;
+    private final By element;
 
-	/**
-	 * Initializes a submit step.
-	 *
-	 * @param element The element that shall be submitted.
-	 */
-	public SubmitStep(By element) {
-		this.element = element;
-	}
+    /**
+     * Initializes a submit step.
+     *
+     * @param element The element that shall be submitted.
+     */
+    public SubmitStep(By element) {
+        this.element = element;
+    }
 
-	/**
-	 * Submits the {@link org.openqa.selenium.WebElement element} described by {@link org.openqa.selenium.By}.
-	 */
-	@Override
-	public void go() {
-		logger.info("Submitting {}...", element);
-		findElementOrFail(getWebDriver(), element).submit();
-	}
+    /**
+     * Submits the {@link org.openqa.selenium.WebElement element} described by {@link org.openqa.selenium.By}.
+     */
+    @Override
+    public void go() {
+        logger.info("Submitting {}...", element);
+        findElementOrFail(getWebDriver(), element).submit();
+    }
+
+    @Override
+    public void setVariables(Map<String, String> variables) {
+        injectVariables(variables, element);
+    }
 }

@@ -17,10 +17,7 @@
 package de.codecentric.zucchini.bdd;
 
 
-import de.codecentric.zucchini.bdd.dsl.Fact;
-import de.codecentric.zucchini.bdd.dsl.Result;
-import de.codecentric.zucchini.bdd.dsl.Statement;
-import de.codecentric.zucchini.bdd.dsl.Step;
+import de.codecentric.zucchini.bdd.dsl.*;
 
 import java.util.List;
 

@@ -16,6 +16,7 @@
 
 package de.codecentric.zucchini.web.steps;
 
+import de.codecentric.zucchini.bdd.vars.Variable;
 import org.openqa.selenium.By;
 
 /**
@@ -41,14 +42,22 @@ import org.openqa.selenium.By;
  * @see de.codecentric.zucchini.web.steps.TypeStep
  */
 public class TypeContext extends TypeStep {
-	/**
-	 * Initializes a type step that types without an element.
-	 *
-	 * @param keys The keys that shall be typed.
-	 */
-	public TypeContext(CharSequence... keys) {
-		super(keys);
-	}
+    /**
+     * Initializes a type step that types without an element.
+     *
+     * @param keys The keys that shall be typed.
+     */
+    public TypeContext(CharSequence... keys) {
+        super(keys);
+    }
+    /**
+     * Initializes a type step that types without an element.
+     *
+     * @param keysVariable A variable that contains the keys that shall be typed.
+     */
+    public TypeContext(Variable<CharSequence[]> keysVariable) {
+        super(keysVariable);
+    }
 
 	/**
 	 * Returns a type step that types into an {@link org.openqa.selenium.WebElement element} described by
@@ -58,6 +67,10 @@ public class TypeContext extends TypeStep {
 	 * @return A type step that types into an element.
 	 */
 	public TypeIntoStep into(By into) {
-		return new TypeIntoStep(getKeys(), into);
+        if (getKeysVariable() != null) {
+            return new TypeIntoStep(getKeysVariable(), into);
+        } else {
+            return new TypeIntoStep(getKeys(), into);
+        }
 	}
 }

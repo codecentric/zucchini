@@ -25,7 +25,8 @@ public class NonOperationalFact implements Fact {
 	/**
 	 * This method does nothing.
 	 */
-	@Override
+	@SuppressWarnings("EmptyMethod")
+    @Override
 	public void establish() {
 		// Intentionally left blank.
 	}

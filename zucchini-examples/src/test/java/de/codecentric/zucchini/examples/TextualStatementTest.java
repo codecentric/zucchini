@@ -22,51 +22,57 @@ import de.codecentric.zucchini.bdd.dsl.Fact;
 import de.codecentric.zucchini.bdd.dsl.Result;
 import de.codecentric.zucchini.bdd.dsl.Step;
 import de.codecentric.zucchini.bdd.resolver.StatementResolverHolder;
+import de.codecentric.zucchini.bdd.resolver.VariableStatementResolver;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 
 import static de.codecentric.zucchini.bdd.dsl.impl.ScenarioBuilder.given;
 
 public class TextualStatementTest {
-	@Before
-	public void setUp() {
-		ExecutorHolder.setExecutor(new SimpleExecutor());
-		addFact("man");
-		addFact("woman");
-		addStep("love");
-		addStep("commitment");
-		addResult("baby");
-		addResult("family");
-	}
+    @Before
+    public void setUp() {
+        ExecutorHolder.setExecutor(new SimpleExecutor());
+        addFact("man");
+        addFact("woman");
+        addStep("love");
+        addStep("commitment");
+        addResult("baby");
+        addResult("family");
+    }
 
-	@Test
-	public void testFamily() {
-		given("man")
-				.andGiven("woman")
-				.when("love")
-				.andWhen("commitment")
-				.then("baby")
-				.andThen("family")
-				.end();
-	}
+    /**
+     * Reset the variable statement resolver so that statements registered within this test class are removed.
+     *
+     * Usually, this is not necessary.
+     */
+    @AfterClass
+    public static void tearDown() {
+        StatementResolverHolder.setStatementResolver(new VariableStatementResolver());
+    }
 
-	private void addFact(String fact) {
-		StatementResolverHolder.getStatementResolver().addStatement(fact, (Fact) () -> {
-			System.out.println(fact);
-		}, Fact.class);
-	}
+    @Test
+    public void testFamily() {
+        given("man")
+                .andGiven("woman")
+                .when("love")
+                .andWhen("commitment")
+                .then("baby")
+                .andThen("family")
+                .end();
+    }
 
-	private void addStep(String step) {
-		StatementResolverHolder.getStatementResolver().addStatement(step, (Step) () -> {
-			System.out.println(step);
-		}, Step.class);
-	}
+    private void addFact(String fact) {
+        StatementResolverHolder.getStatementResolver().addStatement(fact, (Fact) () -> System.out.println(fact), Fact.class);
+    }
+
+    private void addStep(String step) {
+        StatementResolverHolder.getStatementResolver().addStatement(step, (Step) () -> System.out.println(step), Step.class);
+    }
 
 
-	private void addResult(String result) {
-		StatementResolverHolder.getStatementResolver().addStatement(result, (Result) () -> {
-			System.out.println(result);
-		}, Result.class);
-	}
+    private void addResult(String result) {
+        StatementResolverHolder.getStatementResolver().addStatement(result, (Result) () -> System.out.println(result), Result.class);
+    }
 
 }

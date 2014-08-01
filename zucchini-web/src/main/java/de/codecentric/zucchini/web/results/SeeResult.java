@@ -16,28 +16,52 @@
 
 package de.codecentric.zucchini.web.results;
 
+import de.codecentric.zucchini.bdd.vars.Variable;
+
+import java.util.Map;
+
 import static de.codecentric.zucchini.bdd.util.Assert.assertTrue;
 
 /**
  * A see result expects that a specific text is present in the source of a page.
  */
 public class SeeResult extends AbstractWebResult {
-	private String text;
+    private String text;
+    private Variable<String> textVariable;
 
-	/**
-	 * Initializes a see result.
-	 *
-	 * @param text The text that shall be expected to be present.
-	 */
-	public SeeResult(String text) {
-		this.text = text;
-	}
+    /**
+     * Initializes a see result.
+     *
+     * @param text The text that shall be expected to be present.
+     */
+    public SeeResult(String text) {
+        this.text = text;
+    }
 
-	/**
-	 * Expects that the specified text is present.
-	 */
-	@Override
-	public void expect() {
-		assertTrue(String.format("Page should contain \"%s\" but it does not.", text), getWebDriver().getPageSource().contains(text));
-	}
+    /**
+     * Initializes a see result.
+     *
+     * @param textVariable A variable that contains the text that shall be expected to be present.
+     */
+    public SeeResult(Variable<String> textVariable) {
+        this.textVariable = textVariable;
+    }
+
+    /**
+     * Expects that the specified text is present.
+     */
+    @Override
+    public void expect() {
+        assertTrue(String.format("Page should contain \"%s\" but it does not.", text), getWebDriver().getPageSource().contains(text));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setVariables(Map<String, String> variables) {
+        if (textVariable != null) {
+            text = textVariable.getConvertedValue(variables);
+        }
+    }
 }

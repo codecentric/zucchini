@@ -25,7 +25,8 @@ public class NonOperationalStep implements Step {
 	/**
 	 * This method does nothing.
 	 */
-	@Override
+	@SuppressWarnings("EmptyMethod")
+    @Override
 	public void go() {
 		// Intentionally left blank.
 	}

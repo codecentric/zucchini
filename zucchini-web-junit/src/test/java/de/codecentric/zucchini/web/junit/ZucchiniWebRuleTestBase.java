@@ -47,5 +47,5 @@ public abstract class ZucchiniWebRuleTestBase {
 		assertTrue(getWebDriverExecutor().getWebDriverProvider() instanceof ChromeDriverProvider);
 	}
 
-	public abstract WebDriverExecutor getWebDriverExecutor();
+	protected abstract WebDriverExecutor getWebDriverExecutor();
 }
