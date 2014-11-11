@@ -31,7 +31,7 @@
 	<version>2.0.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>Zucchini Examples</name>
+	<name>Zucchini BDD</name>
 	<description>Testing tools using BDD.</description>
 	<url>https://github.com/codecentric/zucchini</url>
 	<licenses>

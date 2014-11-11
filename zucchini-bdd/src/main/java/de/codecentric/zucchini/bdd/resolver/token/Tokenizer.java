@@ -80,7 +80,7 @@ public class Tokenizer {
     private String[] rawTokens;
     private String cleanedToken;
 
-    /**
+    /** 
      * Initializes a tokenizer.
      */
     public Tokenizer() {

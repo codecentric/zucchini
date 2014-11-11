@@ -65,6 +65,16 @@ public class WebResults {
         return new SeeResult(textVariable);
     }
 
+    /**
+     * Returns a {@link de.codecentric.zucchini.web.results.SeeElementResult see element result}.
+     *
+     * @param element The element that shall be expected to be present.
+     * @return A {@link de.codecentric.zucchini.web.results.SeeElementResult see element result}.
+     */
+    public static SeeElementResult see(By element) {
+        return new SeeElementResult(element);
+    }
+
 	/**
 	 * Returns a {@link de.codecentric.zucchini.web.results.NotResult not result}.
 	 *

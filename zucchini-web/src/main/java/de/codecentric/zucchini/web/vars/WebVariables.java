@@ -27,7 +27,7 @@ public class WebVariables {
      * Returns a variable that contains a {@link de.codecentric.zucchini.web.pageobjects.PageObject}.
      *
      * @param variableName The name of the variable.
-     * @return A variable that contains a stirng.
+     * @return A variable that contains a string.
      */
     public static Variable<PageObject> pageVar(String variableName) {
         return new PageObjectVariable(variableName);

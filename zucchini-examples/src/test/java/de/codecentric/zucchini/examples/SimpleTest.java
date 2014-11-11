@@ -43,6 +43,7 @@ public class SimpleTest {
 				.when(type("codecentric").into(searchInputField))
 				.andWhen(submit(searchInputField))
 				.then(see("codecentric"))
+                .andThen(see(By.className("logo")))
 				.end();
 	}
 }
