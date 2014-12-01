@@ -17,7 +17,7 @@ You can use the BDD-style fluent interfaces alone:
 
 ```xml
 <dependency>
-	<groupId>de.codecentric</groupId>
+	<groupId>de.codecentric.zucchini</groupId>
 	<artifactId>zucchini-bdd</artifactId>
 	<version>2.0.0</version>
 </dependency>
@@ -27,7 +27,7 @@ or with Selenium support:
 
 ```xml
 <dependency>
-	<groupId>de.codecentric</groupId>
+	<groupId>de.codecentric.zucchini</groupId>
 	<artifactId>zucchini-web</artifactId>
 	<version>2.0.0</version>
 </dependency>
