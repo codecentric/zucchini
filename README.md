@@ -19,7 +19,7 @@ You can use the BDD-style fluent interfaces alone:
 <dependency>
 	<groupId>de.codecentric</groupId>
 	<artifactId>zucchini-bdd</artifactId>
-	<version>2.0.0</version>
+	<version>2.0.1</version>
 </dependency>
 ```
 
@@ -29,7 +29,7 @@ or with Selenium support:
 <dependency>
 	<groupId>de.codecentric</groupId>
 	<artifactId>zucchini-web</artifactId>
-	<version>2.0.0</version>
+	<version>2.0.1</version>
 </dependency>
 ```
 

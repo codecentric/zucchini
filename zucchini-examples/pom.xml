@@ -23,13 +23,13 @@
 	<parent>
 		<artifactId>zucchini-parent</artifactId>
 		<groupId>de.codecentric.zucchini</groupId>
-		<version>2.0.0</version>
+		<version>2.0.1</version>
 		<relativePath>../zucchini-parent/pom.xml</relativePath>
 	</parent>
 
 	<groupId>de.codecentric.zucchini</groupId>
 	<artifactId>zucchini-examples</artifactId>
-	<version>2.0.0</version>
+	<version>2.0.1</version>
 	<packaging>pom</packaging>
 
 	<name>Zucchini Examples</name>
