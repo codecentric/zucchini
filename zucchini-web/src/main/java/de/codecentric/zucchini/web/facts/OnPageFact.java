@@ -108,9 +108,9 @@ public class OnPageFact extends AbstractWebFact {
             } else if (pageObjectClass != null) {
                 pageObject = PageFactory.initElements(getWebDriver(), pageObjectClass);
             }
-            if (pageObject != null) {
-                pageObject.setWebDriver(getWebDriver());
-            }
+        }
+        if (pageObject != null) {
+            pageObject.setWebDriver(getWebDriver());
         }
     }
 }
