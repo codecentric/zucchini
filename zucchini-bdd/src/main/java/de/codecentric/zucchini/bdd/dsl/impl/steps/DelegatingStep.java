@@ -30,8 +30,6 @@ import de.codecentric.zucchini.bdd.resolver.StatementResolverHolder;
 public class DelegatingStep implements Step, DelegatingStatement<Step> {
 	private final String stepName;
 
-	private Step step;
-
 	/**
 	 * Initializes a delegating step which references an actual step by its name.
 	 *
@@ -50,14 +48,11 @@ public class DelegatingStep implements Step, DelegatingStatement<Step> {
 	}
 
 	/**
-	 * Lazily loads the step which has been referenced by name at construction time.
+	 * Eagerly loads the step which has been referenced by name at construction time.
 	 *
 	 * @return The actual step.
 	 */
 	public Step getStatement() {
-		if (step == null) {
-			step = StatementResolverHolder.getStatementResolver().resolveStatement(stepName, Step.class);
-		}
-		return step;
+		return StatementResolverHolder.getStatementResolver().resolveStatement(stepName, Step.class);
 	}
 }

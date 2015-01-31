@@ -30,8 +30,6 @@ import de.codecentric.zucchini.bdd.resolver.StatementResolverHolder;
 public class DelegatingFact implements Fact, DelegatingStatement<Fact> {
 	private final String factName;
 
-	private Fact fact;
-
 	/**
 	 * Initializes a delegating fact which references an actual fact by its name.
 	 *
@@ -50,15 +48,12 @@ public class DelegatingFact implements Fact, DelegatingStatement<Fact> {
 	}
 
 	/**
-	 * Lazily loads the fact which has been referenced by name at construction time.
+	 * Eagerly loads the fact which has been referenced by name at construction time.
 	 *
 	 * @return The actual fact.
 	 */
 	@Override
 	public Fact getStatement() {
-		if (fact == null) {
-			fact = StatementResolverHolder.getStatementResolver().resolveStatement(factName, Fact.class);
-		}
-		return fact;
+		return StatementResolverHolder.getStatementResolver().resolveStatement(factName, Fact.class);
 	}
 }

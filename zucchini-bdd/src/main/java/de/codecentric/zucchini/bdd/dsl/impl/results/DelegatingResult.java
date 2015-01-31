@@ -30,8 +30,6 @@ import de.codecentric.zucchini.bdd.resolver.StatementResolverHolder;
 public class DelegatingResult implements Result, DelegatingStatement<Result> {
 	private final String resultName;
 
-	private Result result;
-
 	/**
 	 * Initializes a delegating result which references an actual result by its name.
 	 *
@@ -50,15 +48,12 @@ public class DelegatingResult implements Result, DelegatingStatement<Result> {
 	}
 
 	/**
-	 * Lazily loads the result which has been referenced by name at construction time.
+	 * Eagerly loads the result which has been referenced by name at construction time.
 	 *
 	 * @return The actual result.
 	 */
 	@Override
 	public Result getStatement() {
-		if (result == null) {
-			result = StatementResolverHolder.getStatementResolver().resolveStatement(resultName, Result.class);
-		}
-		return result;
+		return StatementResolverHolder.getStatementResolver().resolveStatement(resultName, Result.class);
 	}
 }
