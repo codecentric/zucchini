@@ -91,4 +91,17 @@ public class ParameterizedBy extends By implements VariablesAware {
     public void setVariables(Map<String, String> variables) {
         this.variables = variables;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+        return new StringBuilder("ParameterizedBy(")
+                .append("type = ")
+                .append(byClass.getSimpleName())
+                .append(", variableName = ")
+                .append(variableName)
+                .append(")").toString();
+    }
 }
