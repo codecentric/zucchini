@@ -1,6 +1,8 @@
 Zucchini
 ========
 
+[![Build Status](https://travis-ci.org/codecentric/zucchini.svg)](https://travis-ci.org/codecentric/zucchini)
+
 Zucchini is a BDD-style testing library that integrates well with JUnit and other testing frameworks.
 
 ## Getting Started
