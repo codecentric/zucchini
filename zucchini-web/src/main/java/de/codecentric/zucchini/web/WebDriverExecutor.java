@@ -114,44 +114,38 @@ public class WebDriverExecutor extends AbstractExecutor {
 	 */
 	protected void failOnInvalidContext(ExecutionContext executionContext) {
 		for (Fact fact : executionContext.getFacts()) {
-			if (fact instanceof DelegatingFact) {
-				DelegatingFact delegatingFact = (DelegatingFact) fact;
-				failOnInvalidFact(delegatingFact.getStatement());
-			} else {
-				failOnInvalidFact(fact);
-			}
+			failOnInvalidFact(fact);
 		}
 		for (Step step : executionContext.getSteps()) {
-			if (step instanceof DelegatingStep) {
-				DelegatingStep delegatingStep = (DelegatingStep) step;
-				failOnInvalidStep(delegatingStep.getStatement());
-			} else {
-				failOnInvalidStep(step);
-			}
+			failOnInvalidStep(step);
 		}
 		for (Result result : executionContext.getResults()) {
-			if (result instanceof DelegatingResult) {
-				DelegatingResult delegatingResult = (DelegatingResult) result;
-				failOnInvalidResult(delegatingResult.getStatement());
-			} else {
-				failOnInvalidResult(result);
-			}
+			failOnInvalidResult(result);
 		}
 	}
-
+	
 	private void failOnInvalidFact(Fact fact) {
+		if (fact instanceof DelegatingFact) {
+			fact = ((DelegatingFact) fact).getStatement();
+		}
 		if (!(fact instanceof WebFact) && !(fact instanceof ExecutionFact)) {
 			throw new ExecutionException("Invalid facts detected. The WebDriverExecutor only supports WebFact implementations.");
 		}
 	}
 
 	private void failOnInvalidStep(Step step) {
+		if (step instanceof DelegatingStep) {
+			step = ((DelegatingStep) step).getStatement();
+		}
 		if (!(step instanceof WebStep)) {
 			throw new ExecutionException("Invalid step detected. The WebDriverExecutor only supports WebCondition implementations.");
 		}
 	}
 
 	private void failOnInvalidResult(Result result) {
+		if (result instanceof DelegatingResult) {
+			result = ((DelegatingResult) result).getStatement();
+		}
 		if (!(result instanceof WebResult)) {
 			throw new ExecutionException("Invalid result detected. The WebDriverExecutor only supports WebResult implementations.");
 		}
